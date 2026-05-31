@@ -408,6 +408,11 @@ textarea.exp-input:focus{border-color:var(--saffron)}
       <button class="qfm" id="qfm-h2e" onclick="setQF('h2e',this)">हिंदी→English</button>
       <button class="qfm" id="qfm-e2h" onclick="setQF('e2h',this)">English→हिंदी</button>
       <button class="qfm" id="qfm-fill" onclick="setQF('fill',this)">✏️ Fill in Blank</button>
+      <button class="qfm" id="qfm-syn" onclick="setQF('syn',this)">🔵 पर्यायवाची</button>
+      <button class="qfm" id="qfm-ant" onclick="setQF('ant',this)">🔴 विलोम</button>
+      <button class="qfm" id="qfm-sandhi" onclick="setQF('sandhi',this)">🟡 सन्धि</button>
+      <button class="qfm" id="qfm-idiom" onclick="setQF('idiom',this)">💬 मुहावरे</button>
+      <button class="qfm" id="qfm-prov" onclick="setQF('prov',this)">📜 कहावतें</button>
     </div>
     <div class="qf-stats">
       <div class="qfs ok"><div class="qfs-val" id="qf-c">0</div><div class="qfs-label">Correct</div></div>
@@ -1219,54 +1224,261 @@ const ALL_STORIES = [
 // ═══════════════════════════════════════
 // VOCAB DATA (100 words, 10 categories)
 // ═══════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// EXPANDED VOCAB — 200 words across 10 categories
+// ═══════════════════════════════════════════════════════════════
 const VOCAB = [
-  // Animals
+  // Animals (जानवर)
   {h:'शेर',e:'Lion',cat:'animals'},{h:'हाथी',e:'Elephant',cat:'animals'},{h:'बाघ',e:'Tiger',cat:'animals'},
   {h:'हिरण',e:'Deer',cat:'animals'},{h:'बंदर',e:'Monkey',cat:'animals'},{h:'खरगोश',e:'Rabbit',cat:'animals'},
   {h:'कछुआ',e:'Tortoise',cat:'animals'},{h:'मछली',e:'Fish',cat:'animals'},{h:'साँप',e:'Snake',cat:'animals'},
-  {h:'तितली',e:'Butterfly',cat:'animals'},
-  // Nature
+  {h:'तितली',e:'Butterfly',cat:'animals'},{h:'चींटी',e:'Ant',cat:'animals'},{h:'मक्खी',e:'Fly',cat:'animals'},
+  {h:'मोर',e:'Peacock',cat:'animals'},{h:'कबूतर',e:'Pigeon',cat:'animals'},{h:'उल्लू',e:'Owl',cat:'animals'},
+  {h:'भेड़िया',e:'Wolf',cat:'animals'},{h:'लोमड़ी',e:'Fox',cat:'animals'},{h:'भालू',e:'Bear',cat:'animals'},
+  {h:'गाय',e:'Cow',cat:'animals'},{h:'बकरी',e:'Goat',cat:'animals'},
+  // Nature (प्रकृति)
   {h:'सूरज',e:'Sun',cat:'nature'},{h:'चाँद',e:'Moon',cat:'nature'},{h:'तारा',e:'Star',cat:'nature'},
   {h:'नदी',e:'River',cat:'nature'},{h:'पहाड़',e:'Mountain',cat:'nature'},{h:'जंगल',e:'Forest',cat:'nature'},
   {h:'फूल',e:'Flower',cat:'nature'},{h:'पत्ता',e:'Leaf',cat:'nature'},{h:'बादल',e:'Cloud',cat:'nature'},
-  {h:'बारिश',e:'Rain',cat:'nature'},
-  // Emotions
+  {h:'बारिश',e:'Rain',cat:'nature'},{h:'आकाश',e:'Sky',cat:'nature'},{h:'समुद्र',e:'Ocean',cat:'nature'},
+  {h:'पेड़',e:'Tree',cat:'nature'},{h:'झील',e:'Lake',cat:'nature'},{h:'रेगिस्तान',e:'Desert',cat:'nature'},
+  {h:'हवा',e:'Wind',cat:'nature'},{h:'धूप',e:'Sunshine',cat:'nature'},{h:'बर्फ',e:'Snow',cat:'nature'},
+  {h:'नदी',e:'River',cat:'nature'},{h:'झरना',e:'Waterfall',cat:'nature'},
+  // Emotions (भावनाएँ)
   {h:'खुशी',e:'Happiness',cat:'emotions'},{h:'दुख',e:'Sadness',cat:'emotions'},{h:'डर',e:'Fear',cat:'emotions'},
   {h:'गुस्सा',e:'Anger',cat:'emotions'},{h:'प्यार',e:'Love',cat:'emotions'},{h:'आश्चर्य',e:'Surprise',cat:'emotions'},
   {h:'शर्म',e:'Shame',cat:'emotions'},{h:'उत्साह',e:'Excitement',cat:'emotions'},{h:'शांति',e:'Peace',cat:'emotions'},
-  {h:'घृणा',e:'Hatred',cat:'emotions'},
-  // Actions
+  {h:'घृणा',e:'Hatred',cat:'emotions'},{h:'ईर्ष्या',e:'Jealousy',cat:'emotions'},{h:'करुणा',e:'Compassion',cat:'emotions'},
+  {h:'अहंकार',e:'Pride/Ego',cat:'emotions'},{h:'विश्वास',e:'Trust',cat:'emotions'},{h:'चिंता',e:'Worry',cat:'emotions'},
+  {h:'संतोष',e:'Contentment',cat:'emotions'},{h:'लालच',e:'Greed',cat:'emotions'},{h:'साहस',e:'Courage',cat:'emotions'},
+  {h:'निराशा',e:'Disappointment',cat:'emotions'},{h:'उम्मीद',e:'Hope',cat:'emotions'},
+  // Actions (क्रियाएँ)
   {h:'दौड़ना',e:'To run',cat:'actions'},{h:'खाना',e:'To eat',cat:'actions'},{h:'पढ़ना',e:'To read',cat:'actions'},
   {h:'लिखना',e:'To write',cat:'actions'},{h:'सोना',e:'To sleep',cat:'actions'},{h:'उड़ना',e:'To fly',cat:'actions'},
   {h:'तैरना',e:'To swim',cat:'actions'},{h:'सोचना',e:'To think',cat:'actions'},{h:'बोलना',e:'To speak',cat:'actions'},
-  {h:'सुनना',e:'To listen',cat:'actions'},
-  // Daily Life
+  {h:'सुनना',e:'To listen',cat:'actions'},{h:'देखना',e:'To see',cat:'actions'},{h:'हँसना',e:'To laugh',cat:'actions'},
+  {h:'रोना',e:'To cry',cat:'actions'},{h:'खेलना',e:'To play',cat:'actions'},{h:'सीखना',e:'To learn',cat:'actions'},
+  {h:'समझना',e:'To understand',cat:'actions'},{h:'मदद करना',e:'To help',cat:'actions'},{h:'लड़ना',e:'To fight',cat:'actions'},
+  {h:'जीतना',e:'To win',cat:'actions'},{h:'हारना',e:'To lose',cat:'actions'},
+  // Daily Life (दैनिक जीवन)
   {h:'घर',e:'Home',cat:'daily'},{h:'स्कूल',e:'School',cat:'daily'},{h:'किताब',e:'Book',cat:'daily'},
   {h:'पानी',e:'Water',cat:'daily'},{h:'दोस्त',e:'Friend',cat:'daily'},{h:'परिवार',e:'Family',cat:'daily'},
   {h:'समय',e:'Time',cat:'daily'},{h:'काम',e:'Work',cat:'daily'},{h:'रास्ता',e:'Path',cat:'daily'},
-  {h:'नाम',e:'Name',cat:'daily'},
-  // Food
+  {h:'नाम',e:'Name',cat:'daily'},{h:'बाज़ार',e:'Market',cat:'daily'},{h:'अस्पताल',e:'Hospital',cat:'daily'},
+  {h:'विद्यालय',e:'School',cat:'daily'},{h:'गाँव',e:'Village',cat:'daily'},{h:'शहर',e:'City',cat:'daily'},
+  {h:'सड़क',e:'Road',cat:'daily'},{h:'दरवाज़ा',e:'Door',cat:'daily'},{h:'खिड़की',e:'Window',cat:'daily'},
+  {h:'छत',e:'Roof',cat:'daily'},{h:'नींद',e:'Sleep',cat:'daily'},
+  // Food (खाना)
   {h:'चावल',e:'Rice',cat:'food'},{h:'रोटी',e:'Bread/Roti',cat:'food'},{h:'दाल',e:'Lentils',cat:'food'},
   {h:'सब्ज़ी',e:'Vegetables',cat:'food'},{h:'फल',e:'Fruit',cat:'food'},{h:'दूध',e:'Milk',cat:'food'},
   {h:'चाय',e:'Tea',cat:'food'},{h:'मिठाई',e:'Sweets',cat:'food'},{h:'नमक',e:'Salt',cat:'food'},
-  {h:'चीनी',e:'Sugar',cat:'food'},
-  // Body
+  {h:'चीनी',e:'Sugar',cat:'food'},{h:'तेल',e:'Oil',cat:'food'},{h:'आटा',e:'Flour',cat:'food'},
+  {h:'सेब',e:'Apple',cat:'food'},{h:'केला',e:'Banana',cat:'food'},{h:'आम',e:'Mango',cat:'food'},
+  {h:'अंगूर',e:'Grapes',cat:'food'},{h:'प्याज',e:'Onion',cat:'food'},{h:'लहसुन',e:'Garlic',cat:'food'},
+  {h:'मिर्च',e:'Chilli',cat:'food'},{h:'अदरक',e:'Ginger',cat:'food'},
+  // Body (शरीर)
   {h:'आँख',e:'Eye',cat:'body'},{h:'कान',e:'Ear',cat:'body'},{h:'नाक',e:'Nose',cat:'body'},
   {h:'मुँह',e:'Mouth',cat:'body'},{h:'हाथ',e:'Hand',cat:'body'},{h:'पाँव',e:'Foot',cat:'body'},
   {h:'सिर',e:'Head',cat:'body'},{h:'दिल',e:'Heart',cat:'body'},{h:'पीठ',e:'Back',cat:'body'},
-  {h:'उँगली',e:'Finger',cat:'body'},
-  // Colours
+  {h:'उँगली',e:'Finger',cat:'body'},{h:'दाँत',e:'Teeth',cat:'body'},{h:'बाल',e:'Hair',cat:'body'},
+  {h:'गला',e:'Throat',cat:'body'},{h:'पेट',e:'Stomach',cat:'body'},{h:'छाती',e:'Chest',cat:'body'},
+  {h:'कंधा',e:'Shoulder',cat:'body'},{h:'घुटना',e:'Knee',cat:'body'},{h:'होंठ',e:'Lips',cat:'body'},
+  {h:'माथा',e:'Forehead',cat:'body'},{h:'गाल',e:'Cheek',cat:'body'},
+  // Colours (रंग)
   {h:'लाल',e:'Red',cat:'colours'},{h:'नीला',e:'Blue',cat:'colours'},{h:'हरा',e:'Green',cat:'colours'},
   {h:'पीला',e:'Yellow',cat:'colours'},{h:'सफ़ेद',e:'White',cat:'colours'},{h:'काला',e:'Black',cat:'colours'},
   {h:'नारंगी',e:'Orange',cat:'colours'},{h:'गुलाबी',e:'Pink',cat:'colours'},{h:'बैंगनी',e:'Purple',cat:'colours'},
-  {h:'भूरा',e:'Brown',cat:'colours'},
-  // Numbers
+  {h:'भूरा',e:'Brown',cat:'colours'},{h:'सुनहरा',e:'Golden',cat:'colours'},{h:'चाँदी',e:'Silver',cat:'colours'},
+  {h:'आसमानी',e:'Sky blue',cat:'colours'},{h:'मैरून',e:'Maroon',cat:'colours'},{h:'जामुनी',e:'Dark purple',cat:'colours'},
+  {h:'क्रीम',e:'Cream',cat:'colours'},{h:'गहरा लाल',e:'Dark red',cat:'colours'},{h:'हल्का नीला',e:'Light blue',cat:'colours'},
+  {h:'जैतूनी',e:'Olive',cat:'colours'},{h:'गहरा हरा',e:'Dark green',cat:'colours'},
+  // Numbers (गिनती)
   {h:'एक',e:'One',cat:'numbers'},{h:'दो',e:'Two',cat:'numbers'},{h:'तीन',e:'Three',cat:'numbers'},
-  {h:'चार',e:'Four',cat:'numbers'},{h:'पाँच',e:'Five',cat:'numbers'},{h:'दस',e:'Ten',cat:'numbers'},
-  {h:'बीस',e:'Twenty',cat:'numbers'},{h:'सौ',e:'Hundred',cat:'numbers'},{h:'हज़ार',e:'Thousand',cat:'numbers'},
-  {h:'शून्य',e:'Zero',cat:'numbers'},
+  {h:'चार',e:'Four',cat:'numbers'},{h:'पाँच',e:'Five',cat:'numbers'},{h:'छह',e:'Six',cat:'numbers'},
+  {h:'सात',e:'Seven',cat:'numbers'},{h:'आठ',e:'Eight',cat:'numbers'},{h:'नौ',e:'Nine',cat:'numbers'},
+  {h:'दस',e:'Ten',cat:'numbers'},{h:'बीस',e:'Twenty',cat:'numbers'},{h:'पचास',e:'Fifty',cat:'numbers'},
+  {h:'सौ',e:'Hundred',cat:'numbers'},{h:'हज़ार',e:'Thousand',cat:'numbers'},{h:'शून्य',e:'Zero',cat:'numbers'},
+  {h:'पहला',e:'First',cat:'numbers'},{h:'दूसरा',e:'Second',cat:'numbers'},{h:'तीसरा',e:'Third',cat:'numbers'},
+  {h:'आधा',e:'Half',cat:'numbers'},{h:'दोगुना',e:'Double',cat:'numbers'},
 ];
 
+// ═══════════════════════════════════════════════════════════════
+// SYNONYMS (पर्यायवाची) — Hindi word → Hindi synonym(s)
+// O-Level syllabus aligned, NA foundation level
+// ═══════════════════════════════════════════════════════════════
+const SYNONYMS = [
+  // Common nouns
+  {word:'सूर्य',syns:['रवि','दिनकर','भास्कर','आदित्य'],meaning:'Sun'},
+  {word:'चंद्र',syns:['शशि','सोम','निशाकर','चाँद'],meaning:'Moon'},
+  {word:'जल',syns:['पानी','नीर','वारि','अंबु'],meaning:'Water'},
+  {word:'अग्नि',syns:['आग','पावक','अनल','ज्वाला'],meaning:'Fire'},
+  {word:'वायु',syns:['हवा','पवन','समीर','अनिल'],meaning:'Wind/Air'},
+  {word:'पृथ्वी',syns:['धरती','भूमि','धरा','वसुधा'],meaning:'Earth'},
+  {word:'आकाश',syns:['गगन','नभ','अंबर','व्योम'],meaning:'Sky'},
+  {word:'वन',syns:['जंगल','अरण्य','कानन','विपिन'],meaning:'Forest'},
+  {word:'पर्वत',syns:['पहाड़','गिरि','अचल','शैल'],meaning:'Mountain'},
+  {word:'नदी',syns:['सरिता','तटिनी','जलधारा','प्रवाहिनी'],meaning:'River'},
+  // People
+  {word:'माँ',syns:['माता','जननी','अम्मा','मातृ'],meaning:'Mother'},
+  {word:'बाप',syns:['पिता','जनक','तात','वालिद'],meaning:'Father'},
+  {word:'भाई',syns:['बंधु','सहोदर','अनुज','अग्रज'],meaning:'Brother'},
+  {word:'दोस्त',syns:['मित्र','सखा','साथी','यार'],meaning:'Friend'},
+  {word:'शत्रु',syns:['दुश्मन','वैरी','रिपु','विरोधी'],meaning:'Enemy'},
+  {word:'राजा',syns:['नृप','नरेश','भूपति','महीपति'],meaning:'King'},
+  {word:'स्त्री',syns:['नारी','महिला','औरत','वनिता'],meaning:'Woman'},
+  {word:'बच्चा',syns:['शिशु','बालक','सुत','नौनिहाल'],meaning:'Child'},
+  // Abstract
+  {word:'बुद्धि',syns:['अक्ल','मति','विवेक','प्रज्ञा'],meaning:'Intelligence'},
+  {word:'खुशी',syns:['आनंद','हर्ष','प्रसन्नता','उल्लास'],meaning:'Happiness'},
+  {word:'दुख',syns:['शोक','पीड़ा','वेदना','कष्ट'],meaning:'Sorrow'},
+  {word:'डर',syns:['भय','आतंक','भीति','खौफ'],meaning:'Fear'},
+  {word:'प्यार',syns:['प्रेम','स्नेह','मोहब्बत','अनुराग'],meaning:'Love'},
+  {word:'सत्य',syns:['सच','यथार्थ','वास्तविकता','तथ्य'],meaning:'Truth'},
+  {word:'झूठ',syns:['असत्य','मिथ्या','मनगढ़ंत','फ़रेब'],meaning:'Lie'},
+  {word:'शांति',syns:['सुकून','अमन','स्थिरता','चैन'],meaning:'Peace'},
+  {word:'साहस',syns:['हिम्मत','वीरता','शौर्य','धैर्य'],meaning:'Courage'},
+  {word:'ज्ञान',syns:['विद्या','जानकारी','बोध','समझ'],meaning:'Knowledge'},
+  {word:'जीवन',syns:['ज़िंदगी','आयु','प्राण','हयात'],meaning:'Life'},
+  {word:'मृत्यु',syns:['मौत','देहांत','निधन','अंत'],meaning:'Death'},
+  {word:'समय',syns:['वक्त','काल','वेला','अवसर'],meaning:'Time'},
+  {word:'रात',syns:['निशा','रजनी','यामिनी','तमस'],meaning:'Night'},
+  {word:'दिन',syns:['दिवस','वार','अह','प्रहर'],meaning:'Day'},
+  {word:'आँख',syns:['नेत्र','नयन','दृष्टि','लोचन'],meaning:'Eyes'},
+  {word:'हाथ',syns:['कर','भुजा','बाहु','हस्त'],meaning:'Hand'},
+  {word:'घर',syns:['गृह','आवास','निवास','भवन'],meaning:'Home/House'},
+  {word:'काम',syns:['कार्य','कृत्य','कर्म','व्यवसाय'],meaning:'Work'},
+  {word:'बात',syns:['वचन','शब्द','कथन','उक्ति'],meaning:'Words/Talk'},
+  {word:'मन',syns:['हृदय','दिल','चित्त','अंतर'],meaning:'Mind/Heart'},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// ANTONYMS (विलोम) — Hindi word → opposite
+// ═══════════════════════════════════════════════════════════════
+const ANTONYMS = [
+  {word:'अच्छा',ant:'बुरा',meaning_w:'Good',meaning_a:'Bad'},
+  {word:'बड़ा',ant:'छोटा',meaning_w:'Big',meaning_a:'Small'},
+  {word:'सच',ant:'झूठ',meaning_w:'True',meaning_a:'False'},
+  {word:'दिन',ant:'रात',meaning_w:'Day',meaning_a:'Night'},
+  {word:'आना',ant:'जाना',meaning_w:'Come',meaning_a:'Go'},
+  {word:'खुश',ant:'दुखी',meaning_w:'Happy',meaning_a:'Sad'},
+  {word:'गर्म',ant:'ठंडा',meaning_w:'Hot',meaning_a:'Cold'},
+  {word:'अमीर',ant:'गरीब',meaning_w:'Rich',meaning_a:'Poor'},
+  {word:'जीत',ant:'हार',meaning_w:'Win',meaning_a:'Lose'},
+  {word:'ऊपर',ant:'नीचे',meaning_w:'Above',meaning_a:'Below'},
+  {word:'आगे',ant:'पीछे',meaning_w:'Forward',meaning_a:'Backward'},
+  {word:'पास',ant:'दूर',meaning_w:'Near',meaning_a:'Far'},
+  {word:'नया',ant:'पुराना',meaning_w:'New',meaning_a:'Old'},
+  {word:'सुंदर',ant:'कुरूप',meaning_w:'Beautiful',meaning_a:'Ugly'},
+  {word:'तेज़',ant:'धीमा',meaning_w:'Fast',meaning_a:'Slow'},
+  {word:'भारी',ant:'हल्का',meaning_w:'Heavy',meaning_a:'Light'},
+  {word:'खुला',ant:'बंद',meaning_w:'Open',meaning_a:'Closed'},
+  {word:'सुबह',ant:'शाम',meaning_w:'Morning',meaning_a:'Evening'},
+  {word:'आसान',ant:'मुश्किल',meaning_w:'Easy',meaning_a:'Difficult'},
+  {word:'प्यार',ant:'नफ़रत',meaning_w:'Love',meaning_a:'Hate'},
+  {word:'साहस',ant:'कायरता',meaning_w:'Courage',meaning_a:'Cowardice'},
+  {word:'ज्ञान',ant:'अज्ञान',meaning_w:'Knowledge',meaning_a:'Ignorance'},
+  {word:'शांति',ant:'अशांति',meaning_w:'Peace',meaning_a:'Unrest'},
+  {word:'हँसना',ant:'रोना',meaning_w:'Laugh',meaning_a:'Cry'},
+  {word:'मीठा',ant:'कड़वा',meaning_w:'Sweet',meaning_a:'Bitter'},
+  {word:'उजाला',ant:'अँधेरा',meaning_w:'Light',meaning_a:'Darkness'},
+  {word:'सफलता',ant:'असफलता',meaning_w:'Success',meaning_a:'Failure'},
+  {word:'स्वास्थ्य',ant:'बीमारी',meaning_w:'Health',meaning_a:'Illness'},
+  {word:'मित्र',ant:'शत्रु',meaning_w:'Friend',meaning_a:'Enemy'},
+  {word:'आदर',ant:'अनादर',meaning_w:'Respect',meaning_a:'Disrespect'},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// SANDHI (सन्धि) — word combinations & splits
+// Simple level for NA students — focus on common patterns
+// ═══════════════════════════════════════════════════════════════
+const SANDHI = [
+  // Swar Sandhi (स्वर सन्धि) — vowel combinations
+  {q:'विद्या + आलय = ?',ans:'विद्यालय',opts:['विद्यालय','विद्यलय','विद्यायलय','विद्यआलय'],type:'join',rule:'आ + आ = आ'},
+  {q:'हिम + आलय = ?',ans:'हिमालय',opts:['हिमालय','हिमलय','हिमआलय','हिम्लय'],type:'join',rule:'अ + आ = आ'},
+  {q:'देव + आलय = ?',ans:'देवालय',opts:['देवालय','देवलय','देवआलय','देवाआलय'],type:'join',rule:'अ + आ = आ'},
+  {q:'सूर्य + उदय = ?',ans:'सूर्योदय',opts:['सूर्योदय','सूर्युदय','सूर्य उदय','सूर्यउदय'],type:'join',rule:'अ + उ = ओ'},
+  {q:'महा + उत्सव = ?',ans:'महोत्सव',opts:['महोत्सव','महाउत्सव','महाउत्सव','महउत्सव'],type:'join',rule:'आ + उ = ओ'},
+  {q:'नर + इंद्र = ?',ans:'नरेंद्र',opts:['नरेंद्र','नरिंद्र','नरेंद्र','नरइंद्र'],type:'join',rule:'अ + इ = ए'},
+  {q:'परम + ईश्वर = ?',ans:'परमेश्वर',opts:['परमेश्वर','परमईश्वर','परमिश्वर','परमेशर'],type:'join',rule:'अ + ई = ए'},
+  {q:'महा + ईश्वर = ?',ans:'महेश्वर',opts:['महेश्वर','महाईश्वर','महीश्वर','माहेश्वर'],type:'join',rule:'आ + ई = ए'},
+  {q:'विद्यालय को तोड़ो: विद्या + ?',ans:'आलय',opts:['आलय','लय','अलय','यालय'],type:'split',rule:'विद्या + आलय'},
+  {q:'हिमालय को तोड़ो: हिम + ?',ans:'आलय',opts:['आलय','लय','अलय','यालय'],type:'split',rule:'हिम + आलय'},
+  {q:'सूर्योदय को तोड़ो: सूर्य + ?',ans:'उदय',opts:['उदय','ओदय','अदय','युदय'],type:'split',rule:'सूर्य + उदय'},
+  {q:'महोत्सव को तोड़ो: महा + ?',ans:'उत्सव',opts:['उत्सव','ओत्सव','अत्सव','आत्सव'],type:'split',rule:'महा + उत्सव'},
+  // Vyanjan Sandhi (व्यंजन सन्धि)
+  {q:'सत् + चरित्र = ?',ans:'सच्चरित्र',opts:['सच्चरित्र','सतचरित्र','सत्चरित्र','सदचरित्र'],type:'join',rule:'त् + च = च्च'},
+  {q:'उत् + जवल = ?',ans:'उज्जवल',opts:['उज्जवल','उतजवल','उत्जवल','उजवल'],type:'join',rule:'त् + ज = ज्ज'},
+  {q:'जगत् + ईश = ?',ans:'जगदीश',opts:['जगदीश','जगतीश','जगत्ईश','जगाटीश'],type:'join',rule:'त् + ई = दी'},
+  // Visarg Sandhi (विसर्ग सन्धि)
+  {q:'मनः + रथ = ?',ans:'मनोरथ',opts:['मनोरथ','मनःरथ','मनरथ','मनोथ'],type:'join',rule:'ः + र = ओ'},
+  {q:'यशः + दा = ?',ans:'यशोदा',opts:['यशोदा','यशःदा','यशदा','यश्दा'],type:'join',rule:'ः + द = ओ'},
+  {q:'मनोरथ को तोड़ो: मनः + ?',ans:'रथ',opts:['रथ','ओरथ','अरथ','थ'],type:'split',rule:'मनः + रथ'},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// IDIOMS (मुहावरे) — O-Level syllabus aligned
+// ═══════════════════════════════════════════════════════════════
+const IDIOMS = [
+  {idiom:'आँखें खुलना',meaning:'होश आना / सच्चाई समझ आना',eng:'To come to one\'s senses',opts:['होश आना','आँख में दर्द','खुश होना','सो जाना'],ans:0},
+  {idiom:'नाक में दम करना',meaning:'बहुत परेशान करना',eng:'To pester/annoy greatly',opts:['खुश करना','बहुत परेशान करना','नाक साफ करना','डराना'],ans:1},
+  {idiom:'हाथ धोना',meaning:'खो देना / गँवाना',eng:'To lose something permanently',opts:['खो देना','हाथ साफ करना','पाना','मदद करना'],ans:0},
+  {idiom:'मुँह में पानी आना',meaning:'ललचाना / लालच होना',eng:'To feel tempted/mouth water',opts:['प्यास लगना','ललचाना','खाना खाना','बात करना'],ans:1},
+  {idiom:'कान भरना',meaning:'चुगली करना / भड़काना',eng:'To instigate/backbite',opts:['कान साफ करना','चुगली करना','सुनाना','मदद करना'],ans:1},
+  {idiom:'नाक कटना',meaning:'बेइज़्ज़ती होना / अपमान होना',eng:'To lose one\'s honour',opts:['बेइज़्ज़ती होना','नाक दर्द करना','शर्माना','भागना'],ans:0},
+  {idiom:'पीठ दिखाना',meaning:'भाग जाना / हार मान लेना',eng:'To flee / give up',opts:['पीठ खुजाना','भाग जाना','पीछे देखना','लड़ना'],ans:1},
+  {idiom:'दाँत खट्टे करना',meaning:'हराना / परास्त करना',eng:'To defeat soundly',opts:['खट्टा खाना','हराना','दाँत साफ करना','झगड़ना'],ans:1},
+  {idiom:'पानी-पानी होना',meaning:'बहुत लज्जित होना',eng:'To feel deeply ashamed',opts:['पानी पीना','बहुत लज्जित होना','खुश होना','भीगना'],ans:1},
+  {idiom:'आस्तीन का साँप',meaning:'विश्वासघाती / दगाबाज़',eng:'A treacherous person',opts:['सच्चा दोस्त','विश्वासघाती','डरपोक','अमीर'],ans:1},
+  {idiom:'आँखों का तारा',meaning:'बहुत प्यारा / प्रिय',eng:'Darling / very dear',opts:['आँख में दर्द','बहुत प्यारा','अच्छा दिखना','दूर होना'],ans:1},
+  {idiom:'नौ दो ग्यारह होना',meaning:'भाग जाना',eng:'To run away / escape',opts:['गिनती करना','भाग जाना','आना','लड़ना'],ans:1},
+  {idiom:'लोहे के चने चबाना',meaning:'बहुत कठिन काम करना',eng:'To do an extremely hard task',opts:['लोहा खाना','बहुत कठिन काम करना','आराम करना','खेलना'],ans:1},
+  {idiom:'छाती पर मूँग दलना',meaning:'तंग करना / जानबूझकर परेशान करना',eng:'To deliberately annoy',opts:['मूँग खाना','तंग करना','मदद करना','मारना'],ans:1},
+  {idiom:'तीन तेरह होना',meaning:'बिखर जाना / अस्त-व्यस्त होना',eng:'To scatter/fall apart',opts:['गिनती करना','बिखर जाना','इकट्ठा होना','लड़ना'],ans:1},
+  {idiom:'मक्खन लगाना',meaning:'चापलूसी करना',eng:'To flatter',opts:['खाना बनाना','चापलूसी करना','सफाई करना','लड़ना'],ans:1},
+  {idiom:'खून पसीना एक करना',meaning:'बहुत कठिन परिश्रम करना',eng:'To work extremely hard',opts:['घायल होना','बहुत मेहनत करना','आराम करना','बीमार होना'],ans:1},
+  {idiom:'घाव पर नमक छिड़कना',meaning:'दुख पर और दुख देना',eng:'To add to someone\'s misery',opts:['इलाज करना','दुख पर और दुख देना','मदद करना','खाना देना'],ans:1},
+  {idiom:'अंगूठा दिखाना',meaning:'साफ मना कर देना',eng:'To flatly refuse',opts:['अंगूठा दिखाना','मदद करना','डराना','हँसना'],ans:0},
+  {idiom:'दिल खोलना',meaning:'मन की बात कहना / उदारता दिखाना',eng:'To open up / be generous',opts:['मन की बात कहना','छुपाना','दिल दर्द होना','जाना'],ans:0},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// PROVERBS (लोकोक्तियाँ / कहावतें) — O-Level syllabus aligned
+// ═══════════════════════════════════════════════════════════════
+const PROVERBS = [
+  {prov:'अकेला चना भाड़ नहीं फोड़ सकता',meaning:'अकेले से बड़ा काम नहीं होता',eng:'One person cannot accomplish a big task alone',opts:['अकेले से बड़ा काम नहीं होता','चना खाने से ताकत आती है','अकेले रहना अच्छा है','मेहनत करने से सफलता मिलती है'],ans:0},
+  {prov:'नाच न जाने आँगन टेढ़ा',meaning:'अपनी कमी के लिए दूसरे को दोष देना',eng:'Blaming others for one\'s own faults',opts:['नाचना सीखो','अपनी कमी के लिए दूसरों को दोष देना','आँगन सीधा करो','मेहनत करो'],ans:1},
+  {prov:'खोदा पहाड़ निकली चुहिया',meaning:'बहुत मेहनत करने पर बहुत कम मिला',eng:'Much effort for very little result',opts:['पहाड़ पर चूहा मिला','बहुत मेहनत पर थोड़ा परिणाम','पहाड़ खोदना आसान है','खुदाई से सोना मिलता है'],ans:1},
+  {prov:'जैसी करनी वैसी भरनी',meaning:'जैसा करोगे वैसा फल पाओगे',eng:'As you sow, so shall you reap',opts:['करनी भरनी एक है','जैसा करोगे वैसा पाओगे','अच्छे काम करो','मेहनत से सफलता मिलती है'],ans:1},
+  {prov:'दूध का जला छाछ भी फूँक-फूँककर पीता है',meaning:'एक बार धोखा खाने के बाद सावधान हो जाता है',eng:'Once bitten, twice shy',opts:['दूध छाछ से बेहतर है','एक बार धोखे के बाद सावधान रहते हैं','छाछ पीना अच्छा है','फूँक से ठंडा होता है'],ans:1},
+  {prov:'घर का भेदी लंका ढाए',meaning:'अपने ही घर का जानकार दुश्मन सबसे खतरनाक',eng:'A traitor within is most dangerous',opts:['लंका जाना खतरनाक है','घर का राज़ जाननेवाला दुश्मन सबसे ख़तरनाक','भेदी अच्छे होते हैं','घर सुरक्षित है'],ans:1},
+  {prov:'लातों के भूत बातों से नहीं मानते',meaning:'कुछ लोग सख्ती से ही समझते हैं',eng:'Some people only understand harsh treatment',opts:['लात मारना सही है','कुछ लोग सिर्फ सख्ती से समझते हैं','बातों से सब मानते हैं','भूत होते हैं'],ans:1},
+  {prov:'बिन माँगे मोती मिले माँगे मिले न भीख',meaning:'जो माँगा नहीं वह मिलता है पर माँगने पर नहीं',eng:'Unasked things come easily; begging gets nothing',opts:['माँगने से सब मिलता है','बिना माँगे अच्छी चीज़ें मिलती हैं','मोती बेशकीमती है','भीख माँगो'],ans:1},
+  {prov:'काला अक्षर भैंस बराबर',meaning:'बिल्कुल अनपढ़ होना',eng:'To be completely illiterate',opts:['भैंस काली होती है','बिल्कुल अनपढ़ होना','पढ़ना ज़रूरी है','काले अक्षर लिखो'],ans:1},
+  {prov:'जल में रहकर मगर से बैर',meaning:'जहाँ रहो वहाँ के शक्तिशाली से दुश्मनी नहीं करनी',eng:'Don\'t antagonise the powerful where you live',opts:['मगरमच्छ से डरो','जहाँ रहो वहाँ के ताकतवर से दुश्मनी मत करो','जल में रहो','पानी में सावधान रहो'],ans:1},
+  {prov:'थोथा चना बाजे घना',meaning:'जो कम जानता है वह ज़्यादा दिखावा करता है',eng:'Empty vessels make the most noise',opts:['चना खाओ','कम जाननेवाला ज़्यादा दिखावा करता है','घना जंगल','चना बाजे'],ans:1},
+  {prov:'एक पंथ दो काज',meaning:'एक काम से दो फ़ायदे',eng:'Killing two birds with one stone',opts:['एक काम से दो फ़ायदे','दो काम करो','पंथ लंबा है','एक पत्थर दो निशाने'],ans:0},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// WORD PAIRS (शब्द-युग्म) — O-Level syllabus aligned
+// Same sound, different meaning — common exam question
+// ═══════════════════════════════════════════════════════════════
+const WORD_PAIRS = [
+  {w1:'अपना',m1:'खुद का',w2:'आपना',m2:'(गलत शब्द)',q:'\'अपना\' का अर्थ क्या है?',opts:['खुद का','दूसरे का','पराया','सभी का'],ans:0},
+  {w1:'कुल',m1:'सब / कुलमिलाकर',w2:'कूल',m2:'शांत (अंग्रेज़ी)',q:'\'कुल\' का सही अर्थ क्या है?',opts:['शांत','सब मिलाकर','ठंडा','परिवार'],ans:1},
+  {w1:'सुर',m1:'संगीत की धुन',w2:'शूर',m2:'बहादुर',q:'\'सुर\' का अर्थ क्या है?',opts:['बहादुर','संगीत की धुन','सूर्य','सर'],ans:1},
+  {w1:'दिन',m1:'day (दिवस)',w2:'दीन',m2:'गरीब / दयनीय',q:'\'दीन\' का अर्थ क्या है?',opts:['दिन','गरीब/दयनीय','रात','सुबह'],ans:1},
+  {w1:'मेल',m1:'मिलाप / संबंध',w2:'मैल',m2:'गंदगी / कचरा',q:'\'मैल\' का अर्थ क्या है?',opts:['मिलाप','गंदगी/कचरा','चिट्ठी','दोस्ती'],ans:1},
+  {w1:'नारा',m1:'slogan (घोष)',w2:'नाला',m2:'नाली / छोटी नदी',q:'\'नारा\' का अर्थ क्या है?',opts:['नाली','नारा/घोष','नाव','नाला'],ans:1},
+  {w1:'बाल',m1:'hair (केश)',w2:'बाल',m2:'बच्चा (child)',q:'\'बाल\' के दोनों अर्थ कौन से हैं?',opts:['बाल और बच्चा','बाल और पंख','बाल और फूल','बाल और पत्ता'],ans:0},
+  {w1:'पानी',m1:'water (जल)',w2:'पाणी',m2:'(पानी का प्राचीन रूप)',q:'\'पानी\' का अर्थ क्या है?',opts:['जल','आग','हवा','मिट्टी'],ans:0},
+  {w1:'हरि',m1:'भगवान विष्णु',w2:'हरी',m2:'हरा रंग (green)',q:'\'हरि\' का अर्थ क्या है?',opts:['हरा रंग','भगवान विष्णु','हवा','हरियाली'],ans:1},
+  {w1:'वर',m1:'दूल्हा / वरदान',w2:'बर',m2:'(उर्दू में वर)',q:'\'वर\' का एक अर्थ क्या है?',opts:['दूल्हा / वरदान','पेड़','वर्ग','पत्ता'],ans:0},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// FILL IN THE BLANKS (रिक्त स्थान) — expanded to 30
+// ═══════════════════════════════════════════════════════════════
 const FILL_BLANKS = [
   {q:'___ और मेहनत से सफलता मिलती है।',blank:'लगन',opts:['लगन','गुस्सा','झूठ','आलस'],ans:0,eng:'Dedication and hard work leads to success.'},
   {q:'सच्चाई की हमेशा ___ होती है।',blank:'जीत',opts:['हार','जीत','चिंता','मुश्किल'],ans:1,eng:'Truth always wins.'},
@@ -1280,6 +1492,27 @@ const FILL_BLANKS = [
   {q:'संगति का बहुत ___ पड़ता है।',blank:'असर',opts:['पैसा','असर','डर','नुकसान'],ans:1,eng:'Company has great influence.'},
   {q:'घमंड का ___ होता ही है।',blank:'नाश',opts:['फ़ायदा','नाश','विकास','सम्मान'],ans:1,eng:'Pride always leads to downfall.'},
   {q:'प्रेम से ___ दिल जीते जाते हैं।',blank:'बड़े-बड़े',opts:['छोटे','बड़े-बड़े','कठोर','झूठे'],ans:1,eng:'Even the greatest hearts are won with love.'},
+  // Synonyms fill-in
+  {q:'\'पानी\' का पर्यायवाची शब्द है ___।',blank:'जल',opts:['जल','थल','नभ','पवन'],ans:0,eng:'Synonym of water is "jal"'},
+  {q:'\'खुशी\' का पर्यायवाची शब्द है ___।',blank:'आनंद',opts:['शोक','आनंद','क्रोध','भय'],ans:1,eng:'Synonym of happiness is "aanand"'},
+  {q:'\'डर\' का पर्यायवाची शब्द है ___।',blank:'भय',opts:['साहस','प्रेम','भय','हर्ष'],ans:2,eng:'Synonym of fear is "bhay"'},
+  {q:'\'दोस्त\' का पर्यायवाची शब्द है ___।',blank:'मित्र',opts:['शत्रु','मित्र','रिपु','वैरी'],ans:1,eng:'Synonym of friend is "mitra"'},
+  {q:'\'सूर्य\' का पर्यायवाची शब्द है ___।',blank:'रवि',opts:['शशि','रवि','पवन','नीर'],ans:1,eng:'Synonym of sun is "ravi"'},
+  {q:'\'माँ\' का पर्यायवाची शब्द है ___।',blank:'जननी',opts:['जनक','जननी','तात','बंधु'],ans:1,eng:'Synonym of mother is "janani"'},
+  // Antonyms fill-in
+  {q:'\'अच्छा\' का विलोम शब्द है ___।',blank:'बुरा',opts:['सुंदर','बुरा','मीठा','बड़ा'],ans:1,eng:'Antonym of good is bad'},
+  {q:'\'दिन\' का विलोम शब्द है ___।',blank:'रात',opts:['सुबह','शाम','रात','दोपहर'],ans:2,eng:'Antonym of day is night'},
+  {q:'\'जीत\' का विलोम शब्द है ___।',blank:'हार',opts:['हार','जीत','दौड़','खेल'],ans:0,eng:'Antonym of win is lose'},
+  {q:'\'अमीर\' का विलोम शब्द है ___।',blank:'गरीब',opts:['अमीर','धनी','गरीब','राजा'],ans:2,eng:'Antonym of rich is poor'},
+  {q:'\'सच\' का विलोम शब्द है ___।',blank:'झूठ',opts:['झूठ','सच','बात','शब्द'],ans:0,eng:'Antonym of truth is lie'},
+  {q:'\'प्यार\' का विलोम शब्द है ___।',blank:'नफ़रत',opts:['स्नेह','प्रेम','नफ़रत','मोहब्बत'],ans:2,eng:'Antonym of love is hate'},
+  // Sandhi fill-in
+  {q:'विद्या + आलय = ___।',blank:'विद्यालय',opts:['विद्यालय','विद्यलय','विद्यायलय','विद्यओलय'],ans:0,eng:'Sandhi: vidya + aalay = vidyaalay'},
+  {q:'हिम + आलय = ___।',blank:'हिमालय',opts:['हिमलय','हिमालय','हिमआलय','हिम्लय'],ans:1,eng:'Sandhi: him + aalay = himalay'},
+  {q:'सूर्य + उदय = ___।',blank:'सूर्योदय',opts:['सूर्युदय','सूर्योदय','सूर्य उदय','सूर्यउदय'],ans:1,eng:'Sandhi: surya + uday = suryoday'},
+  {q:'महा + उत्सव = ___।',blank:'महोत्सव',opts:['महोत्सव','महाउत्सव','महउत्सव','महाओत्सव'],ans:0,eng:'Sandhi: maha + utsav = mahotsav'},
+  {q:'नर + इंद्र = ___।',blank:'नरेंद्र',opts:['नरिंद्र','नरेंद्र','नर इंद्र','नराइंद्र'],ans:1,eng:'Sandhi: nar + indra = narendra'},
+  {q:'\'मनोरथ\' में सन्धि विच्छेद है: मनः + ___।',blank:'रथ',opts:['रथ','ओरथ','अरथ','थ'],ans:0,eng:'Sandhi split: manah + rath = manorath'},
 ];
 
 // ═══════════════════════════════════════
@@ -1521,26 +1754,17 @@ function loadQF(){
   document.getElementById('qf-opts').innerHTML='';
   document.getElementById('fill-row').style.display='none';
   document.getElementById('fill-inp').value='';
-  if(qfMode==='fill'){
-    const q=FILL_BLANKS[Math.floor(Math.random()*FILL_BLANKS.length)];
-    qfCurrent={type:'fill',q};
-    document.getElementById('fc-badge').textContent='FILL IN BLANK';
-    document.getElementById('fc-q').textContent=q.q;
-    document.getElementById('fc-hint').textContent=q.eng;
-    const opts=document.getElementById('qf-opts');
-    q.opts.forEach((o,i)=>{
-      const b=document.createElement('button'); b.className='qfo'; b.textContent=o;
-      b.style.fontFamily="'Noto Sans Devanagari',sans-serif";
-      b.onclick=()=>checkFillOpt(i,b,q);
-      opts.appendChild(b);
-    });
-  } else {
+
+  // ── VOCAB / H→E / E→H ──────────────────────────────────────────────────
+  if(qfMode==='vocab'||qfMode==='h2e'||qfMode==='e2h'){
     const word=VOCAB[Math.floor(Math.random()*VOCAB.length)];
     const dir=(qfMode==='e2h')?'e2h':'h2e';
     qfCurrent={type:'vocab',word,dir};
     document.getElementById('fc-badge').textContent=dir==='h2e'?'हिंदी → ENGLISH':'ENGLISH → हिंदी';
-    document.getElementById('fc-q').textContent=dir==='h2e'?word.h:word.e;
-    document.getElementById('fc-q').style.fontFamily=dir==='h2e'?"'Noto Sans Devanagari',sans-serif":"'Poppins',sans-serif";
+    const q=document.getElementById('fc-q');
+    q.textContent=dir==='h2e'?word.h:word.e;
+    q.style.fontFamily=dir==='h2e'?"'Noto Sans Devanagari','Mangal',serif":"'Poppins','Segoe UI',sans-serif";
+    q.style.fontSize=dir==='h2e'?'2rem':'1.5rem';
     document.getElementById('fc-hint').textContent=dir==='h2e'?'Choose the English meaning':'Choose the Hindi word';
     const correct=dir==='h2e'?word.e:word.h;
     const pool=VOCAB.filter(v=>v.h!==word.h).sort(()=>Math.random()-.5).slice(0,3);
@@ -1548,10 +1772,148 @@ function loadQF(){
     const opts=document.getElementById('qf-opts');
     choices.forEach(c=>{
       const b=document.createElement('button'); b.className='qfo'; b.textContent=c;
-      if(dir==='e2h') b.style.fontFamily="'Noto Sans Devanagari',sans-serif";
+      if(dir==='e2h') b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
       b.onclick=()=>checkVocabOpt(c,correct,b);
       opts.appendChild(b);
     });
+    return;
+  }
+
+  // ── FILL IN BLANK ───────────────────────────────────────────────────────
+  if(qfMode==='fill'){
+    const q=FILL_BLANKS[Math.floor(Math.random()*FILL_BLANKS.length)];
+    qfCurrent={type:'fill',q};
+    document.getElementById('fc-badge').textContent='रिक्त स्थान भरिए';
+    const fc=document.getElementById('fc-q');
+    fc.textContent=q.q;
+    fc.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize='1.3rem';
+    document.getElementById('fc-hint').textContent=q.eng;
+    const opts=document.getElementById('qf-opts');
+    q.opts.forEach((o,i)=>{
+      const b=document.createElement('button'); b.className='qfo';
+      b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+      b.textContent=o;
+      b.onclick=()=>checkFillOpt(i,b,q);
+      opts.appendChild(b);
+    });
+    return;
+  }
+
+  // ── SYNONYMS (पर्यायवाची) ───────────────────────────────────────────────
+  if(qfMode==='syn'){
+    const s=SYNONYMS[Math.floor(Math.random()*SYNONYMS.length)];
+    const correct=s.syns[0];
+    qfCurrent={type:'syn',s,correct};
+    document.getElementById('fc-badge').textContent='पर्यायवाची शब्द';
+    const fc=document.getElementById('fc-q');
+    fc.textContent=s.word+' ('+s.meaning+')';
+    fc.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize='1.6rem';
+    document.getElementById('fc-hint').textContent='इस शब्द का पर्यायवाची शब्द चुनिए';
+    // Wrong options from other synonyms sets
+    const wrongPool=SYNONYMS.filter(x=>x.word!==s.word).map(x=>x.syns[0]).sort(()=>Math.random()-.5).slice(0,3);
+    const choices=[...wrongPool,correct].sort(()=>Math.random()-.5);
+    const opts=document.getElementById('qf-opts');
+    choices.forEach(c=>{
+      const b=document.createElement('button'); b.className='qfo';
+      b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+      b.textContent=c;
+      b.onclick=()=>checkVocabOpt(c,correct,b);
+      opts.appendChild(b);
+    });
+    return;
+  }
+
+  // ── ANTONYMS (विलोम) ────────────────────────────────────────────────────
+  if(qfMode==='ant'){
+    const a=ANTONYMS[Math.floor(Math.random()*ANTONYMS.length)];
+    // randomly ask word→ant or ant→word
+    const askWord=Math.random()>0.5;
+    const question=askWord?a.word:a.ant;
+    const correct=askWord?a.ant:a.word;
+    const hint=askWord?a.meaning_w:a.meaning_a;
+    qfCurrent={type:'ant',a,correct};
+    document.getElementById('fc-badge').textContent='विलोम शब्द';
+    const fc=document.getElementById('fc-q');
+    fc.textContent=question+' ('+hint+')';
+    fc.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize='1.8rem';
+    document.getElementById('fc-hint').textContent='इस शब्द का विलोम (opposite) चुनिए';
+    const wrongPool=ANTONYMS.filter(x=>x.word!==a.word).map(x=>askWord?x.ant:x.word).sort(()=>Math.random()-.5).slice(0,3);
+    const choices=[...wrongPool,correct].sort(()=>Math.random()-.5);
+    const opts=document.getElementById('qf-opts');
+    choices.forEach(c=>{
+      const b=document.createElement('button'); b.className='qfo';
+      b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+      b.textContent=c;
+      b.onclick=()=>checkVocabOpt(c,correct,b);
+      opts.appendChild(b);
+    });
+    return;
+  }
+
+  // ── SANDHI (सन्धि) ──────────────────────────────────────────────────────
+  if(qfMode==='sandhi'){
+    const s=SANDHI[Math.floor(Math.random()*SANDHI.length)];
+    qfCurrent={type:'sandhi',s};
+    document.getElementById('fc-badge').textContent=s.type==='join'?'सन्धि जोड़िए':'सन्धि विच्छेद';
+    const fc=document.getElementById('fc-q');
+    fc.textContent=s.q;
+    fc.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize='1.2rem';
+    document.getElementById('fc-hint').textContent='नियम: '+s.rule;
+    const opts=document.getElementById('qf-opts');
+    s.opts.forEach((o,i)=>{
+      const b=document.createElement('button'); b.className='qfo';
+      b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+      b.textContent=o;
+      b.onclick=()=>checkFillOpt(i,b,{opts:s.opts,ans:s.opts.indexOf(s.ans),blank:s.ans,eng:s.rule});
+      opts.appendChild(b);
+    });
+    return;
+  }
+
+  // ── IDIOMS (मुहावरे) ────────────────────────────────────────────────────
+  if(qfMode==='idiom'){
+    const id=IDIOMS[Math.floor(Math.random()*IDIOMS.length)];
+    qfCurrent={type:'idiom',id};
+    document.getElementById('fc-badge').textContent='मुहावरा';
+    const fc=document.getElementById('fc-q');
+    fc.textContent=id.idiom;
+    fc.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize='1.4rem';
+    document.getElementById('fc-hint').textContent=id.eng;
+    const opts=document.getElementById('qf-opts');
+    id.opts.forEach((o,i)=>{
+      const b=document.createElement('button'); b.className='qfo';
+      b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+      b.textContent=o;
+      b.onclick=()=>checkFillOpt(i,b,{opts:id.opts,ans:id.ans,blank:id.meaning,eng:id.eng});
+      opts.appendChild(b);
+    });
+    return;
+  }
+
+  // ── PROVERBS (कहावतें) ──────────────────────────────────────────────────
+  if(qfMode==='prov'){
+    const p=PROVERBS[Math.floor(Math.random()*PROVERBS.length)];
+    qfCurrent={type:'prov',p};
+    document.getElementById('fc-badge').textContent='कहावत / लोकोक्ति';
+    const fc=document.getElementById('fc-q');
+    fc.textContent=p.prov;
+    fc.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize='1.1rem';
+    document.getElementById('fc-hint').textContent=p.eng;
+    const opts=document.getElementById('qf-opts');
+    p.opts.forEach((o,i)=>{
+      const b=document.createElement('button'); b.className='qfo';
+      b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+      b.textContent=o;
+      b.onclick=()=>checkFillOpt(i,b,{opts:p.opts,ans:p.ans,blank:p.meaning,eng:p.eng});
+      opts.appendChild(b);
+    });
+    return;
   }
 }
 function checkVocabOpt(chosen,correct,btn){
@@ -1560,10 +1922,18 @@ function checkVocabOpt(chosen,correct,btn){
   const fb=document.getElementById('qf-fb');
   if(chosen===correct){
     btn.classList.add('ok'); ST.qfC++; ST.streak++; addPts(5);
-    fb.className='qf-fb ok on'; fb.textContent=`✅ Correct! ${qfCurrent.word.h} = ${qfCurrent.word.e}`;
+    let msg='✅ सही! ';
+    if(qfCurrent.type==='vocab') msg+=qfCurrent.word.h+' = '+qfCurrent.word.e;
+    else if(qfCurrent.type==='syn') msg+='पर्यायवाची: '+qfCurrent.s.word+' = '+correct+' ('+qfCurrent.s.meaning+')';
+    else if(qfCurrent.type==='ant') msg+='विलोम: '+qfCurrent.a.word+' ↔ '+qfCurrent.a.ant;
+    else msg+=correct;
+    fb.className='qf-fb ok on'; fb.textContent=msg;
   } else {
     btn.classList.add('err'); ST.qfW++; ST.streak=0;
-    fb.className='qf-fb err on'; fb.textContent=`❌ Wrong. Answer: ${correct}`;
+    let msg='❌ गलत। सही उत्तर: '+correct;
+    if(qfCurrent.type==='syn') msg+=' ('+qfCurrent.s.meaning+' का पर्यायवाची)';
+    else if(qfCurrent.type==='ant') msg+=' ('+qfCurrent.a.word+' का विलोम)';
+    fb.className='qf-fb err on'; fb.textContent=msg;
   }
   updateQFStats(); document.getElementById('next-btn').classList.add('on');
 }
