@@ -449,18 +449,6 @@ textarea.exp-input:focus{border-color:var(--saffron)}
 <!-- API SETTINGS -->
 <section id="sec-settings" class="sec">
   <div class="settings-wrap">
-    <div class="firebase-card">
-      <h3>🔥 Firebase Sync</h3>
-      <p>Save your progress to Firebase so it syncs across all devices. Enter your Firebase config in the fields below, then use the buttons to upload or download progress.</p>
-      <div class="field-group"><label>Firebase API Key</label><input type="password" id="fb-key" placeholder="AIza..."></div>
-      <div class="field-group"><label>Firebase Project ID</label><input type="text" id="fb-proj" placeholder="your-project-id"></div>
-      <div class="field-group"><label>User ID (e.g. mokshith)</label><input type="text" id="fb-uid" placeholder="mokshith" value="mokshith"></div>
-      <div class="fb-grid">
-        <button class="sync-btn sync-up" onclick="firebaseSync('upload')">⬆️ Upload Progress</button>
-        <button class="sync-btn sync-dn" onclick="firebaseSync('download')">⬇️ Download Progress</button>
-      </div>
-      <div class="api-status" id="fb-status"><span class="status-dot status-none"></span>Not configured</div>
-    </div>
 
     <div class="settings-card">
       <h3>🤖 AI Provider for Explanation Checking</h3>
@@ -1688,38 +1676,6 @@ async function testAPI(){
 // ═══════════════════════════════════════
 // FIREBASE SYNC
 // ═══════════════════════════════════════
-async function firebaseSync(dir){
-  const key=document.getElementById('fb-key').value.trim();
-  const proj=document.getElementById('fb-proj').value.trim();
-  const uid=document.getElementById('fb-uid').value.trim()||'mokshith';
-  if(!key||!proj){toast('Please enter Firebase API Key and Project ID!');return;}
-  ST.fbKey=key; ST.fbProj=proj; ST.fbUid=uid; save();
-  const baseUrl=`https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/hindi_progress/${uid}?key=${key}`;
-  const fbStatus=document.getElementById('fb-status');
-  fbStatus.innerHTML='<span class="status-dot status-none"></span>Connecting...';
-  try {
-    if(dir==='upload'){
-      const data={fields:{scores:{stringValue:JSON.stringify(ST.scores)},pts:{integerValue:ST.pts},qfC:{integerValue:ST.qfC},qfW:{integerValue:ST.qfW},streak:{integerValue:ST.streak},updatedAt:{stringValue:new Date().toISOString()}}};
-      const resp=await fetch(baseUrl,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-      if(resp.ok){toast('✅ Progress uploaded to Firebase!');fbStatus.innerHTML='<span class="status-dot status-ok"></span>Uploaded '+new Date().toLocaleTimeString();}
-      else {const e=await resp.text();toast('❌ Upload failed: '+e.substring(0,50));fbStatus.innerHTML='<span class="status-dot status-err"></span>Upload failed';}
-    } else {
-      const resp=await fetch(baseUrl);
-      if(resp.ok){
-        const d=await resp.json();
-        const f=d.fields||{};
-        if(f.scores) ST.scores=JSON.parse(f.scores.stringValue||'{}');
-        if(f.pts) ST.pts=parseInt(f.pts.integerValue||0);
-        if(f.qfC) ST.qfC=parseInt(f.qfC.integerValue||0);
-        if(f.qfW) ST.qfW=parseInt(f.qfW.integerValue||0);
-        if(f.streak) ST.streak=parseInt(f.streak.integerValue||0);
-        save(); updateDash();
-        toast('✅ Progress downloaded from Firebase!');
-        fbStatus.innerHTML='<span class="status-dot status-ok"></span>Downloaded '+new Date().toLocaleTimeString();
-      } else {toast('❌ Download failed (no data yet?)');fbStatus.innerHTML='<span class="status-dot status-err"></span>Download failed';}
-    }
-  } catch(e){toast('❌ Firebase error: '+e.message.substring(0,40));fbStatus.innerHTML='<span class="status-dot status-err"></span>Error: '+e.message.substring(0,30);}
-}
 
 // ═══════════════════════════════════════
 // UTILS
