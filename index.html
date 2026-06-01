@@ -222,6 +222,27 @@ textarea.exp-input:focus{border-color:var(--saffron)}
   .reader-layout{grid-template-columns:1fr}
   .fb-grid{grid-template-columns:1fr}
 }
+
+/* ── DAILY TRACKER ── */
+.tracker-wrap{background:var(--card);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);margin-top:18px}
+.tracker-wrap h3{font-family:'Baloo 2','Segoe UI',sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:16px}
+.tracker-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.tracker-table th{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:10px 12px;text-align:left;font-weight:600;font-size:.76rem}
+.tracker-table th:first-child{border-radius:8px 0 0 8px}
+.tracker-table th:last-child{border-radius:0 8px 8px 0}
+.tracker-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tracker-table tr:last-child td{border-bottom:none}
+.tracker-table tr:hover td{background:#F9FAFB}
+.fluency-bar{height:8px;border-radius:10px;background:#F3F4F6;overflow:hidden;width:80px;display:inline-block;vertical-align:middle;margin-right:6px}
+.fluency-fill{height:100%;border-radius:10px;transition:width .5s}
+.fluency-score{font-weight:700;font-size:.82rem}
+.score-excellent{color:#138808}.score-good{color:#F59E0B}.score-fair{color:#FF6B00}.score-poor{color:#DC2626}
+.today-highlight td{background:linear-gradient(135deg,#FFF8F0,#FFF3E8)!important;font-weight:600}
+.tracker-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:18px}
+.ts-card{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:12px;padding:14px;color:#fff;text-align:center}
+.ts-val{font-family:'Baloo 2',sans-serif;font-size:1.6rem;font-weight:800;line-height:1;color:var(--gold)}
+.ts-label{font-size:.7rem;opacity:.8;margin-top:3px}
+
 </style>
 <!-- Firebase SDK v10 compat -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -366,6 +387,32 @@ textarea.exp-input:focus{border-color:var(--saffron)}
       <span class="prog-pct" id="pg-q-pct">0%</span>
     </div>
   </div>
+  <!-- DAILY ACTIVITY TRACKER -->
+  <div class="tracker-wrap" id="tracker-section">
+    <h3>📅 Daily Activity Tracker</h3>
+    <div class="tracker-summary" id="tracker-summary"></div>
+    <div style="overflow-x:auto">
+      <table class="tracker-table">
+        <thead>
+          <tr>
+            <th>📅 Date</th>
+            <th>⏱️ Time Spent</th>
+            <th>❓ Questions</th>
+            <th>✅ Correct</th>
+            <th>❌ Wrong</th>
+            <th>🎯 Accuracy</th>
+            <th>⭐ Fluency Score</th>
+            <th>💬 Status</th>
+          </tr>
+        </thead>
+        <tbody id="tracker-body"></tbody>
+      </table>
+    </div>
+    <div style="font-size:.74rem;color:var(--muted);margin-top:10px;line-height:1.6">
+      <strong>Fluency Score</strong> = accuracy × 0.5 + volume bonus × 0.3 + streak bonus × 0.2 &nbsp;|&nbsp;
+      🟢 Excellent ≥80 &nbsp; 🟡 Good ≥60 &nbsp; 🟠 Fair ≥40 &nbsp; 🔴 Needs Practice &lt;40
+    </div>
+  </div>
 </section>
 
 <!-- STORIES -->
@@ -425,6 +472,17 @@ textarea.exp-input:focus{border-color:var(--saffron)}
       <div class="fc-eng" id="fc-hint"></div>
     </div>
     <div class="qf-fb" id="qf-fb"></div>
+    <!-- Example sentence card — shown after answer -->
+    <div id="qf-example" style="display:none;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(26,26,78,.15);margin-bottom:16px;border:1px solid #E5E7EB">
+      <div style="display:flex;align-items:stretch;min-height:100px">
+        <img id="qf-ex-img" src="" alt="" style="width:110px;min-height:100px;object-fit:cover;flex-shrink:0;display:block" onerror="this.style.display='none'">
+        <div style="padding:14px 16px;flex:1;background:#F8FAFF">
+          <div style="font-size:.68rem;font-weight:700;color:#FF6B00;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">📝 उदाहरण वाक्य</div>
+          <div id="qf-ex-sent" style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.95rem;font-weight:600;color:#1A1A4E;margin-bottom:5px;line-height:1.5"></div>
+          <div id="qf-ex-eng" style="font-size:.78rem;color:#6B7280;line-height:1.5;font-style:italic"></div>
+        </div>
+      </div>
+    </div>
     <div class="qf-opts" id="qf-opts"></div>
     <div class="fill-row" id="fill-row" style="display:none">
       <input type="text" id="fill-inp" placeholder="Type the missing word..." onkeydown="if(event.key==='Enter')checkFill()">
@@ -1515,11 +1573,96 @@ const FILL_BLANKS = [
   {q:'\'मनोरथ\' में सन्धि विच्छेद है: मनः + ___।',blank:'रथ',opts:['रथ','ओरथ','अरथ','थ'],ans:0,eng:'Sandhi split: manah + rath = manorath'},
 ];
 
+
+// ═══════════════════════════════════════════════════════════════
+// EXAMPLE SENTENCES — shown after each QF answer
+// Format: {key: 'word/concept', sent: 'Hindi sentence', eng: 'English meaning', img: 'unsplash url'}
+// ═══════════════════════════════════════════════════════════════
+const EXAMPLES = {
+  // VOCAB — animals
+  'शेर':    {sent:'जंगल में शेर सबका राजा है।',         eng:'The lion is the king of the jungle.',           img:'https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400&q=70'},
+  'हाथी':   {sent:'हाथी बहुत बुद्धिमान जानवर होता है।', eng:'The elephant is a very intelligent animal.',    img:'https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=400&q=70'},
+  'बाघ':    {sent:'बाघ बहुत तेज़ दौड़ता है।',            eng:'The tiger runs very fast.',                     img:'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=400&q=70'},
+  'हिरण':   {sent:'हिरण बहुत तेज़ी से कूदता है।',       eng:'The deer jumps very quickly.',                  img:'https://images.unsplash.com/photo-1484406566174-9da000fda645?w=400&q=70'},
+  'बंदर':   {sent:'बंदर पेड़ पर बैठकर केला खा रहा है।', eng:'The monkey is sitting on a tree eating a banana.',img:'https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=400&q=70'},
+  'मोर':    {sent:'मोर बारिश में नाचता है।',             eng:'The peacock dances in the rain.',               img:'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&q=70'},
+  'मछली':   {sent:'मछली नदी में तैरती है।',              eng:'The fish swims in the river.',                  img:'https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=400&q=70'},
+  'तितली':  {sent:'तितली फूल पर बैठ गई।',               eng:'The butterfly sat on a flower.',                img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=70'},
+  'लोमड़ी': {sent:'चालाक लोमड़ी ने कौए को ठगा।',       eng:'The clever fox tricked the crow.',              img:'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&q=70'},
+  'भेड़िया': {sent:'भेड़िया जंगल में शिकार ढूँढ रहा था।',eng:'The wolf was looking for prey in the forest.',  img:'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&q=70'},
+  // VOCAB — nature
+  'सूरज':   {sent:'सूरज सुबह पूरब से निकलता है।',       eng:'The sun rises in the east every morning.',      img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70'},
+  'चाँद':   {sent:'आज रात चाँद बहुत सुंदर दिख रहा है।', eng:'The moon looks very beautiful tonight.',        img:'https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=400&q=70'},
+  'नदी':    {sent:'नदी का पानी बहुत साफ़ और ठंडा था।',   eng:'The river water was very clean and cold.',      img:'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=400&q=70'},
+  'पहाड़':  {sent:'पहाड़ की चोटी पर बर्फ जमी थी।',      eng:'Snow had accumulated on the mountain peak.',    img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70'},
+  'जंगल':   {sent:'जंगल में अनेक प्रकार के जानवर रहते हैं।',eng:'Many kinds of animals live in the forest.',  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&q=70'},
+  'फूल':    {sent:'बगीचे में रंग-बिरंगे फूल खिले हैं।',  eng:'Colourful flowers have bloomed in the garden.', img:'https://images.unsplash.com/photo-1490750967868-88df5691cc87?w=400&q=70'},
+  'बादल':   {sent:'आकाश में काले बादल छा गए।',           eng:'Dark clouds have gathered in the sky.',         img:'https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?w=400&q=70'},
+  'बारिश':  {sent:'बारिश में भीगना मुझे बहुत पसंद है।',  eng:'I love getting wet in the rain.',               img:'https://images.unsplash.com/photo-1428592953211-077101b2021b?w=400&q=70'},
+  'समुद्र':  {sent:'समुद्र की लहरें बहुत ऊँची थीं।',     eng:'The ocean waves were very high.',               img:'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=400&q=70'},
+  // VOCAB — emotions
+  'खुशी':   {sent:'परीक्षा में अच्छे नंबर आने पर खुशी हुई।',eng:'I was happy when I got good marks in the exam.',img:'https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?w=400&q=70'},
+  'दुख':    {sent:'दोस्त के जाने पर मुझे बहुत दुख हुआ।', eng:'I felt very sad when my friend left.',          img:'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?w=400&q=70'},
+  'डर':     {sent:'अँधेरे में बच्चे को डर लग रहा था।',   eng:'The child was scared in the dark.',             img:'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?w=400&q=70'},
+  'प्यार':  {sent:'माँ का बच्चे से प्यार अनमोल होता है।', eng:"A mother's love for her child is priceless.",  img:'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&q=70'},
+  'साहस':   {sent:'साहस से काम करने वाला कभी नहीं हारता।',eng:'One who works with courage never loses.',       img:'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?w=400&q=70'},
+  'लालच':   {sent:'लालच में पड़कर उसने सब कुछ खो दिया।', eng:'Driven by greed, he lost everything.',          img:'https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=400&q=70'},
+  // VOCAB — actions
+  'पढ़ना':  {sent:'रोज़ पढ़ने से ज्ञान बढ़ता है।',        eng:'Reading every day increases knowledge.',        img:'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=70'},
+  'सीखना':  {sent:'नई चीज़ें सीखना बहुत ज़रूरी है।',     eng:'It is very important to learn new things.',     img:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=70'},
+  'हँसना':  {sent:'हँसने से मन प्रसन्न रहता है।',         eng:'Laughing keeps the mind happy.',                img:'https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?w=400&q=70'},
+  'दौड़ना': {sent:'वह रोज़ सुबह पार्क में दौड़ता है।',    eng:'He runs in the park every morning.',            img:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&q=70'},
+  'खेलना':  {sent:'बच्चे खेल के मैदान में खेल रहे हैं।', eng:'The children are playing on the playground.',   img:'https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=400&q=70'},
+  // SYNONYMS examples
+  'सूर्य':  {sent:'सूर्य (रवि) पूर्व दिशा से उगता है।',  eng:'The sun rises from the east.',                  img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70'},
+  'जल':     {sent:'जल (पानी) ही जीवन है।',               eng:'Water is life.',                                img:'https://images.unsplash.com/photo-1559825481-12a05cc00344?w=400&q=70'},
+  'वायु':   {sent:'स्वच्छ वायु (हवा) स्वास्थ्य के लिए ज़रूरी है।',eng:'Clean air is necessary for health.',  img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70'},
+  'माँ':    {sent:'माँ (जननी) का प्यार सबसे बड़ा होता है।',eng:"A mother's love is the greatest.",           img:'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&q=70'},
+  'दोस्त':  {sent:'सच्चा दोस्त (मित्र) मुसीबत में काम आता है।',eng:'A true friend helps in times of trouble.',img:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=70'},
+  'बुद्धि': {sent:'बुद्धि (अक्ल) से काम लो, जल्दबाज़ी मत करो।',eng:"Use your intelligence; don't be hasty.", img:'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=70'},
+  'ज्ञान':  {sent:'ज्ञान (विद्या) से बड़ा कोई धन नहीं।',  eng:'There is no wealth greater than knowledge.',   img:'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=70'},
+  'घर':     {sent:'अपना घर (गृह) सबको प्यारा लगता है।',  eng:'Everyone loves their own home.',                img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70'},
+  // ANTONYMS examples
+  'अच्छा':  {sent:'अच्छा काम करने से नाम होता है।',       eng:'Doing good work earns a good reputation.',     img:'https://images.unsplash.com/photo-1518078534649-d19c43d34b7b?w=400&q=70'},
+  'सच':     {sent:'सच बोलने से मन को शांति मिलती है।',    eng:'Speaking the truth gives peace of mind.',       img:'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=70'},
+  'खुश':    {sent:'परिवार के साथ रहने से मन खुश रहता है।',eng:'Staying with family keeps the mind happy.',    img:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=70'},
+  'अमीर':   {sent:'मेहनत से ही अमीर बना जा सकता है।',    eng:'One can become rich only through hard work.',   img:'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&q=70'},
+  'जीत':    {sent:'लगातार मेहनत से जीत ज़रूर मिलती है।', eng:'Continuous hard work definitely brings victory.',img:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&q=70'},
+  // IDIOMS examples
+  'आँखें खुलना':    {sent:'दुर्घटना के बाद उसकी आँखें खुल गईं।',eng:'After the accident, he came to his senses.',  img:'https://images.unsplash.com/photo-1559825481-12a05cc00344?w=400&q=70'},
+  'नाक में दम करना':{sent:'बच्चे ने माँ की नाक में दम कर दिया।',eng:'The child pestered his mother greatly.',       img:'https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=400&q=70'},
+  'मुँह में पानी आना':{sent:'मिठाई देखकर मुँह में पानी आ गया।',eng:'Seeing the sweets made my mouth water.',       img:'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&q=70'},
+  'नौ दो ग्यारह होना':{sent:'पुलिस देखते ही चोर नौ दो ग्यारह हो गया।',eng:'The thief fled upon seeing the police.',img:'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&q=70'},
+  'दाँत खट्टे करना': {sent:'हमारी टीम ने दुश्मन के दाँत खट्टे कर दिए।',eng:'Our team thoroughly defeated the opponent.',img:'https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=400&q=70'},
+  'आस्तीन का साँप':  {sent:'वह मित्र नहीं, आस्तीन का साँप निकला।', eng:'He turned out to be a traitor, not a friend.',img:'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&q=70'},
+  // SANDHI examples
+  'विद्यालय':{sent:'मैं हर रोज़ विद्यालय जाता हूँ।',     eng:'I go to school every day.',                     img:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=70'},
+  'हिमालय':  {sent:'हिमालय भारत का सबसे ऊँचा पर्वत है।', eng:"The Himalayas are India's tallest mountains.",  img:'https://images.unsplash.com/photo-1544198365-f5d60b6d8190?w=400&q=70'},
+  'सूर्योदय':{sent:'सूर्योदय देखने मैं सुबह जल्दी उठा।', eng:'I woke up early to see the sunrise.',            img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70'},
+  'महोत्सव': {sent:'स्कूल में वार्षिक महोत्सव हुआ।',      eng:'The annual festival was held at school.',       img:'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=70'},
+  'नरेंद्र':  {sent:'नरेंद्र एक बुद्धिमान राजा था।',       eng:'Narendra was a wise king.',                     img:'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=400&q=70'},
+  // PROVERBS examples
+  'अकेला चना भाड़ नहीं फोड़ सकता': {sent:'अकेला चना भाड़ नहीं फोड़ सकता — इसलिए मिलकर काम करो।',eng:"One person can't do it alone — so work together.",img:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=70'},
+  'नाच न जाने आँगन टेढ़ा': {sent:'वह कहता है कमरा छोटा है — नाच न जाने आँगन टेढ़ा।',eng:'He blames the room instead of his own skill.',img:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=70'},
+  'जैसी करनी वैसी भरनी': {sent:'उसने बुरा किया तो बुरा हुआ — जैसी करनी वैसी भरनी।',eng:'He did wrong and suffered for it — as you sow, so shall you reap.',img:'https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=400&q=70'},
+};
+
+function getExample(key) {
+  if (!key) return null;
+  // Direct match
+  if (EXAMPLES[key]) return EXAMPLES[key];
+  // Partial match (first word)
+  const first = key.split(' ')[0];
+  if (EXAMPLES[first]) return EXAMPLES[first];
+  return null;
+}
+
+
 // ═══════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════
-let ST = JSON.parse(localStorage.getItem('hindi_st_v3') || '{"scores":{},"pts":0,"qfC":0,"qfW":0,"streak":0,"apiProvider":"none","apiKey":"","apiModel":"","ollamaUrl":"http://localhost:11434","fbKey":"","fbProj":"","fbUid":"mokshith"}');
-function save(){ localStorage.setItem('hindi_st_v3', JSON.stringify(ST)); }
+let ST = JSON.parse(localStorage.getItem('hindi_st_v4') || '{"scores":{},"pts":0,"qfC":0,"qfW":0,"streak":0,"dailyLog":{},"apiProvider":"none","apiKey":"","apiModel":"","ollamaUrl":"http://localhost:11434"}');
+function save(){ localStorage.setItem('hindi_st_v4', JSON.stringify(ST)); }
 
 // ═══════════════════════════════════════
 // NAVIGATION
@@ -1747,8 +1890,20 @@ function checkDone(){
 // ═══════════════════════════════════════
 let qfMode='vocab', qfCurrent=null, qfDone=false;
 function setQF(m,btn){ qfMode=m; document.querySelectorAll('.qfm').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); loadQF(); }
+function showQFExample(key) {
+  const ex = getExample(key);
+  const card = document.getElementById('qf-example');
+  if (!ex || !card) return;
+  document.getElementById('qf-ex-sent').textContent = ex.sent;
+  document.getElementById('qf-ex-eng').textContent  = ex.eng;
+  const img = document.getElementById('qf-ex-img');
+  img.src = ex.img; img.style.display = 'block';
+  card.style.display = 'block';
+}
+
 function loadQF(){
   qfDone=false;
+  const exCard = document.getElementById('qf-example'); if(exCard) exCard.style.display='none';
   document.getElementById('next-btn').classList.remove('on');
   document.getElementById('qf-fb').className='qf-fb';
   document.getElementById('qf-opts').innerHTML='';
@@ -1922,6 +2077,7 @@ function checkVocabOpt(chosen,correct,btn){
   const fb=document.getElementById('qf-fb');
   if(chosen===correct){
     btn.classList.add('ok'); ST.qfC++; ST.streak++; addPts(5);
+    const _td=new Date().toISOString().split('T')[0]; if(!ST.dailyLog)ST.dailyLog={}; if(!ST.dailyLog[_td])ST.dailyLog[_td]={q:0,correct:0,wrong:0,time:0,start:Date.now()}; ST.dailyLog[_td].correct++;
     let msg='✅ सही! ';
     if(qfCurrent.type==='vocab') msg+=qfCurrent.word.h+' = '+qfCurrent.word.e;
     else if(qfCurrent.type==='syn') msg+='पर्यायवाची: '+qfCurrent.s.word+' = '+correct+' ('+qfCurrent.s.meaning+')';
@@ -1930,12 +2086,19 @@ function checkVocabOpt(chosen,correct,btn){
     fb.className='qf-fb ok on'; fb.textContent=msg;
   } else {
     btn.classList.add('err'); ST.qfW++; ST.streak=0;
+    const _td2=new Date().toISOString().split('T')[0]; if(!ST.dailyLog)ST.dailyLog={}; if(!ST.dailyLog[_td2])ST.dailyLog[_td2]={q:0,correct:0,wrong:0,time:0,start:Date.now()}; ST.dailyLog[_td2].wrong++;
     let msg='❌ गलत। सही उत्तर: '+correct;
     if(qfCurrent.type==='syn') msg+=' ('+qfCurrent.s.meaning+' का पर्यायवाची)';
     else if(qfCurrent.type==='ant') msg+=' ('+qfCurrent.a.word+' का विलोम)';
     fb.className='qf-fb err on'; fb.textContent=msg;
   }
   updateQFStats(); document.getElementById('next-btn').classList.add('on');
+  // Show example sentence
+  let _exKey = '';
+  if(qfCurrent.type==='vocab') _exKey = qfCurrent.word.h;
+  else if(qfCurrent.type==='syn') _exKey = qfCurrent.s.word;
+  else if(qfCurrent.type==='ant') _exKey = qfCurrent.a.word;
+  showQFExample(_exKey);
 }
 function checkFillOpt(idx,btn,q){
   if(qfDone)return; qfDone=true;
@@ -1943,9 +2106,11 @@ function checkFillOpt(idx,btn,q){
   const fb=document.getElementById('qf-fb');
   if(idx===q.ans){
     btn.classList.add('ok'); ST.qfC++; ST.streak++; addPts(5);
+    const _tf=new Date().toISOString().split('T')[0]; if(!ST.dailyLog)ST.dailyLog={}; if(!ST.dailyLog[_tf])ST.dailyLog[_tf]={q:0,correct:0,wrong:0,time:0,start:Date.now()}; ST.dailyLog[_tf].correct++;
     fb.className='qf-fb ok on'; fb.textContent=`✅ Correct! "${q.blank}" — ${q.eng}`;
   } else {
     btn.classList.add('err'); ST.qfW++; ST.streak=0;
+    const _tf2=new Date().toISOString().split('T')[0]; if(!ST.dailyLog)ST.dailyLog={}; if(!ST.dailyLog[_tf2])ST.dailyLog[_tf2]={q:0,correct:0,wrong:0,time:0,start:Date.now()}; ST.dailyLog[_tf2].wrong++;
     fb.className='qf-fb err on'; fb.textContent=`❌ Wrong. Answer: "${q.blank}" — ${q.eng}`;
   }
   updateQFStats(); document.getElementById('next-btn').classList.add('on');
@@ -1962,6 +2127,13 @@ function updateQFStats(){
   document.getElementById('qf-w').textContent=ST.qfW;
   document.getElementById('qf-s').textContent=ST.streak;
   document.getElementById('h-streak').textContent=ST.streak;
+  // Daily log
+  const today = new Date().toISOString().split('T')[0];
+  if(!ST.dailyLog) ST.dailyLog={};
+  if(!ST.dailyLog[today]) ST.dailyLog[today]={q:0,correct:0,wrong:0,time:0,start:Date.now()};
+  ST.dailyLog[today].q++;
+  // time spent (seconds since first question today)
+  ST.dailyLog[today].time = Math.round((Date.now() - ST.dailyLog[today].start)/1000);
   save();
 }
 
@@ -2393,6 +2565,89 @@ save = function() {
     saveProgressToFirestore();
   }
 };
+
+
+// ═══════════════════════════════════════
+// DAILY TRACKER
+// ═══════════════════════════════════════
+function renderTracker() {
+  const log = ST.dailyLog || {};
+  const dates = Object.keys(log).sort().reverse().slice(0, 30); // last 30 days
+
+  // Summary cards
+  const today = new Date().toISOString().split('T')[0];
+  const todayData = log[today] || {q:0,correct:0,wrong:0,time:0};
+  const totalDays = dates.filter(d => log[d] && log[d].q > 0).length;
+  const totalQ = dates.reduce((s,d) => s + (log[d]?.q||0), 0);
+  const totalTime = dates.reduce((s,d) => s + (log[d]?.time||0), 0);
+
+  const sumEl = document.getElementById('tracker-summary');
+  if (sumEl) {
+    sumEl.innerHTML = `
+      <div class="ts-card"><div class="ts-val">${todayData.q}</div><div class="ts-label">Today's Questions</div></div>
+      <div class="ts-card"><div class="ts-val">${fmtTime(todayData.time)}</div><div class="ts-label">Today's Time</div></div>
+      <div class="ts-card"><div class="ts-val">${totalDays}</div><div class="ts-label">Active Days</div></div>
+      <div class="ts-card"><div class="ts-val">${totalQ}</div><div class="ts-label">Total Questions</div></div>
+      <div class="ts-card"><div class="ts-val">${fmtTime(totalTime)}</div><div class="ts-label">Total Time</div></div>
+    `;
+  }
+
+  // Table rows
+  const tbody = document.getElementById('tracker-body');
+  if (!tbody) return;
+  if (dates.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">No activity yet — start practising in Quick Fire! ⚡</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = dates.map(d => {
+    const r = log[d] || {};
+    const q = r.q || 0;
+    const correct = r.correct || 0;
+    const wrong = r.wrong || 0;
+    const time = r.time || 0;
+    const acc = q > 0 ? Math.round(correct / q * 100) : 0;
+
+    // Fluency score formula
+    const accScore  = acc * 0.5;                           // 0–50
+    const volBonus  = Math.min(q / 50 * 30, 30);           // 0–30 (30 pts for 50+ questions)
+    const strBonus  = Math.min(ST.streak / 10 * 20, 20);   // 0–20 (20 pts for 10+ streak)
+    const fluency   = Math.round(accScore + volBonus + strBonus);
+
+    const fluencyColour = fluency >= 80 ? '#138808' : fluency >= 60 ? '#F59E0B' : fluency >= 40 ? '#FF6B00' : '#DC2626';
+    const fluencyClass  = fluency >= 80 ? 'score-excellent' : fluency >= 60 ? 'score-good' : fluency >= 40 ? 'score-fair' : 'score-poor';
+    const statusEmoji   = fluency >= 80 ? '🌟 Excellent' : fluency >= 60 ? '👍 Good' : fluency >= 40 ? '📈 Fair' : '💪 Keep Going';
+    const isToday = d === today;
+
+    return `<tr class="${isToday ? 'today-highlight' : ''}">
+      <td>${isToday ? '📌 ' : ''}${fmtDate(d)}</td>
+      <td>⏱️ ${fmtTime(time)}</td>
+      <td style="font-weight:700">${q}</td>
+      <td style="color:var(--ok);font-weight:600">${correct}</td>
+      <td style="color:var(--err);font-weight:600">${wrong}</td>
+      <td>
+        <div class="fluency-bar"><div class="fluency-fill" style="width:${acc}%;background:${acc>=70?'var(--ok)':acc>=50?'#F59E0B':'var(--err)'}"></div></div>
+        <span style="font-size:.8rem;font-weight:600">${acc}%</span>
+      </td>
+      <td>
+        <div class="fluency-bar"><div class="fluency-fill" style="width:${fluency}%;background:${fluencyColour}"></div></div>
+        <span class="fluency-score ${fluencyClass}">${fluency}/100</span>
+      </td>
+      <td>${statusEmoji}</td>
+    </tr>`;
+  }).join('');
+}
+
+function fmtTime(secs) {
+  if (!secs || secs < 60) return (secs||0) + 's';
+  const m = Math.floor(secs/60), s = secs%60;
+  return m + 'm ' + (s>0?s+'s':'');
+}
+
+function fmtDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-SG', {day:'numeric', month:'short', year:'numeric', weekday:'short'});
+}
 
 // INIT
 renderProviderFields();
