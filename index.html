@@ -387,6 +387,37 @@ textarea.exp-input:focus{border-color:var(--saffron)}
       <span class="prog-pct" id="pg-q-pct">0%</span>
     </div>
   </div>
+  <!-- SOURCES REFERENCE -->
+  <div style="background:linear-gradient(135deg,#F0F4FF,#F5F0FF);border-radius:var(--r);padding:22px;border:1px solid #C7D2FE;margin-top:18px">
+    <h3 style="font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:14px">📚 Content Sources & References</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+      <div style="background:#fff;border-radius:10px;padding:14px;border-left:4px solid #FF6B00">
+        <div style="font-weight:700;font-size:.82rem;color:#FF6B00;margin-bottom:4px">🏛️ Official Syllabus</div>
+        <div style="font-size:.76rem;color:#374151;line-height:1.6">SEAB O-Level Hindi Syllabus 3194 (2026)<br>100 मुहावरे · 25 लोकोक्तियाँ · 30 सह-प्रयोग<br>Paper 2 Section A — Language Usage</div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:14px;border-left:4px solid #7C3AED">
+        <div style="font-weight:700;font-size:.82rem;color:#7C3AED;margin-bottom:4px">📖 Classical Literature</div>
+        <div style="font-size:.76rem;color:#374151;line-height:1.6">पंचतंत्र (Panchatantra)<br>अकबर-बीरबल कथाएँ<br>तेनाली राम की कहानियाँ<br>सिंहासन बत्तीसी (Vikramaditya)</div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:14px;border-left:4px solid #138808">
+        <div style="font-weight:700;font-size:.82rem;color:#138808;margin-bottom:4px">🌐 Reference Platforms</div>
+        <div style="font-size:.76rem;color:#374151;line-height:1.6">Hindi Society Singapore<br>Unsplash (story &amp; QF images)<br>Google Fonts — Noto Sans Devanagari<br>Firebase Firestore (progress sync)</div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:14px;border-left:4px solid #0369A1">
+        <div style="font-weight:700;font-size:.82rem;color:#0369A1;margin-bottom:4px">📝 Grammar Coverage</div>
+        <div style="font-size:.76rem;color:#374151;line-height:1.6">स्वर सन्धि · व्यंजन सन्धि · विसर्ग सन्धि<br>पर्यायवाची (39 sets) · विलोम (30 pairs)<br>200 शब्द-भंडार across 10 categories<br>30 रिक्त स्थान exercises</div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:14px;border-left:4px solid #B45309">
+        <div style="font-weight:700;font-size:.82rem;color:#B45309;margin-bottom:4px">📅 June 2026 Focus Plan</div>
+        <div style="font-size:.76rem;color:#374151;line-height:1.6">Foundation building for NA stream<br>मुहावरे #1–50 · सह-प्रयोग all 30<br>पर्यायवाची + विलोम core sets<br>सन्धि basic patterns · 100 stories</div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:14px;border-left:4px solid #9D174D">
+        <div style="font-weight:700;font-size:.82rem;color:#9D174D;margin-bottom:4px">🎯 Exam Paper Mapping</div>
+        <div style="font-size:.76rem;color:#374151;line-height:1.6">Paper 1 (45%) → Stories (composition practice)<br>Paper 2 Sec A (50m) → QF modes<br>Paper 2 Sec B/C (60m) → Story Q&amp;A<br>Total: 155 marks — full coverage</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:.72rem;color:#6B7280;text-align:right">Last updated: June 2026 · Syllabus valid through 2026 exams</div>
+  </div>
   <!-- DAILY ACTIVITY TRACKER -->
   <div class="tracker-wrap" id="tracker-section">
     <h3>📅 Daily Activity Tracker</h3>
@@ -460,6 +491,7 @@ textarea.exp-input:focus{border-color:var(--saffron)}
       <button class="qfm" id="qfm-sandhi" onclick="setQF('sandhi',this)">🟡 सन्धि</button>
       <button class="qfm" id="qfm-idiom" onclick="setQF('idiom',this)">💬 मुहावरे</button>
       <button class="qfm" id="qfm-prov" onclick="setQF('prov',this)">📜 कहावतें</button>
+      <button class="qfm" id="qfm-wp" onclick="setQF('wp',this)">🔗 सह-प्रयोग</button>
     </div>
     <div class="qf-stats">
       <div class="qfs ok"><div class="qfs-val" id="qf-c">0</div><div class="qfs-label">Correct</div></div>
@@ -1476,63 +1508,187 @@ const SANDHI = [
 // ═══════════════════════════════════════════════════════════════
 // IDIOMS (मुहावरे) — O-Level syllabus aligned
 // ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════
+// OFFICIAL SYLLABUS DATA — SEAB O-Level Hindi 3194 (2026)
+// Source: Hindi Society Singapore / SEAB syllabus guide
+// All 100 idioms + 25 proverbs + 30 word pairs
+// ═══════════════════════════════════════════════════════════════════
+
 const IDIOMS = [
-  {idiom:'आँखें खुलना',meaning:'होश आना / सच्चाई समझ आना',eng:'To come to one\'s senses',opts:['होश आना','आँख में दर्द','खुश होना','सो जाना'],ans:0},
-  {idiom:'नाक में दम करना',meaning:'बहुत परेशान करना',eng:'To pester/annoy greatly',opts:['खुश करना','बहुत परेशान करना','नाक साफ करना','डराना'],ans:1},
-  {idiom:'हाथ धोना',meaning:'खो देना / गँवाना',eng:'To lose something permanently',opts:['खो देना','हाथ साफ करना','पाना','मदद करना'],ans:0},
-  {idiom:'मुँह में पानी आना',meaning:'ललचाना / लालच होना',eng:'To feel tempted/mouth water',opts:['प्यास लगना','ललचाना','खाना खाना','बात करना'],ans:1},
-  {idiom:'कान भरना',meaning:'चुगली करना / भड़काना',eng:'To instigate/backbite',opts:['कान साफ करना','चुगली करना','सुनाना','मदद करना'],ans:1},
-  {idiom:'नाक कटना',meaning:'बेइज़्ज़ती होना / अपमान होना',eng:'To lose one\'s honour',opts:['बेइज़्ज़ती होना','नाक दर्द करना','शर्माना','भागना'],ans:0},
-  {idiom:'पीठ दिखाना',meaning:'भाग जाना / हार मान लेना',eng:'To flee / give up',opts:['पीठ खुजाना','भाग जाना','पीछे देखना','लड़ना'],ans:1},
-  {idiom:'दाँत खट्टे करना',meaning:'हराना / परास्त करना',eng:'To defeat soundly',opts:['खट्टा खाना','हराना','दाँत साफ करना','झगड़ना'],ans:1},
-  {idiom:'पानी-पानी होना',meaning:'बहुत लज्जित होना',eng:'To feel deeply ashamed',opts:['पानी पीना','बहुत लज्जित होना','खुश होना','भीगना'],ans:1},
-  {idiom:'आस्तीन का साँप',meaning:'विश्वासघाती / दगाबाज़',eng:'A treacherous person',opts:['सच्चा दोस्त','विश्वासघाती','डरपोक','अमीर'],ans:1},
-  {idiom:'आँखों का तारा',meaning:'बहुत प्यारा / प्रिय',eng:'Darling / very dear',opts:['आँख में दर्द','बहुत प्यारा','अच्छा दिखना','दूर होना'],ans:1},
-  {idiom:'नौ दो ग्यारह होना',meaning:'भाग जाना',eng:'To run away / escape',opts:['गिनती करना','भाग जाना','आना','लड़ना'],ans:1},
-  {idiom:'लोहे के चने चबाना',meaning:'बहुत कठिन काम करना',eng:'To do an extremely hard task',opts:['लोहा खाना','बहुत कठिन काम करना','आराम करना','खेलना'],ans:1},
-  {idiom:'छाती पर मूँग दलना',meaning:'तंग करना / जानबूझकर परेशान करना',eng:'To deliberately annoy',opts:['मूँग खाना','तंग करना','मदद करना','मारना'],ans:1},
-  {idiom:'तीन तेरह होना',meaning:'बिखर जाना / अस्त-व्यस्त होना',eng:'To scatter/fall apart',opts:['गिनती करना','बिखर जाना','इकट्ठा होना','लड़ना'],ans:1},
-  {idiom:'मक्खन लगाना',meaning:'चापलूसी करना',eng:'To flatter',opts:['खाना बनाना','चापलूसी करना','सफाई करना','लड़ना'],ans:1},
-  {idiom:'खून पसीना एक करना',meaning:'बहुत कठिन परिश्रम करना',eng:'To work extremely hard',opts:['घायल होना','बहुत मेहनत करना','आराम करना','बीमार होना'],ans:1},
-  {idiom:'घाव पर नमक छिड़कना',meaning:'दुख पर और दुख देना',eng:'To add to someone\'s misery',opts:['इलाज करना','दुख पर और दुख देना','मदद करना','खाना देना'],ans:1},
-  {idiom:'अंगूठा दिखाना',meaning:'साफ मना कर देना',eng:'To flatly refuse',opts:['अंगूठा दिखाना','मदद करना','डराना','हँसना'],ans:0},
-  {idiom:'दिल खोलना',meaning:'मन की बात कहना / उदारता दिखाना',eng:'To open up / be generous',opts:['मन की बात कहना','छुपाना','दिल दर्द होना','जाना'],ans:0},
+  // 1-10
+  {idiom:'आँखों में धूल झोंकना',    meaning:'धोखा देना',              eng:'To deceive / throw dust in someone\'s eyes', opts:['धोखा देना','तारीफ करना','मदद करना','डराना'],ans:0},
+  {idiom:'आकाश के तारे तोड़ना',    meaning:'असंभव काम करना',          eng:'To attempt the impossible',                  opts:['असंभव काम करना','तारे देखना','रात को जागना','आकाश छूना'],ans:0},
+  {idiom:'ईंट से ईंट बजाना',       meaning:'पूरी तरह तबाह करना',     eng:'To completely destroy',                       opts:['पूरी तरह तबाह करना','घर बनाना','लड़ाई करना','मरम्मत करना'],ans:0},
+  {idiom:'कुत्ते की मौत मरना',     meaning:'बुरी तरह मरना / बेइज़्ज़ती से मरना',eng:'To die a shameful death',        opts:['बुरी तरह मरना','बहादुरी से मरना','शांति से मरना','बीमारी से मरना'],ans:0},
+  {idiom:'गड़े मुर्दे उखाड़ना',     meaning:'पुरानी बातें याद दिलाना',eng:'To rake up old issues',                     opts:['पुरानी बातें याद दिलाना','कब्र खोदना','मदद करना','भूलना'],ans:0},
+  {idiom:'गुड़ गोबर करना',          meaning:'बना-बनाया काम बिगाड़ना', eng:'To ruin something already done',             opts:['बना-बनाया काम बिगाड़ना','मिठाई बनाना','सफाई करना','मदद करना'],ans:0},
+  {idiom:'गुदड़ी का लाल',           meaning:'साधारण परिवार का प्रतिभाशाली व्यक्ति',eng:'A gem found in humble surroundings', opts:['साधारण परिवार का प्रतिभाशाली व्यक्ति','अमीर बच्चा','लाल कपड़ा','राजकुमार'],ans:0},
+  {idiom:'घाट-घाट का पानी पीना',   meaning:'बहुत अनुभवी होना',        eng:'To be very experienced / worldly-wise',      opts:['बहुत अनुभवी होना','यात्रा करना','पानी पीना','थका होना'],ans:0},
+  {idiom:'घी के दीए जलाना',        meaning:'खुशी मनाना',              eng:'To celebrate with great joy',                opts:['खुशी मनाना','दीया जलाना','रोशनी करना','पूजा करना'],ans:0},
+  {idiom:'टका सा जवाब देना',        meaning:'साफ़ मना करना',            eng:'To flatly refuse',                            opts:['साफ़ मना करना','हाँ कहना','चुप रहना','गुस्सा करना'],ans:0},
+  // 11-20
+  {idiom:'दाल में काला होना',       meaning:'संदेह होना / कुछ गड़बड़ होना',eng:'Something fishy / suspicious',            opts:['कुछ गड़बड़ होना','दाल काली होना','खाना पकाना','सब ठीक होना'],ans:0},
+  {idiom:'नमक-मिर्च लगाना',         meaning:'बात को बढ़ा-चढ़ाकर कहना',  eng:'To exaggerate / add spice to a story',      opts:['बात बढ़ा-चढ़ाकर कहना','खाना बनाना','सच बोलना','चुप रहना'],ans:0},
+  {idiom:'नाकों चने चबाना',         meaning:'बहुत परेशान करना',         eng:'To make someone\'s life very difficult',     opts:['बहुत परेशान करना','चना खाना','मदद करना','खुश करना'],ans:0},
+  {idiom:'नौ दो ग्यारह होना',        meaning:'भाग जाना',                 eng:'To run away / escape',                       opts:['भाग जाना','गिनती करना','आना','लड़ना'],ans:0},
+  {idiom:'रफू चक्कर होना',           meaning:'चुपचाप भाग जाना',          eng:'To quietly disappear / slip away',           opts:['चुपचाप भाग जाना','कपड़े सीना','गोल घूमना','रुक जाना'],ans:0},
+  {idiom:'लकीर का फ़कीर होना',        meaning:'पुराने तरीके पर चलना',     eng:'To blindly follow old traditions',           opts:['पुराने तरीके पर चलना','संत बनना','नया सीखना','यात्रा करना'],ans:0},
+  {idiom:'हाथ तंग होना',             meaning:'पैसों की कमी होना',         eng:'To be short of money',                       opts:['पैसों की कमी होना','हाथ दर्द होना','तंग कपड़े','मदद न मिलना'],ans:0},
+  {idiom:'चेहरा गुल होना',           meaning:'चेहरे पर खुशी आना / शर्म से लाल होना',eng:'To blush / face lighten up',      opts:['चेहरे पर रंग आना','चेहरा गायब होना','बीमार होना','डरना'],ans:0},
+  {idiom:'चुगली करना',              meaning:'किसी की बुराई करना',        eng:'To backbite / gossip',                       opts:['किसी की बुराई करना','मदद करना','तारीफ करना','सुनाना'],ans:0},
+  {idiom:'नहले पर दहला',            meaning:'एक चतुराई के जवाब में और चतुराई',eng:'To counter a clever move with a cleverer one', opts:['चतुराई का जवाब चतुराई से','ताश खेलना','हार मानना','मदद करना'],ans:0},
+  // 21-30
+  {idiom:'गप्पें हाँकना',            meaning:'बढ़ा-चढ़ाकर बातें करना',   eng:'To brag / boast',                            opts:['बढ़ा-चढ़ाकर बातें करना','चुप रहना','सच बोलना','रोना'],ans:0},
+  {idiom:'बंदर की पकड़',             meaning:'अनजाने में नुकसान करने वाली पकड़',eng:'A grip that causes unintentional harm', opts:['नुकसान करने वाली पकड़','मज़बूत पकड़','दोस्त की मदद','सावधान रहना'],ans:0},
+  {idiom:'रंगे हाथ',                 meaning:'अपराध करते हुए पकड़ा जाना', eng:'Caught red-handed',                         opts:['अपराध करते पकड़ा जाना','हाथ रंगना','पेंट करना','भागना'],ans:0},
+  {idiom:'कान देना',                 meaning:'ध्यान से सुनना',             eng:'To pay attention / listen carefully',        opts:['ध्यान से सुनना','कान दर्द होना','सुनाई न देना','बात करना'],ans:0},
+  {idiom:'दो टूक बात करना',          meaning:'सीधी और स्पष्ट बात करना',   eng:'To speak plainly and directly',              opts:['सीधी स्पष्ट बात करना','दो बातें करना','झूठ बोलना','चुप रहना'],ans:0},
+  {idiom:'भाग खड़ा होना',             meaning:'जल्दी में भाग जाना',         eng:'To flee quickly',                            opts:['जल्दी भाग जाना','खड़ा होना','दौड़ना','रुकना'],ans:0},
+  {idiom:'मक्खन लगाना',              meaning:'चापलूसी करना',               eng:'To flatter / butter up',                     opts:['चापलूसी करना','मक्खन खाना','सफाई करना','मदद करना'],ans:0},
+  {idiom:'जल्दबाज़ी करना',            meaning:'बिना सोचे जल्दी करना',       eng:'To act hastily without thinking',            opts:['बिना सोचे जल्दी करना','समय पर करना','मेहनत करना','रुकना'],ans:0},
+  {idiom:'हाँ में हाँ मिलाना',        meaning:'हर बात से सहमत होना / चापलूसी करना',eng:'To blindly agree with everything', opts:['हर बात से सहमत होना','असहमति जताना','सच बोलना','चुप रहना'],ans:0},
+  {idiom:'पेट काटना',                meaning:'बहुत कम खर्च करना / बचत करना',eng:'To economise / scrimp and save',           opts:['बहुत बचत करना','पेट दर्द होना','खाना खाना','उदार होना'],ans:0},
+  // 31-40
+  {idiom:'मारा-मारा फिरना',           meaning:'इधर-उधर भटकना',             eng:'To wander about aimlessly',                  opts:['इधर-उधर भटकना','लड़ना','भागना','छुपना'],ans:0},
+  {idiom:'मनोरथ पूरा करना',           meaning:'इच्छा पूरी होना',             eng:'To have one\'s wish fulfilled',              opts:['इच्छा पूरी होना','काम करना','यात्रा करना','मदद करना'],ans:0},
+  {idiom:'जग हँसाई',                  meaning:'सबके सामने मज़ाक बनना',       eng:'To become a laughing stock',                 opts:['सबके सामने मज़ाक बनना','हँसाना','खुश होना','गाना'],ans:0},
+  {idiom:'अपना उल्लू सीधा करना',      meaning:'अपना मतलब निकालना',           eng:'To serve one\'s own selfish purpose',        opts:['अपना मतलब निकालना','उल्लू पालना','मदद करना','ईमानदार होना'],ans:0},
+  {idiom:'अपने पाँव पर कुल्हाड़ी मारना',meaning:'खुद को नुकसान पहुँचाना',   eng:'To harm oneself / shoot oneself in the foot',opts:['खुद को नुकसान पहुँचाना','कुल्हाड़ी चलाना','लकड़ी काटना','मदद करना'],ans:0},
+  {idiom:'काठ का उल्लू होना',          meaning:'बिल्कुल मूर्ख होना',          eng:'To be a complete fool',                      opts:['बिल्कुल मूर्ख होना','उल्लू पालना','चालाक होना','बोलना'],ans:0},
+  {idiom:'जान पर खेलना',              meaning:'जीवन को खतरे में डालना',      eng:'To risk one\'s life',                        opts:['जीवन खतरे में डालना','खेलना','मदद करना','डरना'],ans:0},
+  {idiom:'दिन दूनी रात चौगुनी',        meaning:'बहुत तेज़ी से बढ़ना',          eng:'To grow / increase rapidly',                 opts:['बहुत तेज़ी से बढ़ना','दिन-रात काम करना','आराम करना','रुकना'],ans:0},
+  {idiom:'आग में घी डालना',           meaning:'झगड़ा बढ़ाना',                 eng:'To add fuel to the fire',                    opts:['झगड़ा बढ़ाना','आग जलाना','खाना बनाना','शांत करना'],ans:0},
+  {idiom:'ईद का चाँद होना',           meaning:'बहुत कम दिखना / दुर्लभ होना', eng:'Rarely seen / a very rare visitor',          opts:['बहुत कम दिखना','ईद मनाना','चाँद देखना','रात को आना'],ans:0},
+  // 41-50
+  {idiom:'घोड़े बेचकर सोना',          meaning:'बेफ़िक्र होकर गहरी नींद सोना',eng:'To sleep without a care in the world',      opts:['बेफ़िक्र होकर सोना','घोड़ा बेचना','थककर सोना','डर के सोना'],ans:0},
+  {idiom:'दाँत खट्टे करना',           meaning:'हराना / परास्त करना',          eng:'To defeat soundly',                          opts:['हराना','दाँत साफ करना','खट्टा खाना','झगड़ना'],ans:0},
+  {idiom:'सिक्का जमाना',              meaning:'अपनी धाक जमाना / प्रभाव डालना',eng:'To establish one\'s authority / reputation', opts:['प्रभाव जमाना','पैसे जमा करना','जीतना','डराना'],ans:0},
+  {idiom:'होश ठिकाने लगाना',          meaning:'घमंड तोड़ना / अक्ल ठीक करना', eng:'To bring someone to their senses',           opts:['घमंड तोड़ना','सुला देना','खुश करना','भगाना'],ans:0},
+  {idiom:'कलई खुलना',                meaning:'राज़ खुलना / असलियत सामने आना',eng:'To be exposed / secret revealed',            opts:['राज़ खुलना','सफाई करना','हाथ धोना','छुपना'],ans:0},
+  {idiom:'कान का कच्चा होना',          meaning:'बिना सोचे किसी की बात मान लेना',eng:'To believe anything without thinking',    opts:['बिना सोचे किसी की बात मानना','कम सुनना','ध्यान देना','अनदेखा करना'],ans:0},
+  {idiom:'दीपक तले अँधेरा',           meaning:'गुणी के घर में ही कमी',        eng:'Darkness under the lamp — fault nearest home', opts:['गुणी के घर में ही कमी','दीया जलाना','रात होना','रोशनी करना'],ans:0},
+  {idiom:'चुल्लू भर पानी में डूब मरना',meaning:'शर्म से डूब मरना',           eng:'To die of shame / be deeply ashamed',        opts:['शर्म से डूब मरना','पानी पीना','तैरना','नहाना'],ans:0},
+  {idiom:'उँगली पर नाचना',            meaning:'किसी के इशारे पर चलना',        eng:'To dance to someone\'s tune',                opts:['किसी के इशारे पर चलना','नाचना','मदद करना','डरना'],ans:0},
+  {idiom:'छाती पर मूँग दलना',         meaning:'जानबूझकर तंग करना',            eng:'To deliberately trouble / sit on someone\'s chest', opts:['जानबूझकर तंग करना','मूँग खाना','खाना बनाना','मदद करना'],ans:0},
+  // 51-60
+  {idiom:'तूती बोलना',               meaning:'दबदबा होना / प्रभाव होना',      eng:'To have great influence / to hold sway',     opts:['दबदबा होना','पक्षी बोलना','शोर होना','गाना'],ans:0},
+  {idiom:'दाँतों तले उँगली दबाना',    meaning:'बहुत हैरान होना',              eng:'To be utterly amazed / shocked',             opts:['बहुत हैरान होना','दाँत साफ करना','उँगली दर्द होना','चुप होना'],ans:0},
+  {idiom:'नमक हलाल होना',             meaning:'किए गए उपकार का बदला चुकाना', eng:'To be loyal and repay kindness',             opts:['किए उपकार का बदला चुकाना','नमक खाना','ईमानदार होना','मदद लेना'],ans:0},
+  {idiom:'पानी पानी हो जाना',          meaning:'बहुत शर्मिंदा होना',           eng:'To be deeply embarrassed / ashamed',         opts:['बहुत शर्मिंदा होना','पानी पीना','भीगना','खुश होना'],ans:0},
+  {idiom:'फूला न समाना',              meaning:'बहुत खुश होना',                eng:'To be extremely happy / overjoyed',           opts:['बहुत खुश होना','मोटा होना','गुस्सा होना','उदास होना'],ans:0},
+  {idiom:'बाग़-बाग़ होना',              meaning:'अत्यंत प्रसन्न होना',           eng:'To be delighted / overjoyed',                opts:['अत्यंत प्रसन्न होना','बाग में जाना','उदास होना','चिंतित होना'],ans:0},
+  {idiom:'मुँह की खाना',               meaning:'बुरी तरह हारना / मात खाना',    eng:'To suffer a humiliating defeat',             opts:['बुरी तरह हारना','खाना खाना','मुँह दर्द होना','जीतना'],ans:0},
+  {idiom:'माथा ठनकना',                meaning:'मन में संदेह होना',             eng:'To have a feeling of suspicion / unease',    opts:['मन में संदेह होना','सिर दर्द होना','खुश होना','जानना'],ans:0},
+  {idiom:'हाथ फैलाना',                meaning:'भीख माँगना / दूसरे से माँगना', eng:'To beg / ask for help or money',             opts:['भीख माँगना','हाथ हिलाना','ताली बजाना','मदद करना'],ans:0},
+  {idiom:'हथेली पर सरसों उगाना',       meaning:'असंभव काम करना',              eng:'To do the impossible',                       opts:['असंभव काम करना','खेती करना','सरसों खाना','जादू करना'],ans:0},
+  // 61-70
+  {idiom:'होश उड़ना',                  meaning:'बहुत घबरा जाना',               eng:'To be frightened out of one\'s wits',        opts:['बहुत घबराना','उड़ना','सोना','भागना'],ans:0},
+  {idiom:'कमर टूटना',                 meaning:'बहुत थक जाना / हिम्मत टूटना',  eng:'To be exhausted / lose spirit',              opts:['बहुत थकना / हिम्मत टूटना','कमर दर्द','काम करना','आराम करना'],ans:0},
+  {idiom:'आस्तीन का साँप',             meaning:'विश्वासघाती मित्र',             eng:'A treacherous friend in disguise',           opts:['विश्वासघाती मित्र','साँप पालना','डरपोक होना','सच्चा दोस्त'],ans:0},
+  {idiom:'अक्ल का दुश्मन',             meaning:'बहुत मूर्ख होना',               eng:'Someone utterly foolish / enemy of wisdom',  opts:['बहुत मूर्ख होना','चालाक होना','बुद्धिमान होना','दुश्मन होना'],ans:0},
+  {idiom:'नींद उड़ना',                 meaning:'चिंता या डर से नींद न आना',    eng:'To lose sleep due to worry or fear',         opts:['चिंता से नींद न आना','सो जाना','आराम करना','थकना'],ans:0},
+  {idiom:'अपने पौरों पर खड़ा होना',    meaning:'स्वावलंबी होना / खुद कमाना',   eng:'To be self-reliant / stand on own feet',     opts:['स्वावलंबी होना','गिर जाना','मदद लेना','बैठना'],ans:0},
+  {idiom:'आटे दाल का भाव मालूम होना',  meaning:'असली मुश्किलों का पता चलना',   eng:'To learn the hard realities of life',        opts:['असली मुश्किलों का पता चलना','खाना बनाना','बाज़ार जाना','अमीर होना'],ans:0},
+  {idiom:'हाथ मलना',                   meaning:'पछताना',                        eng:'To regret / wring hands in grief',           opts:['पछताना','हाथ साफ करना','खुश होना','मदद करना'],ans:0},
+  {idiom:'ईंट का जवाब पत्थर से देना',  meaning:'कड़ा जवाब देना',                eng:'To respond to a challenge forcefully',       opts:['कड़ा जवाब देना','पत्थर फेंकना','चुप रहना','माफ करना'],ans:0},
+  {idiom:'हाथ-पाँव मारना',             meaning:'बहुत कोशिश करना',              eng:'To try hard / make every effort',            opts:['बहुत कोशिश करना','तैरना','मारना','दौड़ना'],ans:0},
+  // 71-80
+  {idiom:'कलेजे का टुकड़ा',            meaning:'बहुत प्यारा / अपना',            eng:'A beloved person / precious one',            opts:['बहुत प्यारा / अपना','दर्दनाक होना','दुश्मन होना','अजनबी होना'],ans:0},
+  {idiom:'कलेजे पर पत्थर रखना',        meaning:'दुख सहकर भी चुप रहना',         eng:'To bear grief silently / be stoic',          opts:['दुख सहकर चुप रहना','पत्थर उठाना','रोना','गुस्सा करना'],ans:0},
+  {idiom:'कान पर जूँ न रेंगना',         meaning:'बात का कोई असर न होना',         eng:'To not pay any heed',                        opts:['बात का असर न होना','कान साफ करना','ध्यान देना','सुनना'],ans:0},
+  {idiom:'खटाई में पड़ना',              meaning:'काम का अटकना / अनिश्चित होना', eng:'To be in limbo / undecided',                 opts:['काम का अटकना','खट्टा खाना','मदद मिलना','जल्दी होना'],ans:0},
+  {idiom:'आठ-आठ आँसू रोना',           meaning:'बहुत ज़ोर-ज़ोर से रोना',         eng:'To cry bitterly / in floods of tears',       opts:['बहुत रोना','आँख दर्द होना','खुश होना','नाटक करना'],ans:0},
+  {idiom:'पेट में चूहे कूदना',          meaning:'बहुत ज़ोर से भूख लगना',         eng:'To be very hungry / stomach growling',       opts:['बहुत भूख लगना','पेट दर्द','नाचना','खेलना'],ans:0},
+  {idiom:'घड़ों पानी पड़ना',             meaning:'बहुत शर्म आना',                eng:'To feel deeply ashamed',                     opts:['बहुत शर्म आना','नहाना','पानी पीना','खुश होना'],ans:0},
+  {idiom:'घर फूँक तमाशा देखना',         meaning:'खुद के नुकसान पर खुश होना',    eng:'To ruin yourself for entertainment',         opts:['खुद नुकसान कर खुश होना','घर जलाना','तमाशा देखना','मौज करना'],ans:0},
+  {idiom:'खून का प्यासा होना',           meaning:'किसी को नुकसान पहुँचाने पर आमादा होना',eng:'To be out for someone\'s blood', opts:['नुकसान पहुँचाने पर आमादा','खून देखना','प्यासा होना','दोस्त होना'],ans:0},
+  {idiom:'आँसू पोंछना',                meaning:'दुख दूर करना / दिलासा देना',   eng:'To console / wipe away tears',              opts:['दुख दूर करना','रोना','आँख साफ करना','दुखी करना'],ans:0},
+  // 81-90
+  {idiom:'आसमान से बातें करना',         meaning:'बहुत ऊँचा होना',               eng:'To be very tall / touch the sky',            opts:['बहुत ऊँचा होना','बातें करना','उड़ना','सपने देखना'],ans:0},
+  {idiom:'गाजर मूली समझना',            meaning:'बहुत तुच्छ समझना',              eng:'To consider someone worthless',              opts:['बहुत तुच्छ समझना','सब्ज़ी खाना','सम्मान देना','मदद करना'],ans:0},
+  {idiom:'निन्यानवे के फेर में पड़ना',   meaning:'पैसे जमा करने में लगे रहना',   eng:'To be obsessed with accumulating wealth',    opts:['पैसे जमा करने में लगे रहना','गिनती करना','दान देना','खुश होना'],ans:0},
+  {idiom:'मुट्ठी गरम करना',             meaning:'रिश्वत देना',                   eng:'To bribe',                                   opts:['रिश्वत देना','मुट्ठी बाँधना','गरम होना','लड़ना'],ans:0},
+  {idiom:'सिर पर चढ़ना',                meaning:'बहुत शरारती होना / सिर पर सवार होना',eng:'To get out of control / be unruly',    opts:['बहुत शरारती / बेकाबू होना','चढ़ना','सम्मान देना','डरना'],ans:0},
+  {idiom:'अपने मुँह मियाँ मिट्ठू बनना', meaning:'खुद अपनी तारीफ करना',          eng:'To blow your own trumpet',                   opts:['खुद अपनी तारीफ करना','मुँह बंद करना','चुप रहना','दूसरों की तारीफ करना'],ans:0},
+  {idiom:'कंठ का हार होना',             meaning:'बहुत प्रिय होना',               eng:'To be very dear / close to the heart',       opts:['बहुत प्रिय होना','हार पहनना','गहना बनाना','दूर होना'],ans:0},
+  {idiom:'काल कवलित होना',              meaning:'मृत्यु को प्राप्त होना',         eng:'To be consumed by death / to die',           opts:['मृत्यु को प्राप्त होना','खतरे में होना','बचना','जीना'],ans:0},
+  {idiom:'रंग बदलना',                  meaning:'स्वभाव बदलना / धोखा देना',      eng:'To change colours / to be two-faced',        opts:['स्वभाव बदलना / धोखा देना','रंग लगाना','खुश होना','सच्चा होना'],ans:0},
+  {idiom:'कटे पर नमक छिड़कना',          meaning:'दुख पर और दुख देना',            eng:'To rub salt in the wound',                   opts:['दुख पर और दुख देना','नमक खाना','ज़ख्म भरना','मदद करना'],ans:0},
+  // 91-100
+  {idiom:'दोनों हाथों से उलीचना',       meaning:'खूब खर्च करना',                eng:'To spend lavishly',                          opts:['खूब खर्च करना','पानी लेना','बचत करना','काम करना'],ans:0},
+  {idiom:'मनगढ़ंत बात करना',            meaning:'झूठी / काल्पनिक बात करना',      eng:'To make up stories / fabricate',            opts:['झूठी काल्पनिक बात करना','सच बोलना','कहानी सुनाना','मदद करना'],ans:0},
+  {idiom:'लूट खसोट करना',              meaning:'जबरदस्ती लूटना',                eng:'To loot and plunder',                        opts:['जबरदस्ती लूटना','देना','खरीदना','बचाना'],ans:0},
+  {idiom:'राग अलापना',                 meaning:'एक ही बात बार-बार कहना',         eng:'To harp on the same thing repeatedly',       opts:['एक ही बात बार-बार कहना','गाना गाना','संगीत बजाना','खुश होना'],ans:0},
+  {idiom:'मीठी-मीठी बातें करना',        meaning:'दिखावे की मीठी बातें करना',     eng:'To sweet-talk / speak insincerely',          opts:['दिखावे की मीठी बातें करना','मिठाई खाना','सच बोलना','लड़ना'],ans:0},
+  {idiom:'फ़िज़ूलख़र्ची करना',           meaning:'व्यर्थ में पैसे उड़ाना',         eng:'To waste money / be extravagant',            opts:['व्यर्थ में पैसे उड़ाना','बचत करना','कमाना','देना'],ans:0},
+  {idiom:'जी चुराना',                  meaning:'काम से बचना / आलसी होना',        eng:'To shirk work / be lazy',                    opts:['काम से बचना','मेहनत करना','खुश होना','जल्दी करना'],ans:0},
+  {idiom:'छाती पीटना',                 meaning:'बहुत दुखी होकर विलाप करना',      eng:'To beat one\'s chest in grief / lament',     opts:['बहुत दुखी होकर विलाप करना','खुश होना','व्यायाम करना','लड़ना'],ans:0},
+  {idiom:'धरित पर पाँव न पड़ना',         meaning:'बहुत खुश होना / अहंकार होना',   eng:'To be very proud / beside oneself with joy', opts:['बहुत खुश / अहंकारी होना','उड़ना','गिरना','दुखी होना'],ans:0},
+  {idiom:'भाग खड़ा होना',               meaning:'जल्दी भाग जाना',                eng:'To run away quickly',                        opts:['जल्दी भाग जाना','खड़े होना','रुकना','लड़ना'],ans:0},
 ];
 
-// ═══════════════════════════════════════════════════════════════
-// PROVERBS (लोकोक्तियाँ / कहावतें) — O-Level syllabus aligned
-// ═══════════════════════════════════════════════════════════════
 const PROVERBS = [
-  {prov:'अकेला चना भाड़ नहीं फोड़ सकता',meaning:'अकेले से बड़ा काम नहीं होता',eng:'One person cannot accomplish a big task alone',opts:['अकेले से बड़ा काम नहीं होता','चना खाने से ताकत आती है','अकेले रहना अच्छा है','मेहनत करने से सफलता मिलती है'],ans:0},
-  {prov:'नाच न जाने आँगन टेढ़ा',meaning:'अपनी कमी के लिए दूसरे को दोष देना',eng:'Blaming others for one\'s own faults',opts:['नाचना सीखो','अपनी कमी के लिए दूसरों को दोष देना','आँगन सीधा करो','मेहनत करो'],ans:1},
-  {prov:'खोदा पहाड़ निकली चुहिया',meaning:'बहुत मेहनत करने पर बहुत कम मिला',eng:'Much effort for very little result',opts:['पहाड़ पर चूहा मिला','बहुत मेहनत पर थोड़ा परिणाम','पहाड़ खोदना आसान है','खुदाई से सोना मिलता है'],ans:1},
-  {prov:'जैसी करनी वैसी भरनी',meaning:'जैसा करोगे वैसा फल पाओगे',eng:'As you sow, so shall you reap',opts:['करनी भरनी एक है','जैसा करोगे वैसा पाओगे','अच्छे काम करो','मेहनत से सफलता मिलती है'],ans:1},
-  {prov:'दूध का जला छाछ भी फूँक-फूँककर पीता है',meaning:'एक बार धोखा खाने के बाद सावधान हो जाता है',eng:'Once bitten, twice shy',opts:['दूध छाछ से बेहतर है','एक बार धोखे के बाद सावधान रहते हैं','छाछ पीना अच्छा है','फूँक से ठंडा होता है'],ans:1},
-  {prov:'घर का भेदी लंका ढाए',meaning:'अपने ही घर का जानकार दुश्मन सबसे खतरनाक',eng:'A traitor within is most dangerous',opts:['लंका जाना खतरनाक है','घर का राज़ जाननेवाला दुश्मन सबसे ख़तरनाक','भेदी अच्छे होते हैं','घर सुरक्षित है'],ans:1},
-  {prov:'लातों के भूत बातों से नहीं मानते',meaning:'कुछ लोग सख्ती से ही समझते हैं',eng:'Some people only understand harsh treatment',opts:['लात मारना सही है','कुछ लोग सिर्फ सख्ती से समझते हैं','बातों से सब मानते हैं','भूत होते हैं'],ans:1},
-  {prov:'बिन माँगे मोती मिले माँगे मिले न भीख',meaning:'जो माँगा नहीं वह मिलता है पर माँगने पर नहीं',eng:'Unasked things come easily; begging gets nothing',opts:['माँगने से सब मिलता है','बिना माँगे अच्छी चीज़ें मिलती हैं','मोती बेशकीमती है','भीख माँगो'],ans:1},
-  {prov:'काला अक्षर भैंस बराबर',meaning:'बिल्कुल अनपढ़ होना',eng:'To be completely illiterate',opts:['भैंस काली होती है','बिल्कुल अनपढ़ होना','पढ़ना ज़रूरी है','काले अक्षर लिखो'],ans:1},
-  {prov:'जल में रहकर मगर से बैर',meaning:'जहाँ रहो वहाँ के शक्तिशाली से दुश्मनी नहीं करनी',eng:'Don\'t antagonise the powerful where you live',opts:['मगरमच्छ से डरो','जहाँ रहो वहाँ के ताकतवर से दुश्मनी मत करो','जल में रहो','पानी में सावधान रहो'],ans:1},
-  {prov:'थोथा चना बाजे घना',meaning:'जो कम जानता है वह ज़्यादा दिखावा करता है',eng:'Empty vessels make the most noise',opts:['चना खाओ','कम जाननेवाला ज़्यादा दिखावा करता है','घना जंगल','चना बाजे'],ans:1},
-  {prov:'एक पंथ दो काज',meaning:'एक काम से दो फ़ायदे',eng:'Killing two birds with one stone',opts:['एक काम से दो फ़ायदे','दो काम करो','पंथ लंबा है','एक पत्थर दो निशाने'],ans:0},
+  {prov:'अन्त भला तो सब भला',              meaning:'परिणाम अच्छा हो तो सब ठीक',     eng:'All\'s well that ends well',                    opts:['परिणाम अच्छा हो तो सब ठीक','शुरुआत ज़रूरी है','मेहनत करो','सब बुरा है'],ans:0},
+  {prov:'अंधों में काना राजा',              meaning:'कम योग्य भी जहाँ कोई न हो वहाँ महान',eng:'In the land of the blind, the one-eyed man is king',opts:['कम योग्य भी अयोग्यों में महान','अंधे होना','राजा बनना','योग्य होना'],ans:0},
+  {prov:'अब पछताए होत क्या जब चिड़िया चुग गई खेत',meaning:'काम बिगड़ने के बाद पछताना बेकार',eng:'It\'s no use crying over spilt milk',opts:['काम बिगड़ने के बाद पछताना बेकार','चिड़िया पालना','खेत में जाना','जल्दी करना'],ans:0},
+  {prov:'उल्टा चोर कोतवाल को डाँटे',        meaning:'गलती करके उल्टे दोष लगाना',     eng:'The pot calling the kettle black',              opts:['गलती करके उल्टे दोष लगाना','चोर पकड़ना','कोतवाल होना','ईमानदार होना'],ans:0},
+  {prov:'ऊँची दुकान फीका पकवान',           meaning:'दिखावा ज़्यादा, असलियत कम',      eng:'All show and no substance',                     opts:['दिखावा ज़्यादा असलियत कम','महँगी दुकान','अच्छा खाना','ईमानदार होना'],ans:0},
+  {prov:'एक अनार सौ बीमार',                meaning:'एक वस्तु के लिए बहुत लोग',       eng:'One source, many claimants',                    opts:['एक वस्तु के लिए बहुत लोग','अनार खाना','बीमार होना','डॉक्टर जाना'],ans:0},
+  {prov:'जैसी करनी वैसी भरनी',             meaning:'जैसा करोगे वैसा फल पाओगे',      eng:'As you sow, so shall you reap',                 opts:['जैसा करोगे वैसा पाओगे','खेती करना','फल खाना','मेहनत करना'],ans:0},
+  {prov:'अकेला चना भाड़ नहीं फोड़ सकता',   meaning:'अकेले बड़ा काम नहीं होता',       eng:'One person cannot do a big task alone',         opts:['अकेले बड़ा काम नहीं होता','चना खाना','भाड़ में जाना','मेहनत करना'],ans:0},
+  {prov:'आगे कुआँ पीछे खाई',               meaning:'हर तरफ मुसीबत होना',            eng:'Stuck between a rock and a hard place',         opts:['हर तरफ मुसीबत होना','कुआँ खोदना','पीछे जाना','बच निकलना'],ans:0},
+  {prov:'नाच न जाने आँगन टेढ़ा',           meaning:'खुद की कमी दूसरे पर डालना',     eng:'A bad workman blames his tools',                opts:['खुद की कमी दूसरे पर डालना','नाचना सीखो','आँगन ठीक करो','मेहनत करो'],ans:0},
+  {prov:'आसमान से गिरा खजूर पर अटका',      meaning:'एक मुसीबत से निकलकर दूसरी में',eng:'Out of the frying pan into the fire',            opts:['एक मुसीबत से निकल दूसरी में फँसना','खजूर खाना','गिरना','उड़ना'],ans:0},
+  {prov:'अंगूर खट्टे हैं',                  meaning:'न मिले तो बुरा बताना',           eng:'Sour grapes',                                   opts:['न मिले तो बुरा बताना','अंगूर खाना','खट्टा पसंद करना','माँगना'],ans:0},
+  {prov:'काला अक्षर भैंस बराबर',           meaning:'बिल्कुल अनपढ़ होना',             eng:'To be completely illiterate',                   opts:['बिल्कुल अनपढ़ होना','भैंस पालना','काला रंग','पढ़ना सीखना'],ans:0},
+  {prov:'दूर के ढोल सुहावने',               meaning:'दूर की चीज़ हमेशा अच्छी लगती',  eng:'The grass is always greener on the other side', opts:['दूर की चीज़ अच्छी लगती','ढोल बजाना','संगीत सुनना','पास आना'],ans:0},
+  {prov:'दूध का दूध पानी का पानी',          meaning:'सही न्याय होना',                 eng:'To get exact and fair justice',                 opts:['सही न्याय होना','दूध पीना','पानी पीना','मिलाना'],ans:0},
+  {prov:'आम के आम गुठलियों के दाम',         meaning:'एक काम से दोहरा फ़ायदा',         eng:'Double benefit from one thing',                 opts:['एक काम से दोहरा फ़ायदा','आम खाना','गुठली फेंकना','बाज़ार जाना'],ans:0},
+  {prov:'ऊँट के मुँह में जीरा',             meaning:'बड़े की ज़रूरत के लिए बहुत कम',  eng:'A drop in the ocean',                           opts:['ज़रूरत के लिए बहुत कम','ऊँट पालना','जीरा खाना','पर्याप्त होना'],ans:0},
+  {prov:'एक तो करेला दूजे नीम चढ़ा',        meaning:'बुरे पर और बुरा होना',           eng:'Adding insult to injury',                       opts:['बुरे पर और बुरा होना','करेला खाना','नीम खाना','अच्छा होना'],ans:0},
+  {prov:'खोदा पहाड़ निकली चुहिया',          meaning:'बहुत कोशिश पर बहुत कम मिला',    eng:'Much ado about nothing',                        opts:['बहुत कोशिश पर बहुत कम मिला','पहाड़ खोदना','चूहा पकड़ना','मेहनत करना'],ans:0},
+  {prov:'खरबूजे को देखकर खरबूजा भी रंग बदलता है',meaning:'संगति का असर पड़ता है',   eng:'We are influenced by those around us',          opts:['संगति का असर पड़ता है','फल खाना','रंग लगाना','बाज़ार जाना'],ans:0},
+  {prov:'सिर मुड़ाते ही ओले पड़ना',          meaning:'काम शुरू करते ही मुसीबत',       eng:'Trouble at the very start',                     opts:['काम शुरू करते ही मुसीबत','सिर मुड़ाना','ओले पड़ना','बारिश होना'],ans:0},
+  {prov:'चोर की दाढ़ी में तिनका',            meaning:'गलतीकर्ता खुद ही घबराता है',    eng:'A guilty conscience needs no accuser',          opts:['गलतीकर्ता खुद घबराता है','चोर पकड़ना','दाढ़ी रखना','तिनका होना'],ans:0},
+  {prov:'जिसकी लाठी उसकी भैंस',            meaning:'ताकतवर की जीत होती है',          eng:'Might is right',                                opts:['ताकतवर की जीत होती है','लाठी रखना','भैंस पालना','न्याय होना'],ans:0},
+  {prov:'साँप भी मरे और लाठी भी न टूटे',    meaning:'काम भी हो और नुकसान भी न हो',   eng:'To have the best of both worlds',               opts:['काम भी हो नुकसान भी न हो','साँप मारना','लाठी तोड़ना','सावधान रहना'],ans:0},
+  {prov:'न रहेगा बाँस न बजेगी बाँसुरी',     meaning:'समस्या की जड़ खत्म करो',         eng:'Remove the root cause and the problem ends',   opts:['समस्या की जड़ खत्म करो','बाँसुरी बजाना','बाँस काटना','गाना गाना'],ans:0},
 ];
 
-// ═══════════════════════════════════════════════════════════════
-// WORD PAIRS (शब्द-युग्म) — O-Level syllabus aligned
-// Same sound, different meaning — common exam question
-// ═══════════════════════════════════════════════════════════════
+// Word Pairs (सह-प्रयोग) — all 30 from official syllabus
 const WORD_PAIRS = [
-  {w1:'अपना',m1:'खुद का',w2:'आपना',m2:'(गलत शब्द)',q:'\'अपना\' का अर्थ क्या है?',opts:['खुद का','दूसरे का','पराया','सभी का'],ans:0},
-  {w1:'कुल',m1:'सब / कुलमिलाकर',w2:'कूल',m2:'शांत (अंग्रेज़ी)',q:'\'कुल\' का सही अर्थ क्या है?',opts:['शांत','सब मिलाकर','ठंडा','परिवार'],ans:1},
-  {w1:'सुर',m1:'संगीत की धुन',w2:'शूर',m2:'बहादुर',q:'\'सुर\' का अर्थ क्या है?',opts:['बहादुर','संगीत की धुन','सूर्य','सर'],ans:1},
-  {w1:'दिन',m1:'day (दिवस)',w2:'दीन',m2:'गरीब / दयनीय',q:'\'दीन\' का अर्थ क्या है?',opts:['दिन','गरीब/दयनीय','रात','सुबह'],ans:1},
-  {w1:'मेल',m1:'मिलाप / संबंध',w2:'मैल',m2:'गंदगी / कचरा',q:'\'मैल\' का अर्थ क्या है?',opts:['मिलाप','गंदगी/कचरा','चिट्ठी','दोस्ती'],ans:1},
-  {w1:'नारा',m1:'slogan (घोष)',w2:'नाला',m2:'नाली / छोटी नदी',q:'\'नारा\' का अर्थ क्या है?',opts:['नाली','नारा/घोष','नाव','नाला'],ans:1},
-  {w1:'बाल',m1:'hair (केश)',w2:'बाल',m2:'बच्चा (child)',q:'\'बाल\' के दोनों अर्थ कौन से हैं?',opts:['बाल और बच्चा','बाल और पंख','बाल और फूल','बाल और पत्ता'],ans:0},
-  {w1:'पानी',m1:'water (जल)',w2:'पाणी',m2:'(पानी का प्राचीन रूप)',q:'\'पानी\' का अर्थ क्या है?',opts:['जल','आग','हवा','मिट्टी'],ans:0},
-  {w1:'हरि',m1:'भगवान विष्णु',w2:'हरी',m2:'हरा रंग (green)',q:'\'हरि\' का अर्थ क्या है?',opts:['हरा रंग','भगवान विष्णु','हवा','हरियाली'],ans:1},
-  {w1:'वर',m1:'दूल्हा / वरदान',w2:'बर',m2:'(उर्दू में वर)',q:'\'वर\' का एक अर्थ क्या है?',opts:['दूल्हा / वरदान','पेड़','वर्ग','पत्ता'],ans:0},
+  {w1:'सुख',    w2:'दुःख',      use:'जीवन में सुख-दुःख आते रहते हैं।',   eng:'Joy and sorrow come and go in life.'},
+  {w1:'दया',    w2:'करुणा',     use:'उसके मन में दया-करुणा भरी थी।',      eng:'His heart was full of compassion.'},
+  {w1:'उत्थान', w2:'पतन',       use:'मेहनत से उत्थान, आलस से पतन होता है।',eng:'Hard work brings rise, laziness brings fall.'},
+  {w1:'खाना',   w2:'कपड़ा',     use:'उसे खाना-कपड़ा मिलना ज़रूरी था।',    eng:'He needed food and clothing.'},
+  {w1:'भागा',   w2:'भागा',      use:'वह भागा-भागा स्कूल आया।',            eng:'He came running to school.'},
+  {w1:'आगे',    w2:'पीछे',      use:'वह आगे-पीछे सोचे बिना बोलता है।',   eng:'He speaks without thinking ahead or behind.'},
+  {w1:'ऊँच',    w2:'नीच',       use:'ऊँच-नीच का भेद नहीं करना चाहिए।',   eng:'One should not discriminate by status.'},
+  {w1:'अगल',    w2:'बगल',       use:'वे अगल-बगल बैठे थे।',                eng:'They were sitting side by side.'},
+  {w1:'सच',     w2:'झूठ',       use:'सच-झूठ का फ़र्क जानना ज़रूरी है।',   eng:'It is important to know truth from lies.'},
+  {w1:'थका',    w2:'हारा',      use:'वह थका-हारा घर आया।',                eng:'He came home tired and dejected.'},
+  {w1:'ऊपर',    w2:'नीचे',      use:'वह ऊपर-नीचे देखता रहा।',             eng:'He kept looking up and down.'},
+  {w1:'दुबला',  w2:'पतला',      use:'वह बीमारी में दुबला-पतला हो गया।',   eng:'He became thin and weak during illness.'},
+  {w1:'भीतर',   w2:'बाहर',      use:'वह भीतर-बाहर घूमता रहा।',            eng:'He kept moving inside and outside.'},
+  {w1:'जब',     w2:'तब',        use:'जब मेहनत करोगे तब सफलता मिलेगी।',   eng:'When you work hard, you will succeed.'},
+  {w1:'छोटा',   w2:'बड़ा',       use:'छोटा-बड़ा सभी को सम्मान दो।',        eng:'Give respect to everyone, big and small.'},
+  {w1:'अदला',   w2:'बदली',      use:'यह अदला-बदली का सौदा था।',           eng:'It was an exchange deal.'},
+  {w1:'आय',     w2:'व्यय',      use:'आय-व्यय का हिसाब रखना ज़रूरी है।',   eng:'It is important to keep track of income and expenses.'},
+  {w1:'इच्छा',  w2:'अनिच्छा',   use:'इच्छा-अनिच्छा से काम नहीं चलता।',   eng:'Work does not get done with reluctance.'},
+  {w1:'ईर्ष्या', w2:'द्वेष',    use:'ईर्ष्या-द्वेष छोड़कर काम करो।',      eng:'Work by giving up jealousy and hatred.'},
+  {w1:'गुण',    w2:'अवगुण',     use:'हर इंसान में गुण-अवगुण होते हैं।',   eng:'Every person has virtues and faults.'},
+  {w1:'हानि',   w2:'लाभ',       use:'व्यापार में हानि-लाभ होता है।',       eng:'There is profit and loss in business.'},
+  {w1:'खरा',    w2:'खोटा',      use:'खरा-खोटा परखना सीखो।',               eng:'Learn to distinguish the genuine from the fake.'},
+  {w1:'नया',    w2:'पुराना',    use:'नया-पुराना सब काम आता है।',           eng:'Both new and old things come in handy.'},
+  {w1:'जय',     w2:'पराजय',    use:'जय-पराजय जीवन का हिस्सा है।',        eng:'Victory and defeat are part of life.'},
+  {w1:'आस',     w2:'पास',       use:'वह आस-पास घूम रहा था।',              eng:'He was wandering nearby.'},
+  {w1:'मान',    w2:'अपमान',     use:'मान-अपमान की परवाह मत करो।',          eng:'Do not care about honour or dishonour.'},
+  {w1:'आदि',    w2:'अंत',       use:'कहानी आदि से अंत तक अच्छी थी।',      eng:'The story was good from beginning to end.'},
+  {w1:'आकाश',   w2:'पाताल',    use:'आकाश-पाताल का फ़र्क है।',             eng:'There is a world of difference.'},
+  {w1:'अमीर',   w2:'ग़रीब',     use:'अमीर-ग़रीब सबको न्याय मिलना चाहिए।', eng:'Rich and poor should all get justice.'},
+  {w1:'दाना',   w2:'पानी',      use:'उसका दाना-पानी यहीं से था।',          eng:'His livelihood was from here.'},
 ];
+
 
 // ═══════════════════════════════════════════════════════════════
 // FILL IN THE BLANKS (रिक्त स्थान) — expanded to 30
@@ -2050,6 +2206,31 @@ function loadQF(){
     return;
   }
 
+  // ── WORD PAIRS (सह-प्रयोग) ────────────────────────────────────────────────
+  if(qfMode==='wp'){
+    const wp=WORD_PAIRS[Math.floor(Math.random()*WORD_PAIRS.length)];
+    qfCurrent={type:'wp',wp};
+    document.getElementById('fc-badge').textContent='सह-प्रयोग — शब्द-युग्म';
+    const fc=document.getElementById('fc-q');
+    fc.textContent=wp.w1+' - ___';
+    fc.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize='1.8rem';
+    document.getElementById('fc-hint').textContent=wp.use+' | '+wp.eng;
+    // Options: correct answer + 3 wrong from other pairs
+    const correct=wp.w2;
+    const wrongPool=WORD_PAIRS.filter(x=>x.w1!==wp.w1).map(x=>x.w2).sort(()=>Math.random()-.5).slice(0,3);
+    const choices=[...wrongPool,correct].sort(()=>Math.random()-.5);
+    const opts=document.getElementById('qf-opts');
+    choices.forEach(c=>{
+      const b=document.createElement('button'); b.className='qfo';
+      b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+      b.textContent=c;
+      b.onclick=()=>checkVocabOpt(c,correct,b);
+      opts.appendChild(b);
+    });
+    return;
+  }
+
   // ── PROVERBS (कहावतें) ──────────────────────────────────────────────────
   if(qfMode==='prov'){
     const p=PROVERBS[Math.floor(Math.random()*PROVERBS.length)];
@@ -2090,6 +2271,7 @@ function checkVocabOpt(chosen,correct,btn){
     let msg='❌ गलत। सही उत्तर: '+correct;
     if(qfCurrent.type==='syn') msg+=' ('+qfCurrent.s.meaning+' का पर्यायवाची)';
     else if(qfCurrent.type==='ant') msg+=' ('+qfCurrent.a.word+' का विलोम)';
+    else if(qfCurrent.type==='wp') msg+=' | सही जोड़ा: '+qfCurrent.wp.w1+'-'+qfCurrent.wp.w2+' → '+qfCurrent.wp.eng;
     fb.className='qf-fb err on'; fb.textContent=msg;
   }
   updateQFStats(); document.getElementById('next-btn').classList.add('on');
