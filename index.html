@@ -2020,7 +2020,7 @@ Start with ✅ (correct/4+), 🔶 (partial/2-3), or ❌ (wrong/0-1). Format: [sy
       const d=await resp.json(); const text=d.candidates?.[0]?.content?.parts?.[0]?.text||'';
       return {correct:text.startsWith('✅'),msg:text};
     } else if(ST.apiProvider==='ollama'){
-      resp=await fetch((ST.ollamaUrl||'http://localhost:11434')+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:ST.apiModel||'llama3',prompt:prompt,stream:false})});
+      resp=await fetch((ST.ollamaUrl||'http://localhost:11434')+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:ST.apiModel||'llama-3.1-8b-instant',prompt:prompt,stream:false})});
       const d=await resp.json(); const text=d.response||'';
       return {correct:text.startsWith('✅'),msg:text};
     }
@@ -2343,9 +2343,9 @@ let curProvider='anthropic';
 const PROVIDERS={
   anthropic:{label:'Anthropic Claude',keyLabel:'API Key',keyPh:'sk-ant-...',models:['claude-haiku-4-5-20251001','claude-sonnet-4-20250514'],endpoint:'https://api.anthropic.com/v1/messages'},
   openai:{label:'OpenAI',keyLabel:'API Key',keyPh:'sk-...',models:['gpt-4o-mini','gpt-4o'],endpoint:'https://api.openai.com/v1/chat/completions'},
-  groq:{label:'Groq',keyLabel:'API Key',keyPh:'gsk_...',models:['llama-3.1-8b-instant','llama3-70b-8192','mixtral-8x7b-32768'],endpoint:'https://api.groq.com/openai/v1/chat/completions'},
+  groq:{label:'Groq',keyLabel:'API Key',keyPh:'gsk_...',models:['llama-3.1-8b-instant','llama-3.1-8b-instant','mixtral-8x7b-32768'],endpoint:'https://api.groq.com/openai/v1/chat/completions'},
   gemini:{label:'Google Gemini',keyLabel:'API Key',keyPh:'AIza...',models:['gemini-1.5-flash','gemini-1.5-pro'],endpoint:'https://generativelanguage.googleapis.com/v1beta/models/...'},
-  ollama:{label:'Ollama (Local)',keyLabel:'No key needed',keyPh:'(leave blank)',models:['llama3','mistral','phi3','gemma2'],endpoint:'http://localhost:11434/api/generate'},
+  ollama:{label:'Ollama (Local)',keyLabel:'No key needed',keyPh:'(leave blank)',models:['llama-3.1-8b-instant','mistral','phi3','gemma2'],endpoint:'http://localhost:11434/api/generate'},
 };
 function setProvider(p,btn){
   curProvider=p;
