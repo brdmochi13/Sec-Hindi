@@ -492,6 +492,7 @@ textarea.exp-input:focus{border-color:var(--saffron)}
       <button class="qfm" id="qfm-idiom" onclick="setQF('idiom',this)">💬 मुहावरे</button>
       <button class="qfm" id="qfm-prov" onclick="setQF('prov',this)">📜 कहावतें</button>
       <button class="qfm" id="qfm-wp" onclick="setQF('wp',this)">🔗 सह-प्रयोग</button>
+      <button class="qfm" id="qfm-vaakya" onclick="setQF('vaakya',this)">🔄 वाक्य रूपांतरण</button>
     </div>
     <div class="qf-stats">
       <div class="qfs ok"><div class="qfs-val" id="qf-c">0</div><div class="qfs-label">Correct</div></div>
@@ -1729,6 +1730,321 @@ const FILL_BLANKS = [
   {q:'\'मनोरथ\' में सन्धि विच्छेद है: मनः + ___।',blank:'रथ',opts:['रथ','ओरथ','अरथ','थ'],ans:0,eng:'Sandhi split: manah + rath = manorath'},
 ];
 
+// ═══════════════════════════════════════════════════════════════════
+// वाक्य रूपांतरण (SENTENCE TRANSFORMATION) DATA
+// Based on Mokshith's class notes (ST_STACK_1)
+// 6 types × ~12 questions each = 70+ exercises
+// ═══════════════════════════════════════════════════════════════════
+
+const VAAKYA = [
+
+  // ══════════════════════════════════════════════
+  // TYPE 1: ACTIVE ↔ PASSIVE VOICE (कर्तृ/कर्म वाच्य)
+  // ══════════════════════════════════════════════
+  {type:'voice', subtype:'active_to_passive', tense:'present',
+   q:'मैं यह खिड़की खोलता हूँ। (कर्म वाच्य में बदलें)',
+   ans:'यह खिड़की (मेरे द्वारा) खोली जाती है।',
+   opts:['यह खिड़की (मेरे द्वारा) खोली जाती है।','मैं खिड़की खोलता रहा।','खिड़की खुल गई है।','यह खिड़की खोली गई थी।'],
+   rule:'Present Habitual Active → Passive: Subject + द्वारा + Object + verb+ई/ए जाती/जाते है/हैं',
+   eng:'I open this window. → This window is opened by me.'},
+
+  {type:'voice', subtype:'active_to_passive', tense:'past',
+   q:'मैंने यह खिड़की खोली। (कर्म वाच्य में बदलें)',
+   ans:'यह खिड़की (मेरे द्वारा) खोली गई।',
+   opts:['यह खिड़की (मेरे द्वारा) खोली गई।','मैं खिड़की खोल रहा था।','खिड़की खुलती है।','यह खिड़की खोली जाती है।'],
+   rule:'Past Active (ने) → Passive: Object + द्वारा + verb+ई/ए गई/गए',
+   eng:'I opened this window. → This window was opened.'},
+
+  {type:'voice', subtype:'active_to_passive', tense:'future',
+   q:'मैं यह खिड़की खोलूँगा। (कर्म वाच्य में बदलें)',
+   ans:'यह खिड़की (मेरे द्वारा) खोली जायेगी।',
+   opts:['यह खिड़की (मेरे द्वारा) खोली जायेगी।','खिड़की खोली गई।','खिड़की खुल रही है।','मेरे द्वारा खिड़की खोलना होगा।'],
+   rule:'Future Active → Passive: Object + द्वारा + verb+ई जायेगी/जाएगी',
+   eng:'I will open the window. → The window will be opened.'},
+
+  {type:'voice', subtype:'active_to_passive', tense:'progressive',
+   q:'मैं यह खिड़की खोल रहा हूँ। (कर्म वाच्य में बदलें)',
+   ans:'यह खिड़की खोली जा रही है।',
+   opts:['यह खिड़की खोली जा रही है।','खिड़की खोली गई थी।','खिड़की खोली जायेगी।','मेरे द्वारा खिड़की खुल रही है।'],
+   rule:'Present Progressive Active → Passive: Object + verb+ई जा रही/रहे है/हैं',
+   eng:'I am opening this window. → This window is being opened.'},
+
+  {type:'voice', subtype:'passive_to_active', tense:'present',
+   q:'लड़के द्वारा पत्र लिखा जाता है। (कर्तृ वाच्य में बदलें)',
+   ans:'लड़का पत्र लिखता है।',
+   opts:['लड़का पत्र लिखता है।','लड़के ने पत्र लिखा।','पत्र लड़के ने लिखा था।','लड़के द्वारा पत्र लिखेंगे।'],
+   rule:'Passive → Active: Remove द्वारा, subject does the action directly',
+   eng:'A letter is written by the boy. → The boy writes a letter.'},
+
+  {type:'voice', subtype:'passive_to_active', tense:'past',
+   q:'माला ने खाना खाया। (कर्म वाच्य में बदलें)',
+   ans:'माला द्वारा खाना खाया गया।',
+   opts:['माला द्वारा खाना खाया गया।','माला खाना खाती है।','माला खाना खा रही थी।','खाना माला को दिया गया।'],
+   rule:'Past Active (ने) → Passive: Subject + द्वारा + Object + verb+ए/ई गया/गई',
+   eng:'Mala ate food. → Food was eaten by Mala.'},
+
+  {type:'voice', subtype:'active_to_passive', tense:'compulsion',
+   q:'मुझे यह खिड़की खोलनी है। (कर्म वाच्य में बदलें)',
+   ans:'यह खिड़की खोली जानी चाहिए।',
+   opts:['यह खिड़की खोली जानी चाहिए।','खिड़की खोलनी चाहिए थी।','खिड़की मुझे खोलनी है।','खिड़की खुलनी है।'],
+   rule:'Compulsion Active → Passive: Object + verb+ई जानी चाहिए',
+   eng:'I have to open this window. → This window has to be opened.'},
+
+  {type:'voice', subtype:'active_to_passive', tense:'present_perfect',
+   q:'मैंने यह खिड़की खोली है। (कर्म वाच्य में बदलें)',
+   ans:'यह खिड़की (मेरे द्वारा) खोली गई है।',
+   opts:['यह खिड़की (मेरे द्वारा) खोली गई है।','खिड़की खुल चुकी है।','खिड़की खोली जाएगी।','मैं खिड़की खोल रहा हूँ।'],
+   rule:'Present Perfect Active → Passive: Object + द्वारा + verb+ई/ए गई/गए है/हैं',
+   eng:'I have opened this window. → This window has been opened.'},
+
+  {type:'voice', subtype:'passive_to_active', tense:'progressive',
+   q:'सिद्धार्थ पतंग उड़ा रहा है। (कर्म वाच्य में बदलें)',
+   ans:'सिद्धार्थ द्वारा पतंग उड़ाई जा रही है।',
+   opts:['सिद्धार्थ द्वारा पतंग उड़ाई जा रही है।','पतंग उड़ रही है।','सिद्धार्थ ने पतंग उड़ाई।','पतंग उड़ाई जाएगी।'],
+   rule:'Present Progressive Active → Passive: Subject + द्वारा + Object + verb जा रही/रहे है',
+   eng:'Siddharth is flying a kite. → A kite is being flown by Siddharth.'},
+
+  {type:'voice', subtype:'active_to_passive', tense:'past_progressive',
+   q:'मैं यह खिड़की खोल रहा था। (कर्म वाच्य में बदलें)',
+   ans:'यह खिड़की (मेरे द्वारा) खोली जा रही थी।',
+   opts:['यह खिड़की (मेरे द्वारा) खोली जा रही थी।','खिड़की खोली गई थी।','खिड़की खुल रही थी।','मेरे द्वारा खिड़की खोलना था।'],
+   rule:'Past Progressive Active → Passive: Object + verb+ई जा रही/रहे थी/थे',
+   eng:'I was opening this window. → This window was being opened.'},
+
+  // ══════════════════════════════════════════════
+  // TYPE 2: IMPERATIVE — ORDER / ADVICE / REQUEST
+  // ══════════════════════════════════════════════
+  {type:'imperative', subtype:'order_to_advice',
+   q:'"झूठ मत बोलो।" (आज्ञा → सलाह में बदलें)',
+   ans:'तुम्हें झूठ नहीं बोलना चाहिए।',
+   opts:['तुम्हें झूठ नहीं बोलना चाहिए।','कृपया झूठ मत बोलो।','झूठ बोला जाता है।','तुम झूठ बोल सकते हो।'],
+   rule:'Order (verb) → Advice: तुम्हें + verb + नहीं + बोलना चाहिए',
+   eng:'Don\'t lie. (Order) → You should not lie. (Advice)'},
+
+  {type:'imperative', subtype:'order_to_request',
+   q:'"झूठ मत बोलो।" (आज्ञा → निवेदन में बदलें)',
+   ans:'कृपया झूठ मत बोलिए।',
+   opts:['कृपया झूठ मत बोलिए।','तुम्हें झूठ नहीं बोलना चाहिए।','झूठ बोलना गलत है।','झूठ मत बोलना था।'],
+   rule:'Order → Request: कृपया + verb + इए (polite form)',
+   eng:'Don\'t lie. (Order) → Please don\'t lie. (Request)'},
+
+  {type:'imperative', subtype:'order_to_advice',
+   q:'"तुम रोज़ पढ़ा करो।" (आज्ञा → सलाह में बदलें)',
+   ans:'तुम्हें रोज़ पढ़ना चाहिए।',
+   opts:['तुम्हें रोज़ पढ़ना चाहिए।','कृपया रोज़ पढ़िए।','तुम रोज़ पढ़ते हो।','रोज़ पढ़ा जाता है।'],
+   rule:'Order → Advice: तुम्हें + infinitive + चाहिए',
+   eng:'Read every day. (Order) → You should read every day. (Advice)'},
+
+  {type:'imperative', subtype:'identify',
+   q:'"सदा सच बोलो।" — यह किस प्रकार का वाक्य है?',
+   ans:'आज्ञावाचक वाक्य (Order)',
+   opts:['आज्ञावाचक वाक्य (Order)','निवेदनवाचक वाक्य (Request)','सलाहवाचक वाक्य (Advice)','प्रश्नवाचक वाक्य (Question)'],
+   rule:'Direct command without कृपया or चाहिए = Order',
+   eng:'Always speak the truth. → This is an imperative (Order) sentence.'},
+
+  {type:'imperative', subtype:'order_to_advice',
+   q:'"बड़ों का आदर करना सीखो।" (सलाह में बदलें)',
+   ans:'तुम्हें बड़ों का आदर करना चाहिए।',
+   opts:['तुम्हें बड़ों का आदर करना चाहिए।','कृपया बड़ों का आदर करिए।','बड़ों का आदर किया जाता है।','बड़ों का आदर करते हैं।'],
+   rule:'Order → Advice: तुम्हें + noun phrase + करना चाहिए',
+   eng:'Learn to respect elders. → You should respect elders.'},
+
+  // ══════════════════════════════════════════════
+  // TYPE 3: SIMPLE ↔ COMPOUND (क्योंकि/इसलिए/और/परंतु)
+  // ══════════════════════════════════════════════
+  {type:'simple_compound', subtype:'simple_to_compound', connector:'क्योंकि',
+   q:'"बीमार होने के कारण नीता स्कूल नहीं गई।" (क्योंकि से जोड़ें)',
+   ans:'नीता स्कूल नहीं गई क्योंकि वह बीमार थी।',
+   opts:['नीता स्कूल नहीं गई क्योंकि वह बीमार थी।','नीता बीमार थी इसलिए स्कूल गई।','नीता स्कूल गई और वह बीमार थी।','नीता बीमार होकर स्कूल गई।'],
+   rule:'के कारण / की वजह से → क्योंकि (because)',
+   eng:'Due to illness Neeta didn\'t go to school. → Neeta didn\'t go to school because she was sick.'},
+
+  {type:'simple_compound', subtype:'simple_to_compound', connector:'इसलिए',
+   q:'"वह फल खरीदने के लिए बाज़ार गया।" (इसलिए से जोड़ें)',
+   ans:'उसे फल खरीदने थे इसलिए वह बाज़ार गया।',
+   opts:['उसे फल खरीदने थे इसलिए वह बाज़ार गया।','वह बाज़ार गया क्योंकि फल थे।','फल खरीदकर वह बाज़ार गया।','वह बाज़ार गया और फल खरीदे।'],
+   rule:'के लिए (purpose) → इसलिए (so/therefore)',
+   eng:'He went to market to buy fruit. → He had to buy fruit so he went to market.'},
+
+  {type:'simple_compound', subtype:'compound_to_simple', connector:'के कारण',
+   q:'"सुषमा बीमार होने के कारण स्कूल नहीं गई।" वाक्य में क्या है?',
+   ans:'के कारण (simple sentence connector)',
+   opts:['के कारण (simple sentence connector)','क्योंकि (compound connector)','इसलिए (result connector)','यद्यपि (contrast connector)'],
+   rule:'के कारण = simple sentence; क्योंकि = compound sentence',
+   eng:'"Due to being sick" = simple; "because she was sick" = compound'},
+
+  {type:'simple_compound', subtype:'simple_to_compound', connector:'परंतु',
+   q:'"गरीब होने के बावजूद वह खुश है।" (परंतु से जोड़ें)',
+   ans:'वह गरीब है परंतु खुश है।',
+   opts:['वह गरीब है परंतु खुश है।','वह खुश है इसलिए गरीब है।','वह गरीब है क्योंकि खुश है।','गरीब होकर वह खुश है।'],
+   rule:'के बावजूद → यद्यपि...तथापि / परंतु (although/but)',
+   eng:'Despite being poor, he is happy. → He is poor but he is happy.'},
+
+  {type:'simple_compound', subtype:'simple_to_compound', connector:'और',
+   q:'"बालक रो-रोकर चुप हो गया।" (और से जोड़ें)',
+   ans:'बालक रोता रहा और चुप हो गया।',
+   opts:['बालक रोता रहा और चुप हो गया।','बालक चुप होकर रोया।','बालक रोया इसलिए चुप हो गया।','बालक रोते हुए चुप था।'],
+   rule:'Verb+कर (participle) → और (compound, prolonged activity)',
+   eng:'The child cried and then became quiet.'},
+
+  {type:'simple_compound', subtype:'simple_to_compound', connector:'इसलिए',
+   q:'"मोहन व्यायाम करने के लिए व्यायामशाला गया।" (इसलिए से जोड़ें)',
+   ans:'मोहन को व्यायाम करना था इसलिए वह व्यायामशाला गया।',
+   opts:['मोहन को व्यायाम करना था इसलिए वह व्यायामशाला गया।','मोहन व्यायाम करके व्यायामशाला गया।','मोहन व्यायामशाला गया क्योंकि व्यायाम था।','मोहन व्यायाम करता है इसलिए।'],
+   rule:'के लिए (purpose) → इसलिए (therefore)',
+   eng:'Mohan went to the gym to exercise.'},
+
+  // ══════════════════════════════════════════════
+  // TYPE 4: COMPLEX SENTENCES — RELATIVE CLAUSE
+  // ══════════════════════════════════════════════
+  {type:'complex', subtype:'relative_to_simple',
+   q:'"जो व्यक्ति स्वावलंबी होते हैं वे सदा सुखी रहते हैं।" (सरल वाक्य बनाएँ)',
+   ans:'स्वावलंबी व्यक्ति सदा सुखी रहते हैं।',
+   opts:['स्वावलंबी व्यक्ति सदा सुखी रहते हैं।','जो सुखी हैं वे स्वावलंबी हैं।','स्वावलंबी होकर वे सुखी हैं।','सुखी व्यक्ति स्वावलंबी होते हैं।'],
+   rule:'जो...वह/वे + verb → Adjective + noun (Relative clause → Participle)',
+   eng:'Those who are self-reliant are always happy. → Self-reliant people are always happy.'},
+
+  {type:'complex', subtype:'relative_to_simple',
+   q:'"वह स्त्री जिसने लाल साड़ी पहनी हुई है मेरी मौसी है।" (सरल वाक्य बनाएँ)',
+   ans:'लाल साड़ी पहनी हुई वह स्त्री मेरी मौसी है।',
+   opts:['लाल साड़ी पहनी हुई वह स्त्री मेरी मौसी है।','वह स्त्री मेरी मौसी है जो लाल साड़ी है।','मेरी मौसी लाल साड़ी वाली है।','लाल साड़ी मेरी मौसी की है।'],
+   rule:'Relative clause (जिसने) → Past Participle phrase (verb+ई/ए हुई/हुए)',
+   eng:'The woman who is wearing a red saree is my aunt. → The woman wearing a red saree is my aunt.'},
+
+  {type:'complex', subtype:'simple_to_relative',
+   q:'"ताजमहल सफेद पत्थर का बना है और यह बहुत सुंदर है।" (जो से जोड़ें)',
+   ans:'ताजमहल जो सफेद पत्थर का बना है बहुत सुंदर है।',
+   opts:['ताजमहल जो सफेद पत्थर का बना है बहुत सुंदर है।','ताजमहल सुंदर है क्योंकि सफेद पत्थर है।','सफेद पत्थर का ताजमहल सुंदर है।','ताजमहल इसलिए सुंदर है।'],
+   rule:'And (joining two statements about same subject) → जो (relative clause)',
+   eng:'Taj Mahal is made of white marble and it is very beautiful.'},
+
+  // ══════════════════════════════════════════════
+  // TYPE 5: PARTICIPLE — VERB+कर / VERB+ते हुए
+  // ══════════════════════════════════════════════
+  {type:'participle', subtype:'compound_to_participle',
+   q:'"जब मोहन ने गृहकार्य पूरा कर लिया तब वह खेलने गया।" (verb+कर से बदलें)',
+   ans:'अपना गृहकार्य पूरा करके मोहन खेलने गया।',
+   opts:['अपना गृहकार्य पूरा करके मोहन खेलने गया।','मोहन खेला और गृहकार्य किया।','गृहकार्य के कारण मोहन खेलने गया।','मोहन ने गृहकार्य किया इसलिए खेला।'],
+   rule:'जब...तब (distant+recent past) → verb+कर/करके (participle phrase)',
+   eng:'When Mohan finished his homework, he went to play. → Having finished homework, Mohan went to play.'},
+
+  {type:'participle', subtype:'compound_to_participle',
+   q:'"वह घर आया और उसने भोजन किया।" (verb+कर से बदलें)',
+   ans:'वह घर आकर भोजन किया।',
+   opts:['वह घर आकर भोजन किया।','घर आने के बाद भोजन किया।','जब वह घर आया तब भोजन किया।','वह भोजन करके घर आया।'],
+   rule:'And (two sequential actions) → verb+कर (first action becomes participle)',
+   eng:'He came home and ate food. → Coming home, he ate food.'},
+
+  {type:'participle', subtype:'compound_to_participle',
+   q:'"सूरज निकला और पक्षी बोलने लगे।" (verb+पर / होने पर से बदलें)',
+   ans:'सूर्योदय होने पर पक्षी बोलने लगे।',
+   opts:['सूर्योदय होने पर पक्षी बोलने लगे।','सूरज निकलकर पक्षी बोले।','जब सूरज निकला तब पक्षी बोले।','सूरज निकला इसलिए पक्षी बोले।'],
+   rule:'And (no time lag/simultaneous) → verb+पर or होने पर',
+   eng:'The sun rose and the birds started singing. → On sunrise, the birds started singing.'},
+
+  {type:'participle', subtype:'identify',
+   q:'"चिड़ियाघर जाकर मैंने कई जानवर देखे।" — "जाकर" किस प्रकार का प्रयोग है?',
+   ans:'कृदंत (Participle) — verb+कर',
+   opts:['कृदंत (Participle) — verb+कर','क्रिया विशेषण (Adverb)','संज्ञा (Noun)','विशेषण (Adjective)'],
+   rule:'verb+कर = Participle phrase (doing/having done)',
+   eng:'"Going to the zoo, I saw many animals." — "going" is a participle.'},
+
+  // ══════════════════════════════════════════════
+  // TYPE 6: IMMEDIACY — ज्योंही/त्योंही, जैसे ही
+  // ══════════════════════════════════════════════
+  {type:'immediacy', subtype:'compound_to_participle',
+   q:'"ज्योंही मैं घर से बाहर निकला त्योंही बारिश शुरू हो गई।" (verb+ते ही से बदलें)',
+   ans:'मेरे घर से बाहर निकलते ही बारिश शुरू हो गई।',
+   opts:['मेरे घर से बाहर निकलते ही बारिश शुरू हो गई।','मैं घर से निकला और बारिश हुई।','बारिश शुरू होते ही मैं घर से निकला।','घर से निकलने के बाद बारिश हुई।'],
+   rule:'ज्योंही...त्योंही → verb+ते ही (as soon as)',
+   eng:'As soon as I came out of the house, it started raining.'},
+
+  {type:'immediacy', subtype:'compound_to_participle',
+   q:'"जैसे ही श्याम घर पहुँचा बिजली चली गई।" (verb+ते ही से बदलें)',
+   ans:'श्याम के घर पहुँचते ही बिजली चली गई।',
+   opts:['श्याम के घर पहुँचते ही बिजली चली गई।','श्याम घर पहुँचा और बिजली गई।','जब श्याम घर पहुँचा तब बिजली थी।','श्याम के घर पहुँचने से बिजली गई।'],
+   rule:'जैसे ही → Subject + के + verb+ते ही (possessive case)',
+   eng:'As soon as Shyam reached home, the electricity went off.'},
+
+  {type:'immediacy', subtype:'compound_to_participle',
+   q:'"ज्योंही मैं बस-अड्डे पहुँचा त्योंही बस चल दी।" (verb+ते ही से बदलें)',
+   ans:'मेरे बस-अड्डे पहुँचते ही बस चल दी।',
+   opts:['मेरे बस-अड्डे पहुँचते ही बस चल दी।','मैं बस-अड्डे गया और बस चली।','बस-अड्डे पहुँचने के बाद बस गई।','जब मैं पहुँचा तब बस थी।'],
+   rule:'ज्योंही...त्योंही → Possessive + verb+ते ही',
+   eng:'As soon as I reached the bus stop, the bus left.'},
+
+  {type:'immediacy', subtype:'simple_to_compound',
+   q:'"लुटेरों के दुकान से निकलते ही पुलिस ने उनपर हमला किया।" (ज्योंही...त्योंही से बदलें)',
+   ans:'ज्योंही लुटेरे दुकान से निकले त्योंही पुलिस ने उनपर हमला किया।',
+   opts:['ज्योंही लुटेरे दुकान से निकले त्योंही पुलिस ने उनपर हमला किया।','लुटेरे निकले और पुलिस आई।','लुटेरे निकलने के बाद पुलिस ने हमला किया।','जैसे ही लुटेरे थे पुलिस आई।'],
+   rule:'Possessive + verb+ते ही → ज्योंही...त्योंही',
+   eng:'As soon as the robbers came out of the shop, the police attacked them.'},
+
+  // ══════════════════════════════════════════════
+  // TYPE 7: CAUSATIVE VERBS (पढ़ना → पढ़ाना → पढ़वाना)
+  // ══════════════════════════════════════════════
+  {type:'causative', subtype:'identify',
+   q:'"उसने नाई से बाल कटवाये।" — यहाँ कौन सी क्रिया है?',
+   ans:'प्रेरणार्थक क्रिया (Causative verb) — कटवाना',
+   opts:['प्रेरणार्थक क्रिया (Causative verb) — कटवाना','मूल क्रिया — काटना','पहली प्रेरणा — कटाना','कर्म वाच्य — कटा जाना'],
+   rule:'verb → verb+आना (1st causative) → verb+वाना (2nd causative)',
+   eng:'He got his hair cut by the barber. = 2nd causative (getting someone else to make someone do)'},
+
+  {type:'causative', subtype:'transform',
+   q:'"मैं पढ़ता हूँ।" — प्रेरणार्थक (1st) बनाएँ',
+   ans:'मैं पढ़ाता हूँ। (I teach)',
+   opts:['मैं पढ़ाता हूँ। (I teach)','मैं पढ़वाता हूँ। (I get taught)','मैं पढ़ सकता हूँ।','मैं पढ़ रहा हूँ।'],
+   rule:'पढ़ना → पढ़ाना (1st causative: subject causes someone else to do)',
+   eng:'I read. → I teach. (I cause others to read)'},
+
+  {type:'causative', subtype:'transform',
+   q:'"माताजी ने रोहन से कमरा साफ करवाया।" — यहाँ मूल क्रिया क्या है?',
+   ans:'साफ करना (To clean)',
+   opts:['साफ करना (To clean)','साफ करवाना (2nd causative)','साफ कराना (1st causative)','साफ किया जाना (passive)'],
+   rule:'करवाना = 2nd causative of करना (to do)',
+   eng:'Mother got Rohan to clean the room. Original verb = to clean.'},
+
+  {type:'causative', subtype:'transform',
+   q:'"उसने धोबी से कपड़े धुलवाये।" — मूल क्रिया और प्रेरणार्थक क्रिया बताएँ',
+   ans:'मूल: धोना | प्रेरणार्थक (2nd): धुलवाना',
+   opts:['मूल: धोना | प्रेरणार्थक (2nd): धुलवाना','मूल: धुलाना | प्रेरणार्थक: धोना','मूल: धोना | प्रेरणार्थक: धोवाना','मूल: धोना | प्रेरणार्थक (1st): धुलाना'],
+   rule:'धोना → धुलाना (1st) → धुलवाना (2nd)',
+   eng:'He got the washerman to wash the clothes. Original: to wash. 2nd Causative: to get washed.'},
+
+  {type:'causative', subtype:'transform',
+   q:'"मेरे भाई ने मुझे पानी पिलाया।" — यहाँ कौन सी प्रेरणार्थक क्रिया है?',
+   ans:'पिलाना (1st causative of पीना)',
+   opts:['पिलाना (1st causative of पीना)','पिलवाना (2nd causative)','पीना (original verb)','पीया जाना (passive)'],
+   rule:'पीना → पिलाना (1st causative: subject causes object to drink)',
+   eng:'My brother made me drink water. = 1st causative of पीना (to drink)'},
+
+  // ══════════════════════════════════════════════
+  // TYPE 8: YADY API / TAVAPI — CONTRAST
+  // ══════════════════════════════════════════════
+  {type:'contrast', subtype:'simple_to_compound',
+   q:'"गरीब होने के बावजूद वह खुश है।" (यद्यपि...तथापि से जोड़ें)',
+   ans:'यद्यपि वह गरीब है तथापि वह खुश है।',
+   opts:['यद्यपि वह गरीब है तथापि वह खुश है।','वह गरीब है इसलिए खुश है।','वह गरीब है क्योंकि खुश है।','वह खुश है परंतु गरीब नहीं।'],
+   rule:'के बावजूद → यद्यपि...तथापि (although...yet)',
+   eng:'Despite being poor, he is happy. → Although he is poor, yet he is happy.'},
+
+  {type:'contrast', subtype:'compound_to_simple',
+   q:'"यद्यपि वह अमीर है तथापि दयालु है।" (के बावजूद से बदलें)',
+   ans:'अमीर होने के बावजूद वह दयालु है।',
+   opts:['अमीर होने के बावजूद वह दयालु है।','वह अमीर है इसलिए दयालु है।','वह दयालु है क्योंकि अमीर है।','अमीर होकर वह दयालु है।'],
+   rule:'यद्यपि...तथापि → के बावजूद (despite)',
+   eng:'Although he is rich, yet he is kind. → Despite being rich, he is kind.'},
+
+  {type:'contrast', subtype:'compound_to_simple',
+   q:'"हारने पर भी उसने दिल नहीं हारा।" वाक्य में क्या संयोजन है?',
+   ans:'के बावजूद / पर भी (contrast: despite)',
+   opts:['के बावजूद / पर भी (contrast: despite)','इसलिए (result)','क्योंकि (reason)','और (addition)'],
+   rule:'पर भी = के बावजूद = despite/even after',
+   eng:'Even after losing, he did not lose heart. = contrast connector'},
+
+];
+
+
 
 // ═══════════════════════════════════════════════════════════════
 // EXAMPLE SENTENCES — shown after each QF answer
@@ -2060,6 +2376,7 @@ function showQFExample(key) {
 function loadQF(){
   qfDone=false;
   const exCard = document.getElementById('qf-example'); if(exCard) exCard.style.display='none';
+  const optsEl=document.getElementById('qf-opts'); if(optsEl) optsEl.style.gridTemplateColumns='1fr 1fr';
   document.getElementById('next-btn').classList.remove('on');
   document.getElementById('qf-fb').className='qf-fb';
   document.getElementById('qf-opts').innerHTML='';
@@ -2251,6 +2568,44 @@ function loadQF(){
     });
     return;
   }
+
+  // ── वाक्य रूपांतरण (SENTENCE TRANSFORMATION) ─────────────────────────────
+  if(qfMode==='vaakya'){
+    const q=VAAKYA[Math.floor(Math.random()*VAAKYA.length)];
+    qfCurrent={type:'vaakya',q};
+    // Type label
+    const typeLabels={
+      voice:'🔄 कर्तृ/कर्म वाच्य — Active/Passive',
+      imperative:'📢 आज्ञा/सलाह/निवेदन — Imperative',
+      simple_compound:'🔗 सरल/संयुक्त वाक्य',
+      complex:'📎 मिश्र वाक्य',
+      participle:'✂️ कृदंत — Verb+कर',
+      immediacy:'⚡ ज्योंही...त्योंही',
+      causative:'⚙️ प्रेरणार्थक क्रिया',
+      contrast:'↔️ यद्यपि...तथापि'
+    };
+    document.getElementById('fc-badge').textContent = typeLabels[q.type]||'वाक्य रूपांतरण';
+    const fc=document.getElementById('fc-q');
+    fc.textContent = q.q;
+    fc.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize='1rem';
+    document.getElementById('fc-hint').textContent='💡 Rule: '+q.rule;
+    const opts=document.getElementById('qf-opts');
+    // Single column for longer answer options
+    opts.style.gridTemplateColumns='1fr';
+    q.opts.forEach((o,i)=>{
+      const b=document.createElement('button');
+      b.className='qfo';
+      b.style.fontFamily="'Noto Sans Devanagari','Mangal',serif";
+      b.style.textAlign='left';
+      b.style.fontSize='.82rem';
+      b.textContent=o;
+      b.onclick=()=>checkFillOpt(i,b,{opts:q.opts,ans:q.opts.indexOf(q.ans),blank:q.ans,eng:q.eng});
+      opts.appendChild(b);
+    });
+    return;
+  }
+
 }
 function checkVocabOpt(chosen,correct,btn){
   if(qfDone)return; qfDone=true;
@@ -2289,11 +2644,21 @@ function checkFillOpt(idx,btn,q){
   if(idx===q.ans){
     btn.classList.add('ok'); ST.qfC++; ST.streak++; addPts(5);
     const _tf=new Date().toISOString().split('T')[0]; if(!ST.dailyLog)ST.dailyLog={}; if(!ST.dailyLog[_tf])ST.dailyLog[_tf]={q:0,correct:0,wrong:0,time:0,start:Date.now()}; ST.dailyLog[_tf].correct++;
-    fb.className='qf-fb ok on'; fb.textContent=`✅ Correct! "${q.blank}" — ${q.eng}`;
+    fb.className='qf-fb ok on';
+    if(qfCurrent && qfCurrent.type==='vaakya'){
+      fb.innerHTML='✅ सही! <strong>'+q.blank+'</strong><br><span style="font-size:.78rem;opacity:.85">'+q.eng+'</span>';
+    } else {
+      fb.textContent='✅ Correct! "'+q.blank+'" — '+q.eng;
+    }
   } else {
     btn.classList.add('err'); ST.qfW++; ST.streak=0;
     const _tf2=new Date().toISOString().split('T')[0]; if(!ST.dailyLog)ST.dailyLog={}; if(!ST.dailyLog[_tf2])ST.dailyLog[_tf2]={q:0,correct:0,wrong:0,time:0,start:Date.now()}; ST.dailyLog[_tf2].wrong++;
-    fb.className='qf-fb err on'; fb.textContent=`❌ Wrong. Answer: "${q.blank}" — ${q.eng}`;
+    fb.className='qf-fb err on';
+    if(qfCurrent && qfCurrent.type==='vaakya'){
+      fb.innerHTML='❌ गलत। सही उत्तर: <strong>'+q.blank+'</strong><br><span style="font-size:.78rem;opacity:.85">📚 '+q.rule+'</span>';
+    } else {
+      fb.textContent='❌ Wrong. Answer: "'+q.blank+'" — '+q.eng;
+    }
   }
   updateQFStats(); document.getElementById('next-btn').classList.add('on');
 }
