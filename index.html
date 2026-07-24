@@ -345,6 +345,7 @@ textarea.exp-input:focus{border-color:var(--saffron)}
     <button class="tab" onclick="goto('stories',this)"><span>📖</span> Stories</button>
     <button class="tab" onclick="goto('quickfire',this)"><span>⚡</span> Quick Fire</button>
     <button class="tab" onclick="goto('vocab',this)"><span>📝</span> Vocabulary</button>
+    <button class="tab" onclick="goto('notes',this)"><span>📓</span> Notes</button>
     <button class="tab" onclick="goto('settings',this)"><span>⚙️</span> API Settings</button>
   </div>
 </nav>
@@ -493,6 +494,7 @@ textarea.exp-input:focus{border-color:var(--saffron)}
       <button class="qfm" id="qfm-prov" onclick="setQF('prov',this)">📜 कहावतें</button>
       <button class="qfm" id="qfm-wp" onclick="setQF('wp',this)">🔗 सह-प्रयोग</button>
       <button class="qfm" id="qfm-vaakya" onclick="setQF('vaakya',this)">🔄 वाक्य रूपांतरण</button>
+      <button class="qfm" id="qfm-azword" onclick="setQF('azword',this)">🔤 A-Z Words</button>
     </div>
     <div class="qf-stats">
       <div class="qfs ok"><div class="qfs-val" id="qf-c">0</div><div class="qfs-label">Correct</div></div>
@@ -537,9 +539,191 @@ textarea.exp-input:focus{border-color:var(--saffron)}
     <button class="fb" onclick="filterV('food',this)">🍛 Food</button>
     <button class="fb" onclick="filterV('body',this)">🫀 Body</button>
     <button class="fb" onclick="filterV('colours',this)">🎨 Colours</button>
+    <button class="fb" onclick="filterV('az',this)">🔤 A-Z Words</button>
     <button class="fb" onclick="filterV('numbers',this)">🔢 Numbers</button>
   </div>
   <div class="vocab-grid" id="vocab-grid"></div>
+</section>
+
+<!-- NOTES -->
+<section id="sec-notes" class="sec">
+  <div style="max-width:900px;margin:0 auto">
+
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#1A1A4E,#3D1A8C);border-radius:16px;padding:28px 32px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden">
+      <div style="position:absolute;right:20px;top:10px;font-size:80px;opacity:.08">📓</div>
+      <div style="font-family:'Baloo 2',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:4px">📓 Stack 1 — वाक्य रूपांतरण</div>
+      <div style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:1rem;opacity:.85;margin-bottom:6px">Sentence Transformation — General Revision</div>
+      <div style="font-size:.82rem;opacity:.7">From Mokshith's class notes · Teacher: Stack 1 of 3 · Master this to score in Paper 2 Section A</div>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <span style="background:rgba(255,107,0,.35);color:#FFD4B0;border:1px solid rgba(255,107,0,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700">① Active/Passive</span>
+        <span style="background:rgba(19,136,8,.3);color:#90EE90;border:1px solid rgba(19,136,8,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700">② Imperative RAO</span>
+        <span style="background:rgba(29,78,216,.35);color:#BFDBFE;border:1px solid rgba(29,78,216,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700">③ Simple↔Compound</span>
+        <span style="background:rgba(124,58,237,.3);color:#DDD6FE;border:1px solid rgba(124,58,237,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700">④ Participle कर</span>
+        <span style="background:rgba(245,158,11,.3);color:#FDE68A;border:1px solid rgba(245,158,11,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700">⑤ Immediacy</span>
+        <span style="background:rgba(220,38,38,.3);color:#FECACA;border:1px solid rgba(220,38,38,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700">⑥ Causative</span>
+      </div>
+    </div>
+
+    <!-- NOTE CARD 1: Active/Passive -->
+    <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+      <div style="background:linear-gradient(135deg,#FF6B00,#FF8C38);padding:14px 22px;display:flex;align-items:center;gap:12px">
+        <span style="background:rgba(255,255,255,.25);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.1rem;color:#fff;flex-shrink:0">①</span>
+        <div>
+          <div style="font-family:'Baloo 2',sans-serif;font-size:1.1rem;font-weight:800;color:#fff">कर्तृ / कर्म वाच्य — Active &amp; Passive Voice</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.8)">The passive voice can be used in almost any tense or mood</div>
+        </div>
+      </div>
+      <div style="padding:18px 22px">
+        <div style="background:#FFF8F0;border-left:4px solid #FF6B00;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:.83rem;color:#7C3000">
+          <strong>Key Rule:</strong> In Passive, the verb agrees with the <span style="background:#FEF3C7;padding:1px 5px;border-radius:3px">Object</span>, not the Subject.<br>
+          Subject → <span style="background:#DCFCE7;padding:1px 5px;border-radius:3px">Subject + द्वारा</span> &nbsp;|&nbsp; Object moves to front of sentence
+        </div>
+        <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.82rem;font-family:'Noto Sans Devanagari','Mangal',serif">
+          <tr style="background:#1A1A4E;color:#fff"><th style="padding:8px 12px;text-align:left;font-family:'Poppins',sans-serif;font-size:.78rem">Tense</th><th style="padding:8px 12px;text-align:left">Active (कर्तृ वाच्य)</th><th style="padding:8px 12px;text-align:left">Passive (कर्म वाच्य)</th></tr>
+          <tr style="background:#FFF8F0"><td style="padding:7px 12px;font-family:'Poppins',sans-serif;font-size:.77rem;color:#555">Present Habitual</td><td style="padding:7px 12px">मैं खिड़की खोलता हूँ।</td><td style="padding:7px 12px">खिड़की <strong style="color:#138808">खोली जाती है</strong>।</td></tr>
+          <tr><td style="padding:7px 12px;font-family:'Poppins',sans-serif;font-size:.77rem;color:#555">Past</td><td style="padding:7px 12px">मैंने खिड़की खोली।</td><td style="padding:7px 12px">खिड़की <strong style="color:#138808">खोली गई</strong>।</td></tr>
+          <tr style="background:#FFF8F0"><td style="padding:7px 12px;font-family:'Poppins',sans-serif;font-size:.77rem;color:#555">Future</td><td style="padding:7px 12px">मैं खिड़की खोलूँगा।</td><td style="padding:7px 12px">खिड़की <strong style="color:#138808">खोली जाएगी</strong>।</td></tr>
+          <tr><td style="padding:7px 12px;font-family:'Poppins',sans-serif;font-size:.77rem;color:#555">Progressive</td><td style="padding:7px 12px">मैं खिड़की खोल रहा हूँ।</td><td style="padding:7px 12px">खिड़की <strong style="color:#138808">खोली जा रही है</strong>।</td></tr>
+          <tr style="background:#FFF8F0"><td style="padding:7px 12px;font-family:'Poppins',sans-serif;font-size:.77rem;color:#555">Compulsion</td><td style="padding:7px 12px">मुझे खिड़की खोलनी है।</td><td style="padding:7px 12px">खिड़की <strong style="color:#138808">खोली जानी चाहिए</strong>।</td></tr>
+          <tr><td style="padding:7px 12px;font-family:'Poppins',sans-serif;font-size:.77rem;color:#555">Present Perfect</td><td style="padding:7px 12px">मैंने खिड़की खोली है।</td><td style="padding:7px 12px">खिड़की <strong style="color:#138808">खोली गई है</strong>।</td></tr>
+          <tr style="background:#FFF8F0"><td style="padding:7px 12px;font-family:'Poppins',sans-serif;font-size:.77rem;color:#555">Past Perfect</td><td style="padding:7px 12px">मैंने खिड़की खोली थी।</td><td style="padding:7px 12px">खिड़की <strong style="color:#138808">खोली गई थी</strong>।</td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTE CARD 2: Imperative -->
+    <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+      <div style="background:linear-gradient(135deg,#138808,#1EAD0A);padding:14px 22px;display:flex;align-items:center;gap:12px">
+        <span style="background:rgba(255,255,255,.25);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.1rem;color:#fff;flex-shrink:0">②</span>
+        <div>
+          <div style="font-family:'Baloo 2',sans-serif;font-size:1.1rem;font-weight:800;color:#fff">आज्ञावाचक वाक्य — Imperative Sentences (R.A.O.)</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.8)">Subject is always 2nd person ("you") — Order / Advice / Request</div>
+        </div>
+      </div>
+      <div style="padding:18px 22px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+          <div style="background:#FEE2E2;border:1.5px solid #EF4444;border-radius:10px;padding:14px;text-align:center">
+            <div style="font-family:'Baloo 2',sans-serif;font-size:1.2rem;font-weight:800;color:#991B1B;margin-bottom:6px">R — Request</div>
+            <div style="font-size:.82rem;color:#7F1D1D;margin-bottom:8px">कृपया + verb + <strong>इए</strong></div>
+            <div style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.9rem;background:#fff;border-radius:6px;padding:6px 8px;color:#7F1D1D">कृपया झूठ मत बोलिए।</div>
+          </div>
+          <div style="background:#DCFCE7;border:1.5px solid #22C55E;border-radius:10px;padding:14px;text-align:center">
+            <div style="font-family:'Baloo 2',sans-serif;font-size:1.2rem;font-weight:800;color:#166534;margin-bottom:6px">A — Advice</div>
+            <div style="font-size:.82rem;color:#14532D;margin-bottom:8px">तुम्हें + verb + <strong>चाहिए</strong></div>
+            <div style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.9rem;background:#fff;border-radius:6px;padding:6px 8px;color:#14532D">तुम्हें झूठ नहीं बोलना चाहिए।</div>
+          </div>
+          <div style="background:#DBEAFE;border:1.5px solid #3B82F6;border-radius:10px;padding:14px;text-align:center">
+            <div style="font-family:'Baloo 2',sans-serif;font-size:1.2rem;font-weight:800;color:#1E40AF;margin-bottom:6px">O — Order</div>
+            <div style="font-size:.82rem;color:#1E3A8A;margin-bottom:8px">Direct verb form</div>
+            <div style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.9rem;background:#fff;border-radius:6px;padding:6px 8px;color:#1E3A8A">झूठ मत बोलो।</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTE CARD 3: Simple/Compound -->
+    <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+      <div style="background:linear-gradient(135deg,#1D4ED8,#3B82F6);padding:14px 22px;display:flex;align-items:center;gap:12px">
+        <span style="background:rgba(255,255,255,.25);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.1rem;color:#fff;flex-shrink:0">③</span>
+        <div>
+          <div style="font-family:'Baloo 2',sans-serif;font-size:1.1rem;font-weight:800;color:#fff">सरल ↔ संयुक्त वाक्य — Simple ↔ Compound</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.8)">Connectors: क्योंकि / इसलिए / और / परंतु / यद्यपि...तथापि</div>
+        </div>
+      </div>
+      <div style="padding:18px 22px">
+        <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.82rem">
+          <tr style="background:#1D4ED8;color:#fff"><th style="padding:8px 12px;text-align:left;font-size:.78rem">Simple (सरल)</th><th style="padding:8px 12px;text-align:center;font-size:.78rem;width:60px">↔</th><th style="padding:8px 12px;text-align:left;font-size:.78rem">Compound (संयुक्त)</th></tr>
+          <tr style="background:#EFF6FF"><td style="padding:8px 12px;font-family:'Noto Sans Devanagari','Mangal',serif">के <strong>कारण</strong> / की वजह से</td><td style="padding:8px 12px;text-align:center;color:#1D4ED8;font-size:1.1rem">↔</td><td style="padding:8px 12px;font-family:'Noto Sans Devanagari','Mangal',serif"><strong style="color:#138808">क्योंकि</strong> (because)</td></tr>
+          <tr><td style="padding:8px 12px;font-family:'Noto Sans Devanagari','Mangal',serif">के <strong>लिए</strong></td><td style="padding:8px 12px;text-align:center;color:#1D4ED8;font-size:1.1rem">↔</td><td style="padding:8px 12px;font-family:'Noto Sans Devanagari','Mangal',serif"><strong style="color:#138808">इसलिए</strong> (so/therefore)</td></tr>
+          <tr style="background:#EFF6FF"><td style="padding:8px 12px;font-family:'Noto Sans Devanagari','Mangal',serif">के <strong>बावजूद</strong></td><td style="padding:8px 12px;text-align:center;color:#1D4ED8;font-size:1.1rem">↔</td><td style="padding:8px 12px;font-family:'Noto Sans Devanagari','Mangal',serif"><strong style="color:#138808">यद्यपि...तथापि</strong> / परंतु</td></tr>
+          <tr><td style="padding:8px 12px;font-family:'Noto Sans Devanagari','Mangal',serif">verb+<strong>कर</strong> (and then)</td><td style="padding:8px 12px;text-align:center;color:#1D4ED8;font-size:1.1rem">↔</td><td style="padding:8px 12px;font-family:'Noto Sans Devanagari','Mangal',serif"><strong style="color:#138808">और</strong> (prolonged activity)</td></tr>
+        </table>
+        </div>
+        <div style="background:#E0F2FE;border-left:4px solid #0284C7;border-radius:0 8px 8px 0;padding:10px 14px;margin-top:12px;font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.85rem;color:#0C4A6E">
+          <strong>Example:</strong> बीमार होने के कारण नीता नहीं गई।<br>
+          → नीता नहीं गई <strong style="color:#138808">क्योंकि</strong> वह बीमार थी।
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTE CARD 4: Participle -->
+    <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+      <div style="background:linear-gradient(135deg,#7C3AED,#A855F7);padding:14px 22px;display:flex;align-items:center;gap:12px">
+        <span style="background:rgba(255,255,255,.25);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.1rem;color:#fff;flex-shrink:0">④</span>
+        <div>
+          <div style="font-family:'Baloo 2',sans-serif;font-size:1.1rem;font-weight:800;color:#fff">कृदंत — Participle (verb + कर / करके)</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.8)">जब...तब → verb+कर &nbsp;|&nbsp; Simultaneous → verb+ते हुए</div>
+        </div>
+      </div>
+      <div style="padding:18px 22px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+          <div style="background:#F5F3FF;border:1px solid #DDD6FE;border-radius:8px;padding:12px">
+            <div style="font-size:.75rem;font-weight:700;color:#7C3AED;margin-bottom:6px">जब...तब → verb+कर</div>
+            <div style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.83rem;color:#4C1D95;line-height:1.6">जब मोहन ने काम पूरा <strong>कर लिया</strong> तब वह गया।<br>→ काम पूरा <strong style="color:#7C3AED">करके</strong> मोहन गया।</div>
+          </div>
+          <div style="background:#F5F3FF;border:1px solid #DDD6FE;border-radius:8px;padding:12px">
+            <div style="font-size:.75rem;font-weight:700;color:#7C3AED;margin-bottom:6px">And (no time lag) → verb+पर</div>
+            <div style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.83rem;color:#4C1D95;line-height:1.6">सूरज निकला और पक्षी बोले।<br>→ सूर्योदय <strong style="color:#7C3AED">होने पर</strong> पक्षी बोले।</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTE CARD 5: Immediacy + Causative side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px">
+      <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+        <div style="background:linear-gradient(135deg,#B45309,#F59E0B);padding:12px 18px">
+          <div style="font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:800;color:#fff">⑤ तत्कालिकता</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.8)">ज्योंही...त्योंही</div>
+        </div>
+        <div style="padding:14px 16px;font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.83rem">
+          <div style="background:#FEF3C7;border-radius:6px;padding:8px;margin-bottom:8px;color:#78350F">
+            <strong>ज्योंही</strong> मैं निकला <strong>त्योंही</strong> बारिश हुई।
+          </div>
+          <div style="text-align:center;color:#B45309;font-size:1rem;margin:4px 0">↕</div>
+          <div style="background:#ECFCCB;border-radius:6px;padding:8px;color:#365314">
+            मेरे निकल<strong>ते ही</strong> बारिश हुई।
+          </div>
+          <div style="font-size:.73rem;color:#6B7280;margin-top:8px">Rule: Possessive case + verb+ते ही</div>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+        <div style="background:linear-gradient(135deg,#DC2626,#EF4444);padding:12px 18px">
+          <div style="font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:800;color:#fff">⑥ प्रेरणार्थक क्रिया</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.8)">Causative Verbs</div>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap">
+            <span style="background:#FEE2E2;color:#991B1B;padding:4px 10px;border-radius:6px;font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.85rem">पढ़ना</span>
+            <span style="color:#DC2626">→</span>
+            <span style="background:#FEF3C7;color:#92400E;padding:4px 10px;border-radius:6px;font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.85rem">पढ़ाना</span>
+            <span style="color:#DC2626">→</span>
+            <span style="background:#DCFCE7;color:#166534;padding:4px 10px;border-radius:6px;font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.85rem">पढ़वाना</span>
+          </div>
+          <div style="font-size:.73rem;color:#6B7280;line-height:1.6">
+            Original → verb+<strong>आना</strong> (1st)<br>
+            → verb+<strong>वाना</strong> (2nd causative)
+          </div>
+          <div style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.82rem;background:#F9FAFB;border-radius:6px;padding:7px;margin-top:8px;color:#374151">
+            मैंने नाई से बाल <strong style="color:#DC2626">कटवाए</strong>। (2nd)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice button -->
+    <div style="text-align:center;padding:20px 0">
+      <button onclick="goto('quickfire',document.querySelectorAll('.tab')[2]);setQF('vaakya',document.getElementById('qfm-vaakya'))"
+        style="padding:14px 36px;background:linear-gradient(135deg,#FF6B00,#FF8C38);color:#fff;border:none;border-radius:12px;font-family:'Poppins','Segoe UI',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(255,107,0,.35)">
+        ⚡ Practice वाक्य रूपांतरण now →
+      </button>
+    </div>
+
+  </div>
 </section>
 
 <!-- API SETTINGS -->
@@ -2044,6 +2228,191 @@ const VAAKYA = [
 
 ];
 
+// ═══════════════════════════════════════════════════════════════
+// A-Z VOCABULARY — from teacher's resource
+// English adjectives with Hindi meanings + usage sentences
+// 10 words/day plan — June onwards
+// ═══════════════════════════════════════════════════════════════
+const VOCAB_AZ = [
+  // A words
+  {e:'Able',       h:'सक्षम',       use:'वह सभी काम करने में सक्षम है।',           day:1,  letter:'A'},
+  {e:'Abundant',   h:'प्रचुर',       use:'यहाँ पानी की प्रचुर मात्रा है।',          day:1,  letter:'A'},
+  {e:'Accurate',   h:'सटीक',        use:'उसका जवाब बिल्कुल सटीक था।',             day:1,  letter:'A'},
+  {e:'Active',     h:'सक्रिय',      use:'वह हर काम में सक्रिय रहता है।',           day:1,  letter:'A'},
+  {e:'Admirable',  h:'प्रशंसनीय',   use:'उसकी मेहनत प्रशंसनीय है।',               day:1,  letter:'A'},
+  {e:'Adorable',   h:'प्यारा',      use:'वह बच्चा बहुत प्यारा है।',               day:1,  letter:'A'},
+  {e:'Adventurous',h:'साहसी',       use:'वह एक साहसी यात्री है।',                 day:1,  letter:'A'},
+  {e:'Affable',    h:'मिलनसार',     use:'वह बहुत मिलनसार इंसान है।',              day:1,  letter:'A'},
+  {e:'Ambitious',  h:'महत्वाकांक्षी',use:'हर महत्वाकांक्षी इंसान मेहनत करता है।', day:1,  letter:'A'},
+  {e:'Amiable',    h:'सौम्य',       use:'उसका सौम्य स्वभाव सबको पसंद है।',        day:1,  letter:'A'},
+  // A words day 2
+  {e:'Ardent',     h:'उत्साही',     use:'वह एक उत्साही छात्र है।',                day:2,  letter:'A'},
+  {e:'Arrogant',   h:'अहंकारी',     use:'अहंकारी व्यक्ति का पतन होता है।',        day:2,  letter:'A'},
+  {e:'Assertive',  h:'दृढ़निश्चयी',  use:'वह दृढ़निश्चयी होकर बोलती है।',           day:2,  letter:'A'},
+  {e:'Astute',     h:'चतुर',        use:'वह चतुर व्यापारी है।',                   day:2,  letter:'A'},
+  {e:'Attractive', h:'आकर्षक',      use:'उसका व्यक्तित्व बहुत आकर्षक है।',        day:2,  letter:'A'},
+  {e:'Authentic',  h:'प्रामाणिक',   use:'यह एक प्रामाणिक दस्तावेज़ है।',          day:2,  letter:'A'},
+  {e:'Audacious',  h:'निडर',        use:'वह निडर होकर सच बोलता है।',              day:2,  letter:'A'},
+  {e:'Austere',    h:'सादा',        use:'उसकी जीवनशैली बहुत सादा है।',            day:2,  letter:'A'},
+  {e:'Affectionate',h:'स्नेहपूर्ण', use:'माँ का स्नेहपूर्ण व्यवहार सुखदायक है।', day:2,  letter:'A'},
+  {e:'Altruistic', h:'परोपकारी',    use:'वह एक परोपकारी समाजसेवक है।',            day:2,  letter:'A'},
+  // B words
+  {e:'Balanced',   h:'संतुलित',     use:'संतुलित जीवन सुखी जीवन है।',             day:3,  letter:'B'},
+  {e:'Beloved',    h:'प्रिय',       use:'वह सबका प्रिय छात्र है।',                day:3,  letter:'B'},
+  {e:'Benevolent', h:'दयालु',       use:'दयालु राजा प्रजा का ख्याल रखता था।',     day:3,  letter:'B'},
+  {e:'Brave',      h:'बहादुर',      use:'बहादुर सैनिक देश की रक्षा करते हैं।',    day:3,  letter:'B'},
+  {e:'Brilliant',  h:'प्रतिभाशाली', use:'वह एक प्रतिभाशाली विद्यार्थी है।',       day:3,  letter:'B'},
+  {e:'Buoyant',    h:'प्रसन्नचित्त',use:'वह हमेशा प्रसन्नचित्त रहती है।',         day:3,  letter:'B'},
+  {e:'Boisterous', h:'शोरगुल भरा',  use:'बच्चे शोरगुल भरे माहौल में खेल रहे हैं।',day:3, letter:'B'},
+  {e:'Blissful',   h:'आनंदमय',     use:'परिवार के साथ समय आनंदमय होता है।',      day:3,  letter:'B'},
+  {e:'Benign',     h:'सौम्य',       use:'उसका सौम्य व्यवहार सबको भाता है।',       day:3,  letter:'B'},
+  {e:'Boundless',  h:'असीमित',      use:'उसकी लगन असीमित है।',                    day:3,  letter:'B'},
+  // C words
+  {e:'Calm',       h:'शांत',        use:'शांत मन से सोचने पर हल मिलता है।',       day:4,  letter:'C'},
+  {e:'Capable',    h:'योग्य',       use:'वह एक योग्य नेता है।',                   day:4,  letter:'C'},
+  {e:'Caring',     h:'देखभाल करने वाला',use:'माँ बहुत देखभाल करने वाली होती हैं।',day:4, letter:'C'},
+  {e:'Charming',   h:'आकर्षक',      use:'उसकी मुस्कान बहुत आकर्षक है।',           day:4,  letter:'C'},
+  {e:'Cheerful',   h:'प्रसन्न',     use:'वह हमेशा प्रसन्न रहता है।',              day:4,  letter:'C'},
+  {e:'Clever',     h:'चालाक',       use:'चालाक लोमड़ी ने कौए को ठगा।',            day:4,  letter:'C'},
+  {e:'Compassionate',h:'दयावान',    use:'दयावान इंसान दूसरों की मदद करता है।',    day:4,  letter:'C'},
+  {e:'Courageous', h:'साहसी',       use:'साहसी व्यक्ति डर से नहीं भागता।',        day:4,  letter:'C'},
+  {e:'Creative',   h:'रचनात्मक',   use:'रचनात्मक बच्चे नई चीज़ें बनाते हैं।',    day:4,  letter:'C'},
+  {e:'Curious',    h:'जिज्ञासु',    use:'जिज्ञासु बच्चा हर चीज़ के बारे में पूछता है।',day:4,letter:'C'},
+  // D words
+  {e:'Daring',     h:'साहसी',       use:'वह साहसी कदम उठाने से नहीं डरता।',       day:5,  letter:'D'},
+  {e:'Dedicated',  h:'समर्पित',     use:'वह अपने काम के प्रति समर्पित है।',        day:5,  letter:'D'},
+  {e:'Determined', h:'दृढ़संकल्पी',  use:'दृढ़संकल्पी व्यक्ति हार नहीं मानता।',    day:5,  letter:'D'},
+  {e:'Devoted',    h:'निष्ठावान',   use:'वह एक निष्ठावान शिष्य है।',              day:5,  letter:'D'},
+  {e:'Diligent',   h:'परिश्रमी',    use:'परिश्रमी छात्र हमेशा सफल होता है।',      day:5,  letter:'D'},
+  {e:'Diplomatic', h:'कूटनीतिज्ञ',  use:'कूटनीतिज्ञ नेता समझदारी से काम करता है।',day:5, letter:'D'},
+  {e:'Disciplined',h:'अनुशासित',    use:'अनुशासित जीवन सफलता की चाबी है।',        day:5,  letter:'D'},
+  {e:'Diverse',    h:'विविध',       use:'भारत में विविध संस्कृतियाँ हैं।',         day:5,  letter:'D'},
+  {e:'Dominant',   h:'प्रभावशाली',  use:'वह अपने क्षेत्र में प्रभावशाली है।',      day:5,  letter:'D'},
+  {e:'Dynamic',    h:'गतिशील',      use:'वह एक गतिशील व्यक्तित्व है।',            day:5,  letter:'D'},
+  // E words
+  {e:'Eager',      h:'उत्सुक',      use:'वह सीखने के लिए उत्सुक है।',             day:6,  letter:'E'},
+  {e:'Earnest',    h:'ईमानदार',     use:'ईमानदार व्यक्ति हमेशा सच बोलता है।',     day:6,  letter:'E'},
+  {e:'Educated',   h:'शिक्षित',     use:'शिक्षित समाज तरक्की करता है।',           day:6,  letter:'E'},
+  {e:'Efficient',  h:'कुशल',        use:'कुशल कारीगर अच्छा काम करता है।',         day:6,  letter:'E'},
+  {e:'Empathetic', h:'सहानुभूतिपूर्ण',use:'सहानुभूतिपूर्ण इंसान दूसरों का दर्द समझता है।',day:6,letter:'E'},
+  {e:'Encouraging',h:'प्रोत्साहक',  use:'उसके प्रोत्साहक शब्दों से हिम्मत मिली।', day:6,  letter:'E'},
+  {e:'Energetic',  h:'ऊर्जावान',    use:'वह बहुत ऊर्जावान खिलाड़ी है।',           day:6,  letter:'E'},
+  {e:'Ethical',    h:'नैतिक',       use:'नैतिक व्यवहार समाज को मज़बूत बनाता है।', day:6,  letter:'E'},
+  {e:'Enthusiastic',h:'उत्साहित',   use:'वह हर काम में उत्साहित रहता है।',        day:6,  letter:'E'},
+  {e:'Extraordinary',h:'असाधारण',  use:'उसकी प्रतिभा असाधारण है।',               day:6,  letter:'E'},
+  // F words
+  {e:'Faithful',   h:'वफ़ादार',     use:'वफ़ादार दोस्त मुसीबत में साथ देता है।',   day:7,  letter:'F'},
+  {e:'Fearless',   h:'निर्भीक',     use:'निर्भीक योद्धा युद्ध में नहीं डरता।',    day:7,  letter:'F'},
+  {e:'Flexible',   h:'लचीला',       use:'लचीला स्वभाव संबंधों को मज़बूत बनाता है।',day:7, letter:'F'},
+  {e:'Focused',    h:'केंद्रित',    use:'केंद्रित मन से पढ़ने पर जल्दी याद होता है।',day:7,letter:'F'},
+  {e:'Forgiving',  h:'क्षमाशील',   use:'क्षमाशील इंसान मन से बोझ हटाता है।',     day:7,  letter:'F'},
+  {e:'Fortunate',  h:'भाग्यशाली',  use:'वह बहुत भाग्यशाली है।',                  day:7,  letter:'F'},
+  {e:'Frank',      h:'स्पष्टवादी',  use:'वह एक स्पष्टवादी इंसान है।',             day:7,  letter:'F'},
+  {e:'Frugal',     h:'किफ़ायती',   use:'किफ़ायती जीवन सुखी जीवन है।',             day:7,  letter:'F'},
+  {e:'Fruitful',   h:'फलदायक',      use:'उसकी मेहनत फलदायक रही।',                 day:7,  letter:'F'},
+  {e:'Friendly',   h:'मित्रवत',     use:'मित्रवत व्यवहार सबको पसंद आता है।',      day:7,  letter:'F'},
+  // G words
+  {e:'Gallant',    h:'वीर',         use:'वीर सैनिक देश की रक्षा करते हैं।',       day:8,  letter:'G'},
+  {e:'Generous',   h:'उदार',        use:'उदार इंसान खुशी से देता है।',             day:8,  letter:'G'},
+  {e:'Gentle',     h:'कोमल',        use:'उसका कोमल स्वभाव सबको अच्छा लगता है।',  day:8,  letter:'G'},
+  {e:'Genuine',    h:'वास्तविक',    use:'वास्तविक दोस्त हमेशा सच बोलता है।',      day:8,  letter:'G'},
+  {e:'Gifted',     h:'प्रतिभाशाली', use:'वह एक प्रतिभाशाली संगीतकार है।',         day:8,  letter:'G'},
+  {e:'Graceful',   h:'सुंदर',       use:'उसका सुंदर नृत्य सबने सराहा।',           day:8,  letter:'G'},
+  {e:'Gracious',   h:'शिष्ट',       use:'शिष्ट व्यवहार संबंध बनाता है।',          day:8,  letter:'G'},
+  {e:'Grateful',   h:'कृतज्ञ',      use:'कृतज्ञ मन हमेशा खुश रहता है।',           day:8,  letter:'G'},
+  {e:'Grounded',   h:'यथार्थवादी',  use:'वह बहुत यथार्थवादी इंसान है।',            day:8,  letter:'G'},
+  {e:'Gutsy',      h:'हिम्मतवाला',  use:'वह हिम्मतवाला इंसान है।',                day:8,  letter:'G'},
+  // H words
+  {e:'Happy',      h:'प्रसन्न',     use:'खुशी बाँटने से और बढ़ती है।',             day:9,  letter:'H'},
+  {e:'Humble',     h:'विनम्र',      use:'विनम्र इंसान सबका प्यार पाता है।',        day:9,  letter:'H'},
+  {e:'Honest',     h:'ईमानदार',     use:'ईमानदारी सबसे अच्छी नीति है।',           day:9,  letter:'H'},
+  {e:'Hopeful',    h:'आशावादी',     use:'आशावादी इंसान मुश्किल में भी उम्मीद रखता है।',day:9,letter:'H'},
+  {e:'Helpful',    h:'सहायक',       use:'सहायक मित्र मुसीबत में काम आता है।',      day:9,  letter:'H'},
+  {e:'Harmonious', h:'सुमेलित',     use:'परिवार में सुमेलित माहौल ज़रूरी है।',     day:9,  letter:'H'},
+  {e:'Heroic',     h:'वीरोचित',     use:'उसका वीरोचित कार्य सबने सराहा।',         day:9,  letter:'H'},
+  {e:'Healthy',    h:'स्वस्थ',      use:'स्वस्थ शरीर में स्वस्थ मन रहता है।',     day:9,  letter:'H'},
+  {e:'Humane',     h:'मानवीय',      use:'मानवीय व्यवहार समाज को जोड़ता है।',      day:9,  letter:'H'},
+  {e:'Honorable',  h:'सम्माननीय',   use:'सम्माननीय व्यक्ति सबका आदर पाता है।',   day:9,  letter:'H'},
+  // I words
+  {e:'Ideal',      h:'आदर्श',       use:'वह एक आदर्श छात्र है।',                  day:10, letter:'I'},
+  {e:'Innocent',   h:'निर्दोष',     use:'निर्दोष बच्चे की बात सुनो।',              day:10, letter:'I'},
+  {e:'Innovative', h:'नवाचारी',     use:'नवाचारी सोच से नए रास्ते खुलते हैं।',    day:10, letter:'I'},
+  {e:'Inspiring',  h:'प्रेरणादायक', use:'उसकी कहानी बहुत प्रेरणादायक है।',        day:10, letter:'I'},
+  {e:'Industrious',h:'मेहनती',      use:'मेहनती इंसान सफलता पाता है।',            day:10, letter:'I'},
+  {e:'Influential',h:'प्रभावशाली',  use:'वह एक प्रभावशाली वक्ता है।',             day:10, letter:'I'},
+  {e:'Independent',h:'स्वतंत्र',    use:'स्वतंत्र सोच से नया बनता है।',           day:10, letter:'I'},
+  {e:'Intrepid',   h:'निडर',        use:'निडर योद्धा आगे बढ़ता है।',               day:10, letter:'I'},
+  {e:'Impartial',  h:'निष्पक्ष',    use:'न्यायाधीश का निष्पक्ष होना ज़रूरी है।',   day:10, letter:'I'},
+  {e:'Impressive', h:'प्रभावशाली',  use:'उसका भाषण बहुत प्रभावशाली था।',          day:10, letter:'I'},
+  // J-K words
+  {e:'Jubilant',   h:'आनंदित',      use:'जीत पर वह आनंदित हो गया।',               day:11, letter:'J'},
+  {e:'Judicious',  h:'विवेकपूर्ण',  use:'विवेकपूर्ण निर्णय लेना ज़रूरी है।',      day:11, letter:'J'},
+  {e:'Just',       h:'न्यायी',      use:'न्यायी राजा सबका भला चाहता है।',         day:11, letter:'J'},
+  {e:'Jovial',     h:'हँसमुख',      use:'हँसमुख इंसान माहौल खुशनुमा बनाता है।',  day:11, letter:'J'},
+  {e:'Kind',       h:'दयालु',       use:'दयालु इंसान दूसरों का दुख समझता है।',    day:11, letter:'K'},
+  {e:'Keen',       h:'उत्सुक',      use:'वह नई चीज़ें सीखने में उत्सुक है।',      day:11, letter:'K'},
+  {e:'Knowledgeable',h:'ज्ञानवान',  use:'ज्ञानवान गुरु से बहुत कुछ सीखा।',       day:11, letter:'K'},
+  {e:'Loyal',      h:'वफ़ादार',     use:'वफ़ादार मित्र जीवन की धरोहर है।',        day:11, letter:'L'},
+  {e:'Lively',     h:'जीवंत',       use:'उसका जीवंत व्यक्तित्व सबको पसंद है।',   day:11, letter:'L'},
+  {e:'Limitless',  h:'असीमित',      use:'मनुष्य की संभावनाएँ असीमित हैं।',        day:11, letter:'L'},
+  // M words
+  {e:'Magnificent',h:'शानदार',      use:'ताजमहल शानदार इमारत है।',                day:12, letter:'M'},
+  {e:'Majestic',   h:'राजसी',       use:'हिमालय का राजसी दृश्य अद्भुत है।',       day:12, letter:'M'},
+  {e:'Mature',     h:'परिपक्व',     use:'परिपक्व सोच से सही फैसला होता है।',      day:12, letter:'M'},
+  {e:'Merciful',   h:'दयालु',       use:'दयालु ईश्वर सबकी रक्षा करता है।',        day:12, letter:'M'},
+  {e:'Methodical', h:'व्यवस्थित',  use:'व्यवस्थित काम में गलती कम होती है।',     day:12, letter:'M'},
+  {e:'Mighty',     h:'शक्तिशाली',   use:'शक्तिशाली देश की रक्षा होती है।',        day:12, letter:'M'},
+  {e:'Modest',     h:'विनम्र',      use:'विनम्र इंसान सबका प्यार पाता है।',       day:12, letter:'M'},
+  {e:'Moral',      h:'नैतिक',       use:'नैतिक जीवन जीना ज़रूरी है।',             day:12, letter:'M'},
+  {e:'Miraculous', h:'चमत्कारी',   use:'उसकी रिकवरी चमत्कारी थी।',              day:12, letter:'M'},
+  {e:'Meritorious',h:'श्रेष्ठ',    use:'श्रेष्ठ कार्य सदा याद रहता है।',         day:12, letter:'M'},
+  // N-O words
+  {e:'Noble',      h:'महान',        use:'महान इंसान का जीवन प्रेरणा देता है।',    day:13, letter:'N'},
+  {e:'Nurturing',  h:'पालन-पोषण करने वाला',use:'माँ पालन-पोषण करने वाली होती है।',day:13,letter:'N'},
+  {e:'Natural',    h:'स्वाभाविक',   use:'उसका स्वाभाविक व्यवहार सबको पसंद है।',  day:13, letter:'N'},
+  {e:'Obedient',   h:'आज्ञाकारी',   use:'आज्ञाकारी बच्चा माता-पिता की बात मानता है।',day:13,letter:'O'},
+  {e:'Optimistic', h:'आशावादी',     use:'आशावादी इंसान हमेशा आगे बढ़ता है।',     day:13, letter:'O'},
+  {e:'Outstanding',h:'उत्कृष्ट',    use:'उसका काम उत्कृष्ट था।',                  day:13, letter:'O'},
+  {e:'Observant',  h:'सतर्क',       use:'सतर्क व्यक्ति हर बात ध्यान से देखता है।',day:13,letter:'O'},
+  {e:'Patient',    h:'धैर्यवान',    use:'धैर्यवान इंसान हर मुसीबत पार करता है।', day:13, letter:'P'},
+  {e:'Peaceful',   h:'शांतिप्रिय',  use:'शांतिप्रिय देश तरक्की करता है।',         day:13, letter:'P'},
+  {e:'Passionate', h:'जुनूनी',      use:'जुनूनी कलाकार अद्भुत काम करता है।',     day:13, letter:'P'},
+  // P words
+  {e:'Persevering',h:'दृढ़ता वाला',  use:'दृढ़ता वाला इंसान कभी नहीं हारता।',     day:14, letter:'P'},
+  {e:'Polite',     h:'शिष्टाचारी',  use:'शिष्टाचारी बच्चे सबका दिल जीतते हैं।', day:14, letter:'P'},
+  {e:'Powerful',   h:'शक्तिशाली',   use:'शक्तिशाली इरादा कुछ भी कर सकता है।',   day:14, letter:'P'},
+  {e:'Practical',  h:'व्यावहारिक',  use:'व्यावहारिक सोच से समस्या हल होती है।',  day:14, letter:'P'},
+  {e:'Precious',   h:'अनमोल',       use:'माँ का प्यार अनमोल होता है।',            day:14, letter:'P'},
+  {e:'Proactive',  h:'अग्रसक्रिय',  use:'अग्रसक्रिय इंसान पहले से तैयार रहता है।',day:14,letter:'P'},
+  {e:'Productive', h:'उत्पादक',     use:'उत्पादक काम से समाज आगे बढ़ता है।',     day:14, letter:'P'},
+  {e:'Prudent',    h:'बुद्धिमान',   use:'बुद्धिमान इंसान सोचकर फैसला करता है।',  day:14, letter:'P'},
+  {e:'Resilient',  h:'लचीला मज़बूत',use:'लचीला मज़बूत इंसान मुसीबत में टूटता नहीं।',day:14,letter:'R'},
+  {e:'Righteous',  h:'धर्मपरायण',   use:'धर्मपरायण इंसान सदा सत्य पर चलता है।', day:14, letter:'R'},
+  // R-S words
+  {e:'Radiant',    h:'तेजस्वी',     use:'उसका तेजस्वी चेहरा सबको आकर्षित करता है।',day:15,letter:'R'},
+  {e:'Rational',   h:'तार्किक',     use:'तार्किक सोच से सही निर्णय होता है।',    day:15, letter:'R'},
+  {e:'Reliable',   h:'विश्वसनीय',   use:'विश्वसनीय मित्र हमेशा काम आता है।',     day:15, letter:'R'},
+  {e:'Remarkable', h:'उल्लेखनीय',   use:'उसकी उपलब्धि उल्लेखनीय है।',            day:15, letter:'R'},
+  {e:'Resourceful',h:'साधन-सम्पन्न',use:'साधन-सम्पन्न इंसान हर मुसीबत से निकलता है।',day:15,letter:'R'},
+  {e:'Respectful', h:'आदरणीय',      use:'आदरणीय व्यवहार से संबंध बनते हैं।',      day:15, letter:'R'},
+  {e:'Sincere',    h:'निष्कपट',     use:'निष्कपट इंसान दिल से काम करता है।',      day:15, letter:'S'},
+  {e:'Skilled',    h:'कुशल',        use:'कुशल कारीगर का काम सराहा जाता है।',      day:15, letter:'S'},
+  {e:'Spiritual',  h:'आध्यात्मिक',  use:'आध्यात्मिक जीवन शांति देता है।',         day:15, letter:'S'},
+  {e:'Strong',     h:'मज़बूत',      use:'मज़बूत इरादे से कुछ भी हो सकता है।',     day:15, letter:'S'},
+  // T-W words
+  {e:'Trustworthy',h:'विश्वासपात्र',use:'विश्वासपात्र इंसान पर भरोसा किया जा सकता है।',day:16,letter:'T'},
+  {e:'Talented',   h:'प्रतिभावान',  use:'प्रतिभावान बच्चे देश का भविष्य हैं।',   day:16, letter:'T'},
+  {e:'Thoughtful', h:'विचारशील',    use:'विचारशील इंसान जल्दी नहीं बोलता।',       day:16, letter:'T'},
+  {e:'Truthful',   h:'सच्चा',       use:'सच्चा इंसान सदा सच बोलता है।',           day:16, letter:'T'},
+  {e:'Unique',     h:'अनूठा',       use:'उसकी शैली अनूठी है।',                    day:16, letter:'U'},
+  {e:'Valiant',    h:'वीर',         use:'वीर सैनिक देश पर कुर्बान होता है।',       day:16, letter:'V'},
+  {e:'Versatile',  h:'बहुमुखी',     use:'बहुमुखी प्रतिभा वाला इंसान कई काम करता है।',day:16,letter:'V'},
+  {e:'Virtuous',   h:'सदाचारी',     use:'सदाचारी जीवन ईश्वर को प्रिय है।',        day:16, letter:'V'},
+  {e:'Wise',       h:'बुद्धिमान',   use:'बुद्धिमान इंसान सोचकर बोलता है।',        day:16, letter:'W'},
+  {e:'Worthy',     h:'योग्य',       use:'योग्य उम्मीदवार ही चुना जाता है।',       day:16, letter:'W'},
+];
+
+
 
 
 // ═══════════════════════════════════════════════════════════════
@@ -2149,6 +2518,7 @@ function goto(id, btn){
   if(id==='quickfire') loadQF();
   if(id==='vocab') renderVocab('all');
   if(id==='settings') loadSettings();
+  if(id==='notes') {} // static content
 }
 
 // ═══════════════════════════════════════
@@ -2606,6 +2976,40 @@ function loadQF(){
     return;
   }
 
+
+  // ── A-Z WORDS ─────────────────────────────────────────────────────────────
+  if(qfMode==='azword'){
+    // Pick random word — optionally filter by day
+    const pool = ST.azDay ? VOCAB_AZ.filter(w=>w.day===ST.azDay) : VOCAB_AZ;
+    const w = pool[Math.floor(Math.random()*pool.length)];
+    qfCurrent={type:'azword',w};
+    // Alternate E→H and H→E randomly
+    const askHindi = Math.random() > 0.5;
+    document.getElementById('fc-badge').textContent = askHindi
+      ? 'English → हिंदी  |  Day '+w.day+' — Letter '+w.letter
+      : 'हिंदी → English  |  Day '+w.day+' — Letter '+w.letter;
+    const fc=document.getElementById('fc-q');
+    fc.textContent = askHindi ? w.e : w.h;
+    fc.style.fontFamily = askHindi ? "'Poppins','Segoe UI',sans-serif" : "'Noto Sans Devanagari','Mangal',serif";
+    fc.style.fontSize = '1.8rem';
+    document.getElementById('fc-hint').textContent = w.use;
+    const correct = askHindi ? w.h : w.e;
+    const wrongPool = VOCAB_AZ.filter(x=>x.e!==w.e)
+      .sort(()=>Math.random()-.5).slice(0,3)
+      .map(x=>askHindi?x.h:x.e);
+    const choices=[...wrongPool,correct].sort(()=>Math.random()-.5);
+    const opts=document.getElementById('qf-opts');
+    opts.style.gridTemplateColumns='1fr 1fr';
+    choices.forEach(c=>{
+      const b=document.createElement('button'); b.className='qfo';
+      b.style.fontFamily=askHindi?"'Noto Sans Devanagari','Mangal',serif":"'Poppins','Segoe UI',sans-serif";
+      b.textContent=c;
+      b.onclick=()=>checkVocabOpt(c,correct,b);
+      opts.appendChild(b);
+    });
+    return;
+  }
+
 }
 function checkVocabOpt(chosen,correct,btn){
   if(qfDone)return; qfDone=true;
@@ -2688,13 +3092,19 @@ function updateQFStats(){
 // VOCAB
 // ═══════════════════════════════════════
 function renderVocab(cat){
-  const list=cat==='all'?VOCAB:VOCAB.filter(v=>v.cat===cat);
-  document.getElementById('vocab-grid').innerHTML=list.map(v=>`
-    <div class="vc" onclick="toast('${v.h} = ${v.e}')">
-      <div class="vc-h">${v.h}</div>
-      <div class="vc-e">${v.e}</div>
-      <div class="vc-cat">${v.cat}</div>
-    </div>`).join('');
+  var list;
+  if(cat==='az') {
+    list = VOCAB_AZ.map(function(w){ return {h:w.h,e:w.e,cat:'Day '+w.day+' ('+w.letter+')',use:w.use}; });
+  } else {
+    list = cat==='all' ? VOCAB : VOCAB.filter(function(v){return v.cat===cat;});
+  }
+  document.getElementById('vocab-grid').innerHTML=list.map(function(v){
+    return '<div class="vc" onclick="toast(\''+v.h+' = '+v.e+'\')">'+
+      '<div class="vc-h">'+v.h+'</div>'+
+      '<div class="vc-e">'+v.e+'</div>'+
+      (v.use?'<div class="vc-cat" style="font-size:.6rem;background:#EDE9FE;color:#6D28D9;margin-top:5px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+v.use+'">'+v.use+'</div>':'<div class="vc-cat">'+v.cat+'</div>')+
+    '</div>';
+  }).join('');
 }
 function filterV(cat,btn){
   document.querySelectorAll('#sec-vocab .fb').forEach(b=>b.classList.remove('on'));
