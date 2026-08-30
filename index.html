@@ -292,6 +292,21 @@ textarea.exp-input:focus{border-color:var(--saffron)}
     <!-- Submit -->
     <button id="authBtn" onclick="doAuth()" style="width:100%;padding:13px;background:linear-gradient(135deg,#FF6B00,#FF8C38);color:#fff;border:none;border-radius:10px;font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer">Sign In</button>
 
+    <!-- Quick Fill Buttons -->
+    <div style="margin-top:16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <div style="flex:1;height:1px;background:#E5E7EB"></div>
+        <span style="font-size:.7rem;color:#9CA3AF;font-weight:600">QUICK FILL</span>
+        <div style="flex:1;height:1px;background:#E5E7EB"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <button onclick="fillLogin('mokshith@hindi.sg','Abcd1234')" style="padding:10px 4px;border:2px solid #1D4ED8;border-radius:10px;background:#EFF6FF;color:#1D4ED8;font-family:Poppins,sans-serif;font-size:.75rem;font-weight:700;cursor:pointer;line-height:1.4">&#127891;<br>Student</button>
+        <button onclick="fillLogin('parent@hindi.sg','Futr*2050')" style="padding:10px 4px;border:2px solid #92400E;border-radius:10px;background:#FEF3C7;color:#92400E;font-family:Poppins,sans-serif;font-size:.75rem;font-weight:700;cursor:pointer;line-height:1.4">&#128106;<br>Parent</button>
+        <button onclick="fillLogin('teacher@hindi.sg','Futr*2050')" style="padding:10px 4px;border:2px solid #065F46;border-radius:10px;background:#D1FAE5;color:#065F46;font-family:Poppins,sans-serif;font-size:.75rem;font-weight:700;cursor:pointer;line-height:1.4">&#128203;<br>Teacher</button>
+      </div>
+      <div style="font-size:.68rem;color:#9CA3AF;text-align:center;margin-top:6px">Tap to fill &amp; auto sign in</div>
+    </div>
+
     <!-- Error -->
     <div id="authErr" style="min-height:20px;font-size:.8rem;color:#DC2626;text-align:center;margin-top:8px"></div>
 
@@ -3997,6 +4012,14 @@ function fmtTime(secs) {
 function fmtDate(iso) {
   const d = new Date(iso);
   return d.toLocaleDateString('en-SG', {day:'numeric', month:'short', year:'numeric', weekday:'short'});
+}
+
+function fillLogin(email, pwd) {
+  var e = document.getElementById('authEmail');
+  var p = document.getElementById('authPwd');
+  if (e) { e.value = email; e.style.borderColor='#FF6B00'; }
+  if (p) { p.value = pwd;   p.style.borderColor='#FF6B00'; }
+  setTimeout(function(){ doAuth(); }, 400);
 }
 
 // INIT
