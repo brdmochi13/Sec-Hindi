@@ -346,6 +346,8 @@ textarea.exp-input:focus{border-color:var(--saffron)}
     <button class="tab" onclick="goto('quickfire',this)"><span>⚡</span> Quick Fire</button>
     <button class="tab" onclick="goto('vocab',this)"><span>📝</span> Vocabulary</button>
     <button class="tab" onclick="goto('notes',this)"><span>📓</span> Notes</button>
+    <button class="tab" onclick="goto('notes',this)"><span>📓</span> Notes</button>
+    <button class="tab" onclick="goto('sources',this)"><span>📚</span> Sources</button>
     <button class="tab" onclick="goto('settings',this)"><span>⚙️</span> API Settings</button>
   </div>
 </nav>
@@ -782,6 +784,483 @@ textarea.exp-input:focus{border-color:var(--saffron)}
     </div>
 
   </div>
+</section>
+
+<!-- NOTES -->
+<section id="sec-notes" class="sec">
+<div style="max-width:860px;margin:0 auto">
+
+  <!-- Header Banner -->
+  <div style="background:linear-gradient(135deg,#1A1A4E,#3D1A8C);border-radius:16px;padding:26px 28px;color:#fff;margin-bottom:22px;position:relative;overflow:hidden">
+    <div style="position:absolute;right:16px;top:8px;font-size:90px;opacity:.07">📓</div>
+    <div style="font-family:'Baloo 2',sans-serif;font-size:1.5rem;font-weight:800">📓 Hindi Grammar Notes</div>
+    <div style="font-family:'Noto Sans Devanagari','Mangal',serif;font-size:.95rem;opacity:.85;margin:4px 0">Teacher&#39;s Class Notes + Online Material — Secondary 1 Normal Level</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <span style="background:rgba(255,107,0,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700;color:#FFD4B0">Stack 1 — वाक्य रूपांतरण</span>
+      <span style="background:rgba(19,136,8,.35);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700;color:#90EE90">Stack 2 — सन्धि</span>
+      <span style="background:rgba(29,78,216,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700;color:#BFDBFE">Stack 3 — व्यंजन सन्धि</span>
+      <span style="background:rgba(245,158,11,.4);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:700;color:#FDE68A">Stack 4 — Comprehension OE</span>
+    </div>
+  </div>
+
+  <!-- STACK 1: वाक्य रूपांतरण -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+    <div style="background:linear-gradient(135deg,#FF6B00,#FF8C38);padding:14px 22px">
+      <div style="font-family:'Baloo 2',sans-serif;font-size:1.1rem;font-weight:800;color:#fff">📝 Stack 1 — वाक्य रूपांतरण (Sentence Transformation)</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.85)">Paper 2 Section A — Most marks here!</div>
+    </div>
+    <div style="padding:18px 22px">
+
+      <!-- Active Passive -->
+      <div style="margin-bottom:18px">
+        <div style="font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;color:#FF6B00;margin-bottom:10px">① Active ↔ Passive Voice (कर्तृ/कर्म वाच्य)</div>
+        <div style="background:#FFF8F0;border-left:4px solid #FF6B00;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.82rem;color:#7C3000;margin-bottom:10px">
+          🔑 <strong>Simple Rule:</strong> Object comes first. Add <span style="background:#FEF3C7;padding:1px 5px;border-radius:3px">द्वारा</span> after subject. Verb changes to <span style="background:#DCFCE7;padding:1px 5px;border-radius:3px">जाना</span> form.
+        </div>
+        <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+          <tr style="background:#1A1A4E;color:#fff">
+            <th style="padding:7px 10px;text-align:left;font-family:Poppins,sans-serif;font-size:.75rem">Tense</th>
+            <th style="padding:7px 10px;text-align:left;font-family:Noto Sans Devanagari,Mangal,serif">Active</th>
+            <th style="padding:7px 10px;text-align:left;font-family:Noto Sans Devanagari,Mangal,serif">Passive ✅</th>
+          </tr>
+          <tr style="background:#FFF8F0"><td style="padding:6px 10px;font-size:.74rem;color:#555">Present</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">मैं खिड़की खोलता हूँ।</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">खिड़की खोली जाती है।</strong></td></tr>
+          <tr><td style="padding:6px 10px;font-size:.74rem;color:#555">Past</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">मैंने खिड़की खोली।</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">खिड़की खोली गई।</strong></td></tr>
+          <tr style="background:#FFF8F0"><td style="padding:6px 10px;font-size:.74rem;color:#555">Future</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">मैं खोलूँगा।</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">खिड़की खोली जाएगी।</strong></td></tr>
+          <tr><td style="padding:6px 10px;font-size:.74rem;color:#555">Progressive</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">मैं खोल रहा हूँ।</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">खिड़की खोली जा रही है।</strong></td></tr>
+          <tr style="background:#FFF8F0"><td style="padding:6px 10px;font-size:.74rem;color:#555">Must/Compulsion</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">मुझे खोलनी है।</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">खिड़की खोली जानी चाहिए।</strong></td></tr>
+        </table>
+        </div>
+      </div>
+
+      <!-- Imperative -->
+      <div style="margin-bottom:18px">
+        <div style="font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;color:#FF6B00;margin-bottom:10px">② आज्ञा/सलाह/निवेदन (Order → Advice → Request)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div style="background:#FEE2E2;border:1.5px solid #EF4444;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-family:Baloo 2,sans-serif;font-weight:800;color:#991B1B;margin-bottom:6px">📢 Order</div>
+            <div style="font-size:.78rem;color:#7F1D1D;margin-bottom:6px">Direct verb</div>
+            <div style="font-family:Noto Sans Devanagari,Mangal,serif;font-size:.88rem;background:#fff;border-radius:6px;padding:6px;color:#7F1D1D">झूठ मत बोलो।</div>
+          </div>
+          <div style="background:#DCFCE7;border:1.5px solid #22C55E;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-family:Baloo 2,sans-serif;font-weight:800;color:#166534;margin-bottom:6px">💡 Advice</div>
+            <div style="font-size:.78rem;color:#14532D;margin-bottom:6px">तुम्हें + चाहिए</div>
+            <div style="font-family:Noto Sans Devanagari,Mangal,serif;font-size:.88rem;background:#fff;border-radius:6px;padding:6px;color:#14532D">तुम्हें झूठ नहीं बोलना चाहिए।</div>
+          </div>
+          <div style="background:#DBEAFE;border:1.5px solid #3B82F6;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-family:Baloo 2,sans-serif;font-weight:800;color:#1E40AF;margin-bottom:6px">🙏 Request</div>
+            <div style="font-size:.78rem;color:#1E3A8A;margin-bottom:6px">कृपया + इए</div>
+            <div style="font-family:Noto Sans Devanagari,Mangal,serif;font-size:.88rem;background:#fff;border-radius:6px;padding:6px;color:#1E3A8A">कृपया झूठ मत बोलिए।</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connectors -->
+      <div style="margin-bottom:10px">
+        <div style="font-family:Baloo 2,sans-serif;font-size:.95rem;font-weight:700;color:#FF6B00;margin-bottom:10px">③ सरल ↔ संयुक्त वाक्य (Connectors)</div>
+        <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.82rem">
+          <tr style="background:#FF6B00;color:#fff"><th style="padding:7px 10px;font-family:Poppins,sans-serif;font-size:.75rem">Simple (सरल)</th><th style="padding:7px 10px;width:50px;text-align:center">↔</th><th style="padding:7px 10px;font-family:Poppins,sans-serif;font-size:.75rem">Compound (संयुक्त)</th></tr>
+          <tr style="background:#FFF3E8"><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">के <strong>कारण</strong> / की वजह से</td><td style="padding:7px 10px;text-align:center;font-size:1.1rem">↔</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">क्योंकि</strong> (because)</td></tr>
+          <tr><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">के <strong>लिए</strong></td><td style="padding:7px 10px;text-align:center;font-size:1.1rem">↔</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">इसलिए</strong> (so/therefore)</td></tr>
+          <tr style="background:#FFF3E8"><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">के <strong>बावजूद</strong></td><td style="padding:7px 10px;text-align:center;font-size:1.1rem">↔</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">यद्यपि...तथापि</strong> / परंतु</td></tr>
+          <tr><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">verb+<strong>कर</strong> (and then)</td><td style="padding:7px 10px;text-align:center;font-size:1.1rem">↔</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong style="color:#138808">और</strong> (prolonged)</td></tr>
+        </table>
+        </div>
+        <div style="background:#E0F2FE;border-left:4px solid #0284C7;border-radius:0 8px 8px 0;padding:10px 14px;margin-top:10px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.83rem">
+          📝 <strong>Example:</strong> बीमार होने के कारण नीता नहीं गई। → नीता नहीं गई <strong>क्योंकि</strong> वह बीमार थी।
+        </div>
+      </div>
+
+      <!-- Immediacy + Causative -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+        <div style="background:#FFFBEB;border:1.5px solid #F59E0B;border-radius:10px;padding:14px">
+          <div style="font-weight:700;font-size:.88rem;color:#92400E;margin-bottom:8px">⚡ ज्योंही...त्योंही (Immediacy)</div>
+          <div style="font-family:Noto Sans Devanagari,Mangal,serif;font-size:.82rem;color:#78350F;background:#fff;border-radius:6px;padding:8px;margin-bottom:6px">ज्योंही मैं निकला <strong>त्योंही</strong> बारिश हुई।</div>
+          <div style="text-align:center;font-size:.9rem;color:#92400E;margin:4px 0">↕ same meaning</div>
+          <div style="font-family:Noto Sans Devanagari,Mangal,serif;font-size:.82rem;color:#78350F;background:#fff;border-radius:6px;padding:8px">मेरे निकल<strong>ते ही</strong> बारिश हुई।</div>
+          <div style="font-size:.72rem;color:#92400E;margin-top:6px">💡 Possessive + verb+ते ही</div>
+        </div>
+        <div style="background:#FFF1F2;border:1.5px solid #F43F5E;border-radius:10px;padding:14px">
+          <div style="font-weight:700;font-size:.88rem;color:#9F1239;margin-bottom:8px">⚙️ प्रेरणार्थक क्रिया (Causative)</div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+            <span style="background:#FEE2E2;color:#991B1B;padding:4px 8px;border-radius:6px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.85rem">पढ़ना</span>
+            <span style="color:#9F1239;font-size:.9rem">→</span>
+            <span style="background:#FEF3C7;color:#92400E;padding:4px 8px;border-radius:6px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.85rem">पढ़ाना</span>
+            <span style="color:#9F1239;font-size:.9rem">→</span>
+            <span style="background:#DCFCE7;color:#166534;padding:4px 8px;border-radius:6px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.85rem">पढ़वाना</span>
+          </div>
+          <div style="font-size:.73rem;color:#9F1239;line-height:1.6">Original → +<strong>आना</strong> (1st: I make someone do)<br>→ +<strong>वाना</strong> (2nd: I get someone to make someone do)</div>
+          <div style="font-family:Noto Sans Devanagari,Mangal,serif;font-size:.8rem;background:#fff;border-radius:6px;padding:7px;margin-top:8px;color:#374151">मैंने नाई से बाल <strong style="color:#9F1239">कटवाए।</strong> (2nd causative)</div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:16px">
+        <button onclick="goto('quickfire',document.querySelectorAll('.tab')[2]);setTimeout(()=>setQF('vaakya',document.getElementById('qfm-vaakya')),300)"
+          style="padding:12px 30px;background:linear-gradient(135deg,#FF6B00,#FF8C38);color:#fff;border:none;border-radius:10px;font-family:Poppins,sans-serif;font-size:.88rem;font-weight:700;cursor:pointer">
+          ⚡ Practice वाक्य रूपांतरण →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STACK 2: सन्धि -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+    <div style="background:linear-gradient(135deg,#138808,#1EAD0A);padding:14px 22px">
+      <div style="font-family:Baloo 2,sans-serif;font-size:1.1rem;font-weight:800;color:#fff">🔡 Stack 2 — सन्धि (Sandhi / Word Joining)</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.85)">Combining two words — the vowels at the join CHANGE</div>
+    </div>
+    <div style="padding:18px 22px">
+      <div style="background:#E8F5E9;border-left:4px solid #138808;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.82rem;color:#1B3A1E;margin-bottom:14px">
+        🔑 <strong>The Big Rule:</strong> When two words join, the last letter of Word 1 and first letter of Word 2 COMBINE and make a NEW sound.
+      </div>
+
+      <!-- Vowel Sandhi Table -->
+      <div style="font-weight:700;font-size:.85rem;color:#138808;margin-bottom:8px">स्वर सन्धि — Vowel Rules</div>
+      <div style="overflow-x:auto;margin-bottom:14px">
+      <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+        <tr style="background:#138808;color:#fff"><th style="padding:7px 10px;font-family:Poppins,sans-serif;font-size:.75rem">Rule</th><th style="padding:7px 10px">Joining</th><th style="padding:7px 10px">Example</th><th style="padding:7px 10px">Result</th></tr>
+        <tr style="background:#F0FDF4"><td style="padding:6px 10px;font-weight:700;color:#138808">दीर्घ</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">अ/आ + अ/आ = आ</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">हिम + आलय</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>हिमालय</strong></td></tr>
+        <tr><td style="padding:6px 10px;font-weight:700;color:#138808">गुण</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">अ/आ + इ/ई = ए</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">नर + इंद्र</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>नरेंद्र</strong></td></tr>
+        <tr style="background:#F0FDF4"><td style="padding:6px 10px;font-weight:700;color:#138808">गुण</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">अ/आ + उ/ऊ = ओ</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">सूर्य + उदय</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>सूर्योदय</strong></td></tr>
+        <tr><td style="padding:6px 10px;font-weight:700;color:#138808">गुण</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">आ + ऋ = अर्</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">महा + ऋषि</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>महर्षि</strong></td></tr>
+        <tr style="background:#F0FDF4"><td style="padding:6px 10px;font-weight:700;color:#138808">दीर्घ</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">इ + ई = ई</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">परि + ईक्षा</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>परीक्षा</strong></td></tr>
+        <tr><td style="padding:6px 10px;font-weight:700;color:#138808">यण</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">इ + अ/आ = य</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">अभि + आगत</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>अभ्यागत</strong></td></tr>
+        <tr style="background:#F0FDF4"><td style="padding:6px 10px;font-weight:700;color:#138808">यण</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">उ + अ/आ = व</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">मधु + अरि</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>मध्वरि</strong></td></tr>
+        <tr><td style="padding:6px 10px;font-weight:700;color:#138808">वृद्धि</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">अ/आ + ए/ऐ = ऐ</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">देव + ऐश्वर्य</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>देवैश्वर्य</strong></td></tr>
+        <tr style="background:#F0FDF4"><td style="padding:6px 10px;font-weight:700;color:#138808">वृद्धि</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">अ/आ + ओ/औ = औ</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">महा + ओजस्</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>महौजस्</strong></td></tr>
+      </table>
+      </div>
+
+      <!-- Must-know words -->
+      <div style="font-weight:700;font-size:.85rem;color:#138808;margin-bottom:8px">⭐ Must-Know Sandhi Words (Exam Favourites!)</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:14px">
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">विद्यालय</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">विद्या + आलय</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">हिमालय</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">हिम + आलय</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">सूर्योदय</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">सूर्य + उदय</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">महोत्सव</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">महा + उत्सव</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">नरेंद्र</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">नर + इंद्र</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">परमेश्वर</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">परम + ईश्वर</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">महर्षि</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">महा + ऋषि</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">परीक्षा</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">परि + ईक्षा</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">गणेश</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">गण + ईश</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">शुभेच्छा</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">शुभ + इच्छा</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">रामायण</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">राम + अयन</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">लोकोक्ति</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">लोक + उक्ति</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">ब्रह्मास्त्र</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">ब्रह्म + अस्त्र</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">सिद्धांत</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">सिद्ध + अंत</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">धनोपार्जन</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">धन + उपार्जन</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">आत्माभिमान</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">आत्म + अभिमान</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">शरणागत</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">शरण + आगत</div>
+        </div><div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 10px;font-family:Noto Sans Devanagari,Mangal,serif">
+          <div style="font-size:.88rem;font-weight:700;color:#166534">राजेंद्र</div>
+          <div style="font-size:.72rem;color:#14532D;margin-top:2px">राजा + इंद्र</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <button onclick="goto('quickfire',document.querySelectorAll('.tab')[2]);setTimeout(()=>setQF('sandhi',document.getElementById('qfm-sandhi')),300)"
+          style="padding:12px 30px;background:linear-gradient(135deg,#138808,#1EAD0A);color:#fff;border:none;border-radius:10px;font-family:Poppins,sans-serif;font-size:.88rem;font-weight:700;cursor:pointer">
+          ⚡ Practice सन्धि →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STACK 3: व्यंजन सन्धि -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+    <div style="background:linear-gradient(135deg,#1D4ED8,#3B82F6);padding:14px 22px">
+      <div style="font-family:Baloo 2,sans-serif;font-size:1.1rem;font-weight:800;color:#fff">🔠 Stack 3 — व्यंजन सन्धि (Consonant Sandhi)</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.85)">When consonants join — the sound at the join CHANGES</div>
+    </div>
+    <div style="padding:18px 22px">
+      <div style="background:#EFF6FF;border-left:4px solid #1D4ED8;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.82rem;color:#1E3A8A;margin-bottom:14px">
+        🔑 <strong>Key Prefix: उत्</strong> — When उत् joins another consonant, the त् changes according to the next letter.
+      </div>
+      <div style="overflow-x:auto;margin-bottom:14px">
+      <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+        <tr style="background:#1D4ED8;color:#fff"><th style="padding:7px 10px;font-family:Poppins,sans-serif;font-size:.75rem">उत् +</th><th style="padding:7px 10px;font-family:Poppins,sans-serif;font-size:.75rem">Rule</th><th style="padding:7px 10px">Result</th><th style="padding:7px 10px">Meaning</th></tr>
+        <tr style="background:#EFF6FF"><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">उत् + चारण</td><td style="padding:6px 10px;font-size:.78rem">त् + च = च्च</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>उच्चारण</strong></td><td style="padding:6px 10px;font-size:.78rem">Pronunciation</td></tr>
+        <tr><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">उत् + ज्वल</td><td style="padding:6px 10px;font-size:.78rem">त् + ज = ज्ज</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>उज्ज्वल</strong></td><td style="padding:6px 10px;font-size:.78rem">Bright/brilliant</td></tr>
+        <tr style="background:#EFF6FF"><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">उत् + नति</td><td style="padding:6px 10px;font-size:.78rem">त् + न = न्न</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>उन्नति</strong></td><td style="padding:6px 10px;font-size:.78rem">Progress/rise</td></tr>
+        <tr><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">उत् + हरण</td><td style="padding:6px 10px;font-size:.78rem">त् + ह = द्ध</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>उद्धरण</strong></td><td style="padding:6px 10px;font-size:.78rem">Quotation</td></tr>
+        <tr style="background:#EFF6FF"><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">उत् + श्वास</td><td style="padding:6px 10px;font-size:.78rem">त् + श = च्छ</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>उच्छ्वास</strong></td><td style="padding:6px 10px;font-size:.78rem">Breath/sigh</td></tr>
+        <tr><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">सत् + चरित्र</td><td style="padding:6px 10px;font-size:.78rem">त् + च = च्च</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>सच्चरित्र</strong></td><td style="padding:6px 10px;font-size:.78rem">Of good character</td></tr>
+        <tr style="background:#EFF6FF"><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif">जगत् + ईश</td><td style="padding:6px 10px;font-size:.78rem">त् + vowel = द</td><td style="padding:6px 10px;font-family:Noto Sans Devanagari,Mangal,serif"><strong>जगदीश</strong></td><td style="padding:6px 10px;font-size:.78rem">Lord of the world</td></tr>
+      </table>
+      </div>
+      <div style="background:#DBEAFE;border-radius:8px;padding:12px 14px;font-size:.8rem;color:#1E3A8A">
+        💡 <strong>Memory trick:</strong> उत् is like a chameleon 🦎 — it changes colour (sound) depending on what comes after it!
+      </div>
+    </div>
+  </div>
+
+  <!-- STACK 4: Comprehension OE -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+    <div style="background:linear-gradient(135deg,#7C3AED,#A855F7);padding:14px 22px">
+      <div style="font-family:Baloo 2,sans-serif;font-size:1.1rem;font-weight:800;color:#fff">📖 Stack 4 — Comprehension OE (Open-Ended Answers)</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.85)">18 marks — This is where Mokshith lost marks in WA2. Fix this = big score jump!</div>
+    </div>
+    <div style="padding:18px 22px">
+
+      <!-- The 3-step method -->
+      <div style="background:#F5F3FF;border-left:4px solid #7C3AED;border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:16px">
+        <div style="font-weight:700;color:#6D28D9;font-size:.9rem;margin-bottom:8px">⭐ The 3-Step Golden Method</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div style="background:#fff;border-radius:8px;padding:10px;text-align:center;border:1px solid #DDD6FE">
+            <div style="font-size:1.4rem">1️⃣</div>
+            <div style="font-weight:700;font-size:.82rem;color:#6D28D9;margin:4px 0">Read Question</div>
+            <div style="font-size:.74rem;color:#555">Find the KEY WORD in the question</div>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:10px;text-align:center;border:1px solid #DDD6FE">
+            <div style="font-size:1.4rem">2️⃣</div>
+            <div style="font-weight:700;font-size:.82rem;color:#6D28D9;margin:4px 0">Find in Passage</div>
+            <div style="font-size:.74rem;color:#555">Search for that KEYWORD in the paragraph</div>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:10px;text-align:center;border:1px solid #DDD6FE">
+            <div style="font-size:1.4rem">3️⃣</div>
+            <div style="font-weight:700;font-size:.82rem;color:#6D28D9;margin:4px 0">Write OWN WORDS</div>
+            <div style="font-size:.74rem;color:#555">NEVER copy. Change 2-3 words minimum</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Answer formulas -->
+      <div style="font-weight:700;font-size:.85rem;color:#7C3AED;margin-bottom:10px">📝 Answer Formula by Question Type</div>
+      <div style="overflow-x:auto;margin-bottom:14px">
+      <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+        <tr style="background:#7C3AED;color:#fff"><th style="padding:7px 10px;font-family:Poppins,sans-serif;font-size:.75rem">Question Word</th><th style="padding:7px 10px">How to Start Your Answer</th><th style="padding:7px 10px">Example</th></tr>
+        <tr style="background:#F5F3FF"><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-weight:700">क्यों (Why?)</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">...इसलिए.../ ...क्योंकि...</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.78rem">वह इसलिए स्कूल नहीं गई क्योंकि...</td></tr>
+        <tr><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-weight:700">क्या (What?)</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">...है / ...था / ...हुआ</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.78rem">रिया का जीवन शहरी था जो...</td></tr>
+        <tr style="background:#F5F3FF"><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-weight:700">कैसे (How?)</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">...करके / ...के द्वारा</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.78rem">धीरे-धीरे पढ़कर वह...</td></tr>
+        <tr><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-weight:700">कौन (Who?)</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">Name + one describing line</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.78rem">रिया एक शहरी लड़की थी जो...</td></tr>
+        <tr style="background:#F5F3FF"><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-weight:700">अंतर (Difference?)</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif">पहले...था, लेकिन अब...</td><td style="padding:7px 10px;font-family:Noto Sans Devanagari,Mangal,serif;font-size:.78rem">पहले रिया को जंगल पसंद नहीं था, लेकिन अब...</td></tr>
+      </table>
+      </div>
+
+      <!-- Good vs Bad example -->
+      <div style="font-weight:700;font-size:.85rem;color:#7C3AED;margin-bottom:10px">✅ Good Answer vs ❌ Bad Answer</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div style="background:#FEF2F2;border:1.5px solid #EF4444;border-radius:10px;padding:12px">
+          <div style="font-weight:700;color:#DC2626;margin-bottom:6px;font-size:.82rem">❌ WRONG — Copying passage</div>
+          <div style="font-family:Noto Sans Devanagari,Mangal,serif;font-size:.8rem;color:#7F1D1D;line-height:1.6">"रिया की ज़िंदगी मोबाइल, मॉल और मेट्रो के बीच घूमती थी। सुबह स्कूल, दोपहर को कोचिंग..."</div>
+          <div style="font-size:.72rem;color:#DC2626;margin-top:6px">⚠️ Just copying = 0 marks</div>
+        </div>
+        <div style="background:#F0FDF4;border:1.5px solid #22C55E;border-radius:10px;padding:12px">
+          <div style="font-weight:700;color:#15803D;margin-bottom:6px;font-size:.82rem">✅ RIGHT — Own words</div>
+          <div style="font-family:Noto Sans Devanagari,Mangal,serif;font-size:.8rem;color:#14532D;line-height:1.6">"रिया एक <strong>शहरी लड़की</strong> थी जिसे <strong>प्रकृति से दूर</strong> शहरी जीवन पसंद था। जंगल पहुँचने पर उसे <strong>सब कुछ अजीब</strong> लगा।"</div>
+          <div style="font-size:.72rem;color:#15803D;margin-top:6px">✅ Own words + full sentence = full marks</div>
+        </div>
+      </div>
+
+      <!-- Pair words from teacher -->
+      <div style="background:#FFF8F0;border:1px solid #FFD4A0;border-radius:10px;padding:14px;margin-bottom:10px">
+        <div style="font-weight:700;font-size:.85rem;color:#FF6B00;margin-bottom:10px">📎 Pair Words (शब्द-युग्म) — From Teacher's Lesson</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.8rem">
+          <div><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#1A1A4E;font-weight:600">Had better</span> = अच्छा होगा कि / isi mein bhalayi hai<br><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#555;font-size:.76rem">तुम्हें जल्दी करनी चाहिए।</span></div>
+          <div><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#1A1A4E;font-weight:600">Would rather</span> = की अपेक्षा / बजाय (preference)<br><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#555;font-size:.76rem">मुझे कॉफी की अपेक्षा चाय पसंद है।</span></div>
+          <div><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#1A1A4E;font-weight:600">Otherwise</span> = वरना / अन्यथा<br><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#555;font-size:.76rem">जल्दी करो, वरना बस छूट जाएगी।</span></div>
+          <div><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#1A1A4E;font-weight:600">Despite</span> = के बावजूद<br><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#555;font-size:.76rem">बारिश के बावजूद वह स्कूल गया।</span></div>
+          <div><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#1A1A4E;font-weight:600">Not only…but also</span> = न केवल…बल्कि/अपितु<br><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#555;font-size:.76rem">⚠️ NEVER use परंतु/लेकिन here!</span></div>
+          <div><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#1A1A4E;font-weight:600">Besides</span> = के अलावा भी (inclusion)<br><span style="font-family:Noto Sans Devanagari,Mangal,serif;color:#555;font-size:.76rem">Except = के सिवाय (exclusion)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- SOURCES -->
+<section id="sec-sources" class="sec">
+<div style="max-width:860px;margin:0 auto">
+
+  <!-- Header -->
+  <div style="background:linear-gradient(135deg,#1A1A4E,#3D1A8C);border-radius:16px;padding:26px 28px;color:#fff;margin-bottom:22px">
+    <div style="font-family:Baloo 2,sans-serif;font-size:1.4rem;font-weight:800">📚 Sources & References</div>
+    <div style="font-size:.82rem;opacity:.75;margin-top:4px">All materials used to build Mokshith's Hindi Mastery App</div>
+  </div>
+
+  <!-- File 1: Teacher video transcripts -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+    <div style="background:#EFF6FF;border-bottom:1px solid #BFDBFE;padding:12px 18px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:1.4rem">🎥</span>
+      <div>
+        <div style="font-weight:700;font-size:.9rem;color:#1D4ED8">Teacher Video Transcripts</div>
+        <div style="font-size:.74rem;color:#3B82F6">Google Drive: Online teachings - Hindi Madam → Transcripts</div>
+      </div>
+    </div>
+    <div style="padding:14px 18px">
+      <div style="display:grid;gap:10px">
+        <div style="background:#F8FAFF;border-radius:8px;padding:10px 14px;border-left:3px solid #1D4ED8">
+          <div style="font-weight:700;font-size:.82rem;color:#1D4ED8">sandhi 2_1.txt (21KB)</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px;line-height:1.6">Topics: Sandhi vocabulary, all major prefixes (नि, अधि, प्रति, परि, अनु, अभि, उप), root word इक्षा and derivatives (परीक्षा, निरीक्षण), suffixes (अक्कड़, वाला, ईरा, अनीय), 30+ sandhi word formations, यण सन्धि introduction</div>
+        </div>
+        <div style="background:#F8FAFF;border-radius:8px;padding:10px 14px;border-left:3px solid #1D4ED8">
+          <div style="font-weight:700;font-size:.82rem;color:#1D4ED8">sandhi 2 2.txt (15KB)</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px;line-height:1.6">Topics: Advanced sandhi — यण सन्धि (इ+अ=य, उ+अ=व), वृद्धि सन्धि, आत्मा vs आत्मे confusion, उत् prefix words (उत्थान, उत्कर्ष), सम् prefix (सम्बन्ध, सम्भव), जल+आशय=जलाशय, compound formations</div>
+        </div>
+        <div style="background:#F8FAFF;border-radius:8px;padding:10px 14px;border-left:3px solid #1D4ED8">
+          <div style="font-weight:700;font-size:.82rem;color:#1D4ED8">vyanjan sandhi 2.txt (9KB)</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px;line-height:1.6">Topics: Complete व्यंजन सन्धि rules — उत्+च=उच्च (उच्चारण), उत्+ज=उज्ज (उज्ज्वल), उत्+न=उन्न (उन्नति), उत्+ह=उद्ध (उद्धरण), सम् prefix words, जगत् before vowel → जगद्</div>
+        </div>
+        <div style="background:#F8FAFF;border-radius:8px;padding:10px 14px;border-left:3px solid #7C3AED">
+          <div style="font-weight:700;font-size:.82rem;color:#7C3AED">Grammar OE Compre 2.txt (10KB)</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px;line-height:1.6">Topics: Participle phrases as adverbs — having+V3 vs after+Ving, near miss expressions (मरते-मरते बचा), verb+कर for sequences, simultaneous action (रोते हुए), complex sentence synthesis</div>
+        </div>
+        <div style="background:#F8FAFF;border-radius:8px;padding:10px 14px;border-left:3px solid #7C3AED">
+          <div style="font-weight:700;font-size:.82rem;color:#7C3AED">Grammar OE Compre 3.txt (7.5KB)</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px;line-height:1.6">Topics: Noun clauses with कि, direct vs indirect speech (बोला intransitive vs कहा transitive), हलचल vs अफरा-तफरी, unprecedented = अभूतपूर्व, answer format must be clause not phrase, spelling in OE answers</div>
+        </div>
+        <div style="background:#F8FAFF;border-radius:8px;padding:10px 14px;border-left:3px solid #7C3AED">
+          <div style="font-weight:700;font-size:.82rem;color:#7C3AED">Grammar OE Compre 4.txt (12KB)</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px;line-height:1.6">Topics: Pair words — had better (अच्छा होगा कि), would rather (की अपेक्षा), otherwise (वरना/अन्यथा), despite (के बावजूद), besides vs except, not only…but also = न केवल…बल्कि/अपितु (NEVER use परंतु here), apeksha vs upeksha</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File 2: Teacher class notes PDFs -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+    <div style="background:#FFF8F0;border-bottom:1px solid #FFD4A0;padding:12px 18px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:1.4rem">📄</span>
+      <div>
+        <div style="font-weight:700;font-size:.9rem;color:#FF6B00">Teacher's Class Notes (PDFs)</div>
+        <div style="font-size:.74rem;color:#F59E0B">Google Drive: Hindi folder (shared by parent)</div>
+      </div>
+    </div>
+    <div style="padding:14px 18px">
+      <div style="display:grid;gap:10px">
+        <div style="background:#FFFBF0;border-radius:8px;padding:10px 14px;border-left:3px solid #FF6B00">
+          <div style="font-weight:700;font-size:.82rem;color:#FF6B00">ST STACK 1.pdf — Mokshith's handwritten class notes</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px;line-height:1.6">Topics: Complete वाक्य रूपांतरण — Active/Passive (all 10 tenses), Imperative RAO (Order→Advice→Request), Simple↔Compound connectors, Complex sentences, Participle (verb+कर), Immediacy (ज्योंही...त्योंही), Causative verbs (पढ़ना→पढ़ाना→पढ़वाना), 45+ practice examples</div>
+        </div>
+        <div style="background:#FFFBF0;border-radius:8px;padding:10px 14px;border-left:3px solid #FF6B00">
+          <div style="font-weight:700;font-size:.82rem;color:#FF6B00">A-Z Vocabulary N Synonyms.pdf</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px;line-height:1.6">Topics: 160 English adjectives (A to W) with Hindi meanings and usage sentences. Day-wise plan: 10 words/day × 16 days. Used in 🔤 A-Z Words Quick Fire mode.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File 3: Official Syllabus -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+    <div style="background:#F0FDF4;border-bottom:1px solid #BBF7D0;padding:12px 18px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:1.4rem">🏛️</span>
+      <div>
+        <div style="font-weight:700;font-size:.9rem;color:#138808">Official SEAB Syllabus Materials</div>
+        <div style="font-size:.74rem;color:#22C55E">Hindi Society Singapore + SEAB O-Level Syllabus 3194 (2026)</div>
+      </div>
+    </div>
+    <div style="padding:14px 18px">
+      <div style="display:grid;gap:10px">
+        <div style="background:#F0FDF4;border-radius:8px;padding:10px 14px;border-left:3px solid #138808">
+          <div style="font-weight:700;font-size:.82rem;color:#138808">मुहावरे — 100 Official Idioms (Images shared by parent)</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px">All 100 idioms from Hindi Society Singapore syllabus guide. Each with meaning + 4 MCQ options. Used in 💬 मुहावरे Quick Fire mode.</div>
+        </div>
+        <div style="background:#F0FDF4;border-radius:8px;padding:10px 14px;border-left:3px solid #138808">
+          <div style="font-weight:700;font-size:.82rem;color:#138808">लोकोक्तियाँ — 25 Official Proverbs</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px">All 25 proverbs from SEAB syllabus. Each with meaning + English equivalent. Used in 📜 कहावतें Quick Fire mode.</div>
+        </div>
+        <div style="background:#F0FDF4;border-radius:8px;padding:10px 14px;border-left:3px solid #138808">
+          <div style="font-weight:700;font-size:.82rem;color:#138808">सह-प्रयोग — 30 Official Word Pairs</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px">All 30 word pairs (सुख-दुःख, जय-पराजय etc.) from SEAB syllabus with usage sentences. Used in 🔗 सह-प्रयोग Quick Fire mode.</div>
+        </div>
+        <div style="background:#F0FDF4;border-radius:8px;padding:10px 14px;border-left:3px solid #138808">
+          <div style="font-weight:700;font-size:.82rem;color:#138808">SEAB O-Level Hindi Syllabus 3194 (2026) — PDF</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px">Paper structure, marking scheme, section weightages. Paper 1 (45%): Composition. Paper 2 (55%): Language Usage + Comprehension. Duration: 1hr + 1.5hr.</div>
+        </div>
+        <div style="background:#F0FDF4;border-radius:8px;padding:10px 14px;border-left:3px solid #138808">
+          <div style="font-weight:700;font-size:.82rem;color:#138808">WA2 Practice Paper — Hindi Society Singapore (Scanned by Mokshith)</div>
+          <div style="font-size:.76rem;color:#374151;margin-top:3px">Secondary 1 Normal Term 3 2026 paper. Score: 18/60. Used to analyse weaknesses and build the 2-week study plan. Sections: Sandhi, Idioms, वाक्य रूपांतरण, Cloze, Comprehension OE, Vocabulary.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File 4: AI-generated content -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+    <div style="background:#F5F3FF;border-bottom:1px solid #DDD6FE;padding:12px 18px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:1.4rem">🤖</span>
+      <div>
+        <div style="font-weight:700;font-size:.9rem;color:#7C3AED">AI-Generated Content (Claude + Anthropic)</div>
+        <div style="font-size:.74rem;color:#A855F7">Built from SEAB syllabus knowledge + classical Hindi literature</div>
+      </div>
+    </div>
+    <div style="padding:14px 18px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.78rem">
+        <div style="background:#F5F3FF;border-radius:8px;padding:10px"><div style="font-weight:700;color:#7C3AED;margin-bottom:4px">100 Hindi Stories</div>Panchatantra, Akbar-Birbal, Tenali Rama, folk tales — with MCQ + open-ended questions</div>
+        <div style="background:#F5F3FF;border-radius:8px;padding:10px"><div style="font-weight:700;color:#7C3AED;margin-bottom:4px">39 Synonym Sets (पर्यायवाची)</div>Common words tested in vocabulary section with 4 options each</div>
+        <div style="background:#F5F3FF;border-radius:8px;padding:10px"><div style="font-weight:700;color:#7C3AED;margin-bottom:4px">30 Antonym Pairs (विलोम)</div>Opposite words commonly tested in Paper 2 Section A</div>
+        <div style="background:#F5F3FF;border-radius:8px;padding:10px"><div style="font-weight:700;color:#7C3AED;margin-bottom:4px">48 Sandhi Questions</div>Stvar, Vyanjan, Visarg Sandhi — join and split formats</div>
+        <div style="background:#F5F3FF;border-radius:8px;padding:10px"><div style="font-weight:700;color:#7C3AED;margin-bottom:4px">40 वाक्य रूपांतरण Questions</div>8 types: Active/Passive, Imperative, Simple↔Compound, Relative, Participle, Immediacy, Causative, Contrast</div>
+        <div style="background:#F5F3FF;border-radius:8px;padding:10px"><div style="font-weight:700;color:#7C3AED;margin-bottom:4px">30 Fill-in-blank Questions</div>Mixed: synonyms, antonyms, sandhi, proverbs in sentence context</div>
+        <div style="background:#F5F3FF;border-radius:8px;padding:10px"><div style="font-weight:700;color:#7C3AED;margin-bottom:4px">200 Core Vocab Words</div>10 categories: animals, nature, emotions, actions, daily life, food, body, colours, numbers, work</div>
+        <div style="background:#F5F3FF;border-radius:8px;padding:10px"><div style="font-weight:700;color:#7C3AED;margin-bottom:4px">60+ Example Sentences</div>One Hindi example sentence per Quick Fire answer with Unsplash images</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech stack -->
+  <div style="background:#fff;border-radius:14px;border:1px solid #E5E7EB;margin-bottom:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+    <div style="background:#F9FAFB;border-bottom:1px solid #E5E7EB;padding:12px 18px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:1.4rem">⚙️</span>
+      <div>
+        <div style="font-weight:700;font-size:.9rem;color:#374151">Technical Services Used</div>
+      </div>
+    </div>
+    <div style="padding:14px 18px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;font-size:.76rem">
+        <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px"><strong>Firebase</strong><br>Auth + Firestore progress sync</div>
+        <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px"><strong>Cloudflare Workers</strong><br>Hosting at sec-hindi.brdmochi13.workers.dev</div>
+        <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px"><strong>GitHub</strong><br>brdmochi13/Sec-Hindi — version control</div>
+        <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px"><strong>Unsplash</strong><br>Story + QF example images</div>
+        <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px"><strong>Google Fonts</strong><br>Noto Sans Devanagari, Baloo 2, Poppins</div>
+        <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px"><strong>Anthropic API</strong><br>AI checking of story explanations</div>
+        <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px"><strong>TurboScribe / Otter.ai</strong><br>Video transcription by parent</div>
+        <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px"><strong>Google Drive</strong><br>Source file access via Claude connector</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:10px 0 20px;font-size:.76rem;color:#9CA3AF">
+    App built by Claude (Anthropic) · Content curated by Sukumar Musalaboina · For Mokshith · Aug 2026
+  </div>
+
+</div>
 </section>
 
 <!-- API SETTINGS -->
@@ -2612,6 +3091,8 @@ function goto(id, btn){
   if(id==='quickfire') loadQF();
   if(id==='vocab') renderVocab('all');
   if(id==='settings') loadSettings();
+  if(id==='notes') {} // static
+  if(id==='sources') {} // static
   if(id==='notes') {} // static content
 }
 
